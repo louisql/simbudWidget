@@ -23,7 +23,10 @@ const Card = props => {
                     </ul> */}
 
                     <div className={classes.description}>
-                        <div><span class="ph-icon-bar_chart"></span>12<span class="unit"> GB</span> </div>
+                    <span class="material-symbols-outlined">
+signal_cellular_alt
+</span>
+                        <div><span className={classes.materialSymbolsOutlined}> signal_cellular_alt </span>12 GB </div>
                         <div class="upfront"><span class="ph-icon-tag-outline"></span> <strong><span>$</span><span>10</span></strong> </div>
                         <div><span class="ph-icon-location"></span> British Columbia</div>
                     </div>
