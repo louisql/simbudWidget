@@ -10,6 +10,21 @@
     display: flex;
 }
 
-.logo {
+.firstColumn {
+    flex-basis: 25%;
+    flex-direction: column;
+}
 
+.firstColumn img{
+    height: 70px;
+}
+
+.secondColumn {
+    /* flex-basis: 66%; */
+    flex: 2 1 auto;
+}
+
+.description {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

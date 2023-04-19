@@ -12,6 +12,8 @@ const Offers = () => {
             <Card
                 logo={airaloLogo}
                 provider="Airalo"
+                capacity="1 GB"
+                planName="Tuque Mobile - 1 GB"
             >
                 Offre 1
             </Card>
@@ -19,6 +21,8 @@ const Offers = () => {
             <Card
                 logo={flexiroamLogo}
                 provider="Flexiroam"
+                capacity="3 GB"
+                planName="3GB Global Plan"
             >
                 Offre 2
             </Card>
@@ -26,6 +30,8 @@ const Offers = () => {
             <Card
                 logo={nomad}
                 provider="Nomad"
+                capacity="2 GB"
+                planName="CANADA 2GB "
             >
                 Offre 3
             </Card>
