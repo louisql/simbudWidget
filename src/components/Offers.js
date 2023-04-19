@@ -14,6 +14,7 @@ const Offers = () => {
                 provider="Airalo"
                 capacity="1 GB"
                 planName="Tuque Mobile - 1 GB"
+                location="Canada"
             >
                 Offre 1
             </Card>
@@ -23,6 +24,7 @@ const Offers = () => {
                 provider="Flexiroam"
                 capacity="3 GB"
                 planName="3GB Global Plan"
+                location="Canada"
             >
                 Offre 2
             </Card>
@@ -32,6 +34,7 @@ const Offers = () => {
                 provider="Nomad"
                 capacity="2 GB"
                 planName="CANADA 2GB "
+                location="Canada"
             >
                 Offre 3
             </Card>
