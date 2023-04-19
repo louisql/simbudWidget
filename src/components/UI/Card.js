@@ -5,9 +5,9 @@ const Card = props => {
 
     return (
         <div className={classes.card}>
-            
-            <div> {/* Container 1st line */}
-                <div> {/* Container 1st column */}
+
+            <div className={classes.flexContainer}> {/* Container 1st line */}
+                <div className={classes.flexContainer}> {/* Container 1st column */}
                     <img src={props.logo} />
                     <span>
                         {props.provider}
@@ -23,7 +23,7 @@ const Card = props => {
                 </div>
             </div>
 
-            <div> {/* Container 2nd line */}
+            <div className={classes.flexContainer}> {/* Container 2nd line */}
                 <div>Capacity</div>
                 <span>Offer</span>
             </div>
