@@ -6,3 +6,6 @@
     border: 1px solid #D6E2E8;
 }
 
+.container {
+    display: flex;
+}
