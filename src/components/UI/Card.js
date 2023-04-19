@@ -61,9 +61,10 @@ const Card = props => {
                 </div>
             </div>
 
-            <div className={classes.flexContainer}> {/* Container 2nd line */}
-                <div className={` ${classes.firstColumn} ${classes.card}`}>{props.capacity}</div>
-                <span className={classes.secondColumn}><a href="#"> Check Out The Offer </a> </span>
+            <div className={` ${classes.flexContainer} ${classes.scdLineContainer}`}> {/* Container 2nd line */}
+                <div className={` ${classes.firstColumn} ${classes.planSizeContainer}`}>{props.capacity}</div>
+                {/* <span className={classes.secondColumn}><a href="#"> Check Offer </a> </span> */}
+                <a className={classes.secondColumn} href="#"> Check Offer </a>
             </div>
         </div>
     )
