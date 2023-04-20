@@ -5,7 +5,7 @@
     "capacity": "1 GB",
     "price": 10,
     "country": "Canada",
-    "logo": "/assets/logo/airalo-100x100.png",
+    "logo": "../../assets/logo/airalo-100x100.png",
     "planName": "Tuque Mobile - 1 GB"
   },
   {
@@ -14,7 +14,7 @@
     "capacity": "3 GB",
     "price": 15,
     "country": "Canada",
-    "logo": "/assets/logo/flexiroam-100x100.png",
+    "logo": "../../assets/logo/flexiroam-100x100.png",
     "planName": "3 GB Global Plan"
   },
   {
@@ -23,7 +23,7 @@
     "capacity": "2 GB",
     "price": 8,
     "country": "Canada",
-    "logo": "/assets/logo/nomad-100x100.png",
+    "logo": "../../assets/logo/nomad-100x100.png",
     "planName": "Canada 2 GB"
   }
 ]
