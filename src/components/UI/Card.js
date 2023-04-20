@@ -33,7 +33,7 @@ const Card = props => {
                                     <path d="M12 20v-9"></path>
                                     <path d="M8 20v-5"></path>
                                 </svg>
-                            </span>12 GB
+                            </span>{props.capacity}
                         </div>
 
                         <div className={classes.inlineContainer} >
