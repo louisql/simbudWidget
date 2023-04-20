@@ -18,7 +18,7 @@ const Offers = () => {
                 }
             })
             .then((dataJSON) => {
-                console.log(dataJSON);
+                // console.log(dataJSON);
                 setOffersData(dataJSON);
             })
             .catch((error) => {
