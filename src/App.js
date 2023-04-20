@@ -1,6 +1,5 @@
 import './App.css';
-import Offers from './components/Offers';
-import Card from './components/UI/Card';
+import Offers from './components/Offers/Offers';
 
 function App() {
   return (

@@ -1,0 +1,23 @@
+.offerButton {
+  /* flex-basis: 66%; */
+  flex: 2 1 auto;
+  background-color: rgb(8, 254, 102); /* Muted blue color */
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  padding: 20px 20px;
+  margin-left: 15px;
+  color: unset;
+  text-decoration: none;
+  width: 290px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 11px 16px;
+  border-radius: 8px;
+  font-style: normal;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: normal;
+}

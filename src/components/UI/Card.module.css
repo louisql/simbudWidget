@@ -18,6 +18,7 @@
 
 .firstColumn img{
     height: 80px;
+    border-radius: 10px;
 }
 
 .secondColumn {
