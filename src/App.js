@@ -11,25 +11,18 @@ const App = () => {
 
   useEffect(() => {
     let communication = () => {
-      // console.log("test communication")
-      let targetOrigin = 'http://127.0.0.1:5500/'; // replace with the domain of file2
-      window.parent.postMessage(nberOfOffers, targetOrigin);
-    };
-    
+      let url = window.location != window.parent.location ? document.referrer : document.location.href;
 
-    // let loadReactIframe = () => {
-    //   window.parent.postMessage('GET MESSAGE FROM ME', '*');
-    // };
+      window.parent.postMessage(nberOfOffers, url);
+    };
 
     communication();
-
-
   }, [nberOfOffers]);
 
 
   return (
     <div className="App">
-      <Offers onSendData={getNberOfOffers}/>
+      <Offers onSendData={getNberOfOffers} />
     </div>
   );
 }
