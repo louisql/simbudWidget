@@ -1,15 +1,23 @@
 import './App.css';
+import { useEffect } from 'react';
 import Offers from './components/Offers/Offers';
 
-function App() {
+const App = () => {
+  useEffect(() => {
+    let communication = () => {
+      let targetOrigin = 'https://amazing-sundae-746c61.netlify.app/'; // replace with the domain of file2
+      window.parent.postMessage('message', targetOrigin);
+    };
+    
 
-  let communication = () => {
-    let url = 
-    window.location != window.parent.location
-      ? document.referrer
-      : document.location.href;
-    window.parent.postMessage("communication", url);
-  };
+    let loadReactIframe = () => {
+      window.parent.postMessage('GET MESSAGE FROM ME', '*');
+    };
+
+    communication();
+    loadReactIframe();
+  }, []);
+
 
   return (
     <div className="App">
