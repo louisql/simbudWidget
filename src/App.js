@@ -11,9 +11,9 @@ const App = () => {
     };
     
 
-    let loadReactIframe = () => {
-      window.parent.postMessage('GET MESSAGE FROM ME', '*');
-    };
+    // let loadReactIframe = () => {
+    //   window.parent.postMessage('GET MESSAGE FROM ME', '*');
+    // };
 
     communication();
     loadReactIframe();
