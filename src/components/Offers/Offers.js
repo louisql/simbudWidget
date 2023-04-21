@@ -5,8 +5,9 @@ import Card from '../UI/Card';
 import CheckAllOffers from '../CheckAllOffers/CheckAllOffers'
 import classes from "./Offers.module.css";
 
-const Offers = () => {
+const Offers = (props) => {
     const [offersData, setOffersData] = useState([]);
+    const [nberOfOffers, setnberOfOffers] = useState([0])
 
     useEffect(() => {
         fetch("offers.json")
@@ -18,14 +19,15 @@ const Offers = () => {
                 }
             })
             .then((dataJSON) => {
-                // console.log(dataJSON);
+                setnberOfOffers(dataJSON.length);
+                props.onSendData(nberOfOffers)
                 setOffersData(dataJSON);
             })
             .catch((error) => {
                 console.error(error);
                 // console.log(response.body);
             });
-    }, [])
+    }, [nberOfOffers])
 
     const offersList = offersData.map((offer) => (
         <Card
