@@ -63,7 +63,7 @@ const Card = props => {
             <div className={` ${classes.flexContainer} ${classes.scdLineContainer}`}> {/* Container 2nd line */}
                 <div className={` ${classes.firstColumn} ${classes.planSizeContainer}`}><b>{props.capacity}</b></div>
                 {/* <span className={classes.secondColumn}><a href="#"> Check Offer </a> </span> */}
-                <a className={classes.secondColumn} href="https://simbud.com/country/canada/"> Check Offer </a>
+                <a className={classes.secondColumn} href="https://simbud.com/country/canada/" target="_blank"> Check Offer </a>
             </div>
         </div>
     )
