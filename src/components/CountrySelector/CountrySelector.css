@@ -1,6 +1,19 @@
 .MuiInputBase-root{
-    border-radius: 50px !important;
+    border-radius: 16px !important;
   }
+
+
+.MuiInputBase-input {
+  textAlign: "left" !important;
+}
+
+.MuiFormLabel-root {
+  color: #6B7071 !important;
+}
+
+.MuiFormLabel-root:focus {
+  color: red !important;
+}
 
   div.MuiAutocomplete-root div.MuiOutlinedInput-root { /* Search bar when not in focus */
     border-radius: 40px;

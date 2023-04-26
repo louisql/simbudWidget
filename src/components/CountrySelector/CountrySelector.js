@@ -89,7 +89,10 @@ const CountrySelector = () => {
                             {...params} 
                             label="Choose your destination"
                             borderRadius="16px"
-                            style={{ borderRadius: 20 }}
+                            style={{ 
+                                textAlign: "left",
+                                color: "black"
+                            }}
                         />}
                 />
             </>
