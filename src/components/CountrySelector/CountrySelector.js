@@ -23,11 +23,11 @@ const CountrySelector = () => {
                 const loadedCountries = [];
 
                 for (const key in dataJSON) {
-                        loadedCountries.push({
-                            id: key,
-                            name: dataJSON[key].name.common,
-                            code: dataJSON[key].cca3
-                        })
+                    loadedCountries.push({
+                        id: key,
+                        name: dataJSON[key].name.common,
+                        code: dataJSON[key].cca3
+                    })
                 }
 
                 loadedCountries.sort((a, b) => {
@@ -46,11 +46,18 @@ const CountrySelector = () => {
     }, [])
 
 
-    const options= countries.map(
+
+    const options = countries.map(
         (country) => (
             country.name
         )
     )
+
+    const filterOptions = (options, { inputValue }) => {
+        return options.filter((option) =>
+            option.toLowerCase().startsWith(inputValue.toLowerCase())
+        );
+    };
 
     if (error) {
         return <div>Error: {error}</div>
@@ -60,14 +67,15 @@ const CountrySelector = () => {
         console.log(options)
         return (
             <>
-            <input type='text' placeholder='Which country are you going to?'></input>
-            <Autocomplete 
-              disablePortal
-              id="combo-box-demo"
-              options={options}
-              sx={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} label="Countries" />}
-            />
+                <input type='text' placeholder='Which country are you going to?'></input>
+                <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={options}
+                    sx={{ width: 300 }}
+                    filterOptions={filterOptions}
+                    renderInput={(params) => <TextField {...params} label="Countries" />}
+                />
             </>
 
         )
