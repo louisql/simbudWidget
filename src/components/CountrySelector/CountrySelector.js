@@ -1,4 +1,4 @@
-import { Autocomplete, TextField } from "@mui/material"
+import { Autocomplete, TextField, styled } from "@mui/material"
 import { useEffect, useState } from "react"
 
 const CountrySelector = () => {
@@ -59,6 +59,13 @@ const CountrySelector = () => {
         );
     };
 
+    const CustomListbox = styled("ul")({
+        padding: 0,
+        margin: 0,
+        listStyle: "none",
+        textAlign: "left",
+      });
+
     if (error) {
         return <div>Error: {error}</div>
     } else if (!isLoaded) {
@@ -74,6 +81,7 @@ const CountrySelector = () => {
                     options={options}
                     sx={{ width: 300 }}
                     filterOptions={filterOptions}
+                    ListboxComponent={CustomListbox}
                     renderInput={(params) => <TextField {...params} label="Countries" />}
                 />
             </>
