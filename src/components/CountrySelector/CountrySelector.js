@@ -1,3 +1,5 @@
+import './CountrySelector.css';
+
 import { Autocomplete, TextField, styled } from "@mui/material"
 import { useEffect, useState } from "react"
 
@@ -63,8 +65,8 @@ const CountrySelector = () => {
         padding: 0,
         margin: 0,
         listStyle: "none",
-        textAlign: "left",
-      });
+        textAlign: "left"
+    });
 
     if (error) {
         return <div>Error: {error}</div>
@@ -74,7 +76,6 @@ const CountrySelector = () => {
         console.log(options)
         return (
             <>
-                <input type='text' placeholder='Which country are you going to?'></input>
                 <Autocomplete
                     disablePortal
                     id="combo-box-demo"
@@ -82,7 +83,14 @@ const CountrySelector = () => {
                     sx={{ width: 300 }}
                     filterOptions={filterOptions}
                     ListboxComponent={CustomListbox}
-                    renderInput={(params) => <TextField {...params} label="Countries" />}
+                    renderInput={(params) =>
+                        
+                        <TextField
+                            {...params} 
+                            label="Choose your destination"
+                            borderRadius="16px"
+                            style={{ borderRadius: 20 }}
+                        />}
                 />
             </>
 

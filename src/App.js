@@ -1,4 +1,5 @@
 import './App.css';
+import classes from './App.module.css'
 import { useState, useEffect } from 'react';
 import Offers from './components/Offers/Offers';
 import CountrySelector from './components/CountrySelector/CountrySelector';
@@ -23,8 +24,10 @@ const App = () => {
 
   return (
     <div className="App">
-      <CountrySelector />      
-      <Offers onSendData={getNberOfOffers} />
+      <div className={classes.appContainer}>
+        <CountrySelector />
+        <Offers onSendData={getNberOfOffers} />
+      </div>
     </div>
   );
 }
