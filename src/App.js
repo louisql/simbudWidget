@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import Offers from './components/Offers/Offers';
+import CountrySelector from './components/CountrySelector/CountrySelector';
 
 const App = () => {
   const [nberOfOffers, setnberOfOffers] = useState([0])
@@ -22,6 +23,7 @@ const App = () => {
 
   return (
     <div className="App">
+      <CountrySelector />      
       <Offers onSendData={getNberOfOffers} />
     </div>
   );

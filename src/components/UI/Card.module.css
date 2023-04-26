@@ -68,6 +68,7 @@
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
     border: 1px solid #D6E2E8;
     padding: 20px 2px;
+    font-size: larger;
 }
 
 .scdLineContainer{

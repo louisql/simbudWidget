@@ -42,7 +42,7 @@ const Card = props => {
                                     <path d="M16.7 8a3 3 0 0 0 -2.7 -2h-4a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6h-4a3 3 0 0 1 -2.7 -2"></path>
                                     <path d="M12 3v3m0 12v3"></path>
                                 </svg>
-                            </span> <strong><span>10</span></strong>
+                            </span> <strong><span>{props.price}</span></strong>
                         </div>
 
                         <div className={classes.inlineContainer}>
@@ -61,7 +61,7 @@ const Card = props => {
             </div>
 
             <div className={` ${classes.flexContainer} ${classes.scdLineContainer}`}> {/* Container 2nd line */}
-                <div className={` ${classes.firstColumn} ${classes.planSizeContainer}`}><b>{props.capacity}</b></div>
+                <div className={` ${classes.firstColumn} ${classes.planSizeContainer}`}><b>$ {props.price}</b></div>
                 {/* <span className={classes.secondColumn}><a href="#"> Check Offer </a> </span> */}
                 <a className={classes.secondColumn} href="https://simbud.com/country/canada/" target="_blank"> Check Offer </a>
             </div>
