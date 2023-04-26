@@ -1,3 +1,4 @@
+import { Autocomplete, TextField } from "@mui/material"
 import { useEffect, useState } from "react"
 
 const CountrySelector = () => {
@@ -29,6 +30,10 @@ const CountrySelector = () => {
                         })
                 }
 
+                loadedCountries.sort((a, b) => {
+                    return a.name.localeCompare(b.name)
+                })
+
 
                 setCountries(loadedCountries);
             })
@@ -40,14 +45,31 @@ const CountrySelector = () => {
             });
     }, [])
 
+
+    const options= countries.map(
+        (country) => (
+            country.name
+        )
+    )
+
     if (error) {
         return <div>Error: {error}</div>
     } else if (!isLoaded) {
         return <div>Loading...</div>
     } else {
-        console.log(JSON.stringify({countries}))
+        console.log(options)
         return (
+            <>
             <input type='text' placeholder='Which country are you going to?'></input>
+            <Autocomplete 
+              disablePortal
+              id="combo-box-demo"
+              options={options}
+              sx={{ width: 300 }}
+              renderInput={(params) => <TextField {...params} label="Countries" />}
+            />
+            </>
+
         )
 
     }
