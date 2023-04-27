@@ -8,6 +8,7 @@ const CountrySelector = () => {
     const [error, setError] = useState(null)
     const [countries, setCountries] = useState([])
 
+    const widgetDefaultCountry = 'Canada'
 
     useEffect(() => {
         fetch("https://restcountries.com/v3.1/all")
@@ -44,6 +45,10 @@ const CountrySelector = () => {
             });
     }, [])
 
+    useEffect(() => {
+        
+    }, [countries])
+
     const options = countries.map(
         (country) => (
             country.name
@@ -71,6 +76,7 @@ const CountrySelector = () => {
                     options={options}
                     sx={{ width: 300 }}
                     filterOptions={filterOptions}
+                    defaultValue={widgetDefaultCountry}
                     renderInput={(params) =>
 
                         <TextField
