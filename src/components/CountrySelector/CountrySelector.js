@@ -1,6 +1,6 @@
 import './CountrySelector.css';
 
-import { Autocomplete, TextField, styled } from "@mui/material"
+import { Autocomplete, TextField } from "@mui/material"
 import { useEffect, useState } from "react"
 
 const CountrySelector = () => {
@@ -21,7 +21,6 @@ const CountrySelector = () => {
             .then((dataJSON) => {
                 setIsLoaded(true)
 
-
                 const loadedCountries = [];
 
                 for (const key in dataJSON) {
@@ -36,18 +35,14 @@ const CountrySelector = () => {
                     return a.name.localeCompare(b.name)
                 })
 
-
                 setCountries(loadedCountries);
             })
             .catch((error) => {
                 setIsLoaded(true)
-
                 setError(error);
                 // console.log(response.body);
             });
     }, [])
-
-
 
     const options = countries.map(
         (country) => (
@@ -61,12 +56,6 @@ const CountrySelector = () => {
         );
     };
 
-    const CustomListbox = styled("ul")({
-        padding: 0,
-        margin: 0,
-        listStyle: "none",
-        textAlign: "left"
-    });
 
     if (error) {
         return <div>Error: {error}</div>
@@ -82,26 +71,21 @@ const CountrySelector = () => {
                     options={options}
                     sx={{ width: 300 }}
                     filterOptions={filterOptions}
-                    ListboxComponent={CustomListbox}
                     renderInput={(params) =>
-                        
+
                         <TextField
-                            {...params} 
+                            {...params}
                             label="Choose your destination"
                             borderRadius="16px"
-                            style={{ 
+                            style={{
                                 textAlign: "left",
                                 color: "black"
                             }}
                         />}
                 />
             </>
-
         )
-
     }
-
-
 }
 
 export default CountrySelector
