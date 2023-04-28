@@ -39,6 +39,7 @@ const Offers = (props) => {
             planName={offer.planName}
             location={offer.country}
             price={offer.price}
+            validity={offer.validity}
             />
     ));
 

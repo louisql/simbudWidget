@@ -6,7 +6,8 @@
     "price": 10,
     "country": "Canada",
     "logo": "../../assets/logo/airalo-100x100.png",
-    "planName": "Tuque Mobile - 1 GB"
+    "planName": "Tuque Mobile - 1 GB",
+    "validity": "3 days"
   },
   {
     "id": 2,
@@ -15,7 +16,8 @@
     "price": 15,
     "country": "Canada",
     "logo": "../../assets/logo/flexiroam-100x100.png",
-    "planName": "3 GB Global Plan"
+    "planName": "3 GB Global Plan",
+    "validity": "15 days"
   },
   {
     "id": 3,
@@ -24,6 +26,7 @@
     "price": 8,
     "country": "Canada",
     "logo": "../../assets/logo/nomad-100x100.png",
-    "planName": "Canada 2 GB"
+    "planName": "Canada 2 GB",
+    "validity": "7 days"
   }
 ]
