@@ -21,21 +21,32 @@ const offerReducer = (state, action) => {
     }
 
     if (action.type === "INIT"){
-        console.log(action)
+        // console.log(JSON.stringify(action.data))
+        return {
+            ...state,
+            data: action.data,
+            loadedCountries: action.loadedCountries,
+            isLoaded: action.isLoaded
+        }
+    }
+
+    if (action.type === "ERROR"){
+        return {
+            ...state,
+            error: action.error,
+            isLoaded: action.isLoaded
+        }
     }
 
     return state
 }
 
 const OfferProvider = (props) => {
-    const [isLoaded, setIsLoaded] = useState(false)
-    const [error, setError] = useState(null)
     const [offerState, dispatchOfferAction] = useReducer(
         offerReducer,
         defaultOfferState
     )
 
-    const [offer, setOffer] = useState("Canada")
 
     const changeCountryToOfferHandler = (country) => {
         dispatchOfferAction({
@@ -50,6 +61,14 @@ const OfferProvider = (props) => {
             data: data,
             loadedCountries: loadedCountries,
             isLoaded: isLoaded
+        })
+    }
+
+    const setErrorHandler = (isLoaded, error) => {
+        dispatchOfferAction({
+            type: "ERROR",
+            isLoaded: isLoaded,
+            error: error
         })
     }
 
@@ -71,8 +90,6 @@ const OfferProvider = (props) => {
                 }
             })
             .then((dataJSON) => {
-                setIsLoaded(true)
-
                 const loadedCountries = [];
 
                 for (const key in dataJSON) {
@@ -89,9 +106,7 @@ const OfferProvider = (props) => {
                 initiateDataHandler(dataJSON, loadedCountries, true)
             })
             .catch((error) => {
-                setIsLoaded(true)
-                setError(error);
-                // console.log(response.body);
+                setErrorHandler(true, error)
             });
     }, [])
 
