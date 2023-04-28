@@ -1,6 +1,23 @@
 import OfferContext from "./OfferContext";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
+
+const defaultOfferState = {
+    data: [],
+    isLoaded: false,
+    error: null,
+    selectedCountry: 'Canada',
+    setSelectedCountry: () => {}
+}
+
+const offerReducer = (state, action) => {
+    if (action.type === 'CHANGE'){
+        const updatedSelectedCOuntry = action
+    }
+}
+
+
+
 
 const OfferProvider = (props) => {
     const [isLoaded, setIsLoaded] = useState(false)
