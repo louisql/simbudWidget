@@ -7,13 +7,24 @@ const defaultOfferState = {
     isLoaded: false,
     error: null,
     selectedCountry: 'Canada',
-    setSelectedCountry: () => {}
 }
 
 const offerReducer = (state, action) => {
     if (action.type === 'CHANGE'){
-        const updatedSelectedCOuntry = action
+        console.log(action)
+        // const updatedSelectedCOuntry = action.country
+
+        return {
+            ...state,
+            selectedCountry: action.country
+        }
     }
+
+    if (action.type === "INIT"){
+        console.log("init")
+    }
+
+    return state
 }
 
 
@@ -23,9 +34,31 @@ const OfferProvider = (props) => {
     const [isLoaded, setIsLoaded] = useState(false)
     const [error, setError] = useState(null)
     const [countries, setCountries] = useState([])
-    const [fetchedData, setFetchedData] = useState([])
+    const [offerState, dispatchOfferAction] = useReducer(
+        offerReducer,
+        defaultOfferState
+    )
 
     const [offer, setOffer] = useState("Canada")
+
+    const changeCountryToOfferHandler = (country) => {
+        dispatchOfferAction({
+            type: "CHANGE",
+            country: country
+        })
+    }
+
+    const initiateDataHandler = (data) => {
+        console.log("initialisation")
+    }
+
+    const OfferContext = {
+        data: offerState.data,
+        isLoaded: offerState.isLoaded,
+        error: offerState.error,
+        selectedCountry: offerState.selectedCountry,
+        changeCountry: changeCountryToOfferHandler
+    }
 
     useEffect(() => {
         fetch("https://restcountries.com/v3.1/all")
@@ -52,8 +85,8 @@ const OfferProvider = (props) => {
                 loadedCountries.sort((a, b) => {
                     return a.name.localeCompare(b.name)
                 })
-                setFetchedData(dataJSON)
                 setCountries(loadedCountries);
+                initiateDataHandler()
             })
             .catch((error) => {
                 setIsLoaded(true)
