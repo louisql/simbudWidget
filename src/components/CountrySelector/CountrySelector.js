@@ -1,12 +1,16 @@
 import './CountrySelector.css';
 
 import { Autocomplete, TextField } from "@mui/material"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
+import OfferContext from '../../store/OfferContext';
 
 const CountrySelector = () => {
     const [isLoaded, setIsLoaded] = useState(false)
     const [error, setError] = useState(null)
     const [countries, setCountries] = useState([])
+    const offerCtx = useContext(OfferContext)
+
+    console.log(offerCtx)
 
     const widgetDefaultCountry = 'Canada'
 
@@ -35,7 +39,7 @@ const CountrySelector = () => {
                 loadedCountries.sort((a, b) => {
                     return a.name.localeCompare(b.name)
                 })
-
+                console.log(dataJSON)
                 setCountries(loadedCountries);
             })
             .catch((error) => {
@@ -45,6 +49,8 @@ const CountrySelector = () => {
             });
     }, [])
 
+
+    //Code here to update things when a
     useEffect(() => {
         
     }, [countries])
@@ -67,7 +73,7 @@ const CountrySelector = () => {
     } else if (!isLoaded) {
         return <div>Loading...</div>
     } else {
-        console.log(options)
+        // console.log(options)
         return (
             <>
                 <Autocomplete

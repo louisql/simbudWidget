@@ -3,6 +3,7 @@ import classes from './App.module.css'
 import { useState, useEffect } from 'react';
 import Offers from './components/Offers/Offers';
 import CountrySelector from './components/CountrySelector/CountrySelector';
+import OfferProvider from './store/OfferProvider';
 
 const App = () => {
   const [nberOfOffers, setnberOfOffers] = useState([0])
@@ -23,12 +24,14 @@ const App = () => {
 
 
   return (
-    <div className="App">
-      <div className={classes.appContainer}>
-        <CountrySelector />
-        <Offers onSendData={getNberOfOffers} />
+    <OfferProvider>
+      <div className="App">
+        <div className={classes.appContainer}>
+          <CountrySelector />
+          <Offers onSendData={getNberOfOffers} />
+        </div>
       </div>
-    </div>
+    </OfferProvider>
   );
 }
 
