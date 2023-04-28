@@ -1,9 +1,10 @@
 import OfferContext from "./OfferContext";
 
-import { useState, useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 
 const defaultOfferState = {
     data: [],
+    loadedCountries: [],
     isLoaded: false,
     error: null,
     selectedCountry: 'Canada',
@@ -22,6 +23,8 @@ const offerReducer = (state, action) => {
 
     if (action.type === "INIT"){
         // console.log(JSON.stringify(action.data))
+        // console.log(JSON.stringify(action.loadedCountries))
+
         return {
             ...state,
             data: action.data,
@@ -103,6 +106,7 @@ const OfferProvider = (props) => {
                 loadedCountries.sort((a, b) => {
                     return a.name.localeCompare(b.name)
                 })
+
                 initiateDataHandler(dataJSON, loadedCountries, true)
             })
             .catch((error) => {

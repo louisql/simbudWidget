@@ -8,9 +8,10 @@ const CountrySelector = () => {
     const [isLoaded, setIsLoaded] = useState(false)
     const [error, setError] = useState(null)
     const [countries, setCountries] = useState([])
+
     const offerCtx = useContext(OfferContext)
 
-    // console.log(offerCtx)
+    console.log(offerCtx.loadedCountries)
 
     const widgetDefaultCountry = 'Canada'
 
@@ -50,7 +51,7 @@ const CountrySelector = () => {
     // }, [])
 
 
-    //Code here to update things when a
+    //Code here to update things when a country is selected
     useEffect(() => {
         
     }, [countries])
