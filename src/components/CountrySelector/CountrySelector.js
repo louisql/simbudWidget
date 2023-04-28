@@ -10,44 +10,44 @@ const CountrySelector = () => {
     const [countries, setCountries] = useState([])
     const offerCtx = useContext(OfferContext)
 
-    console.log(offerCtx)
+    // console.log(offerCtx)
 
     const widgetDefaultCountry = 'Canada'
 
-    useEffect(() => {
-        fetch("https://restcountries.com/v3.1/all")
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Error while fetching the data');
-                }
-            })
-            .then((dataJSON) => {
-                setIsLoaded(true)
+    // useEffect(() => {
+    //     fetch("https://restcountries.com/v3.1/all")
+    //         .then((response) => {
+    //             if (response.ok) {
+    //                 return response.json();
+    //             } else {
+    //                 throw new Error('Error while fetching the data');
+    //             }
+    //         })
+    //         .then((dataJSON) => {
+    //             setIsLoaded(true)
 
-                const loadedCountries = [];
+    //             const loadedCountries = [];
 
-                for (const key in dataJSON) {
-                    loadedCountries.push({
-                        id: key,
-                        name: dataJSON[key].name.common,
-                        code: dataJSON[key].cca3
-                    })
-                }
+    //             for (const key in dataJSON) {
+    //                 loadedCountries.push({
+    //                     id: key,
+    //                     name: dataJSON[key].name.common,
+    //                     code: dataJSON[key].cca3
+    //                 })
+    //             }
 
-                loadedCountries.sort((a, b) => {
-                    return a.name.localeCompare(b.name)
-                })
-                console.log(dataJSON)
-                setCountries(loadedCountries);
-            })
-            .catch((error) => {
-                setIsLoaded(true)
-                setError(error);
-                // console.log(response.body);
-            });
-    }, [])
+    //             loadedCountries.sort((a, b) => {
+    //                 return a.name.localeCompare(b.name)
+    //             })
+    //             // console.log(dataJSON)
+    //             setCountries(loadedCountries);
+    //         })
+    //         .catch((error) => {
+    //             setIsLoaded(true)
+    //             setError(error);
+    //             // console.log(response.body);
+    //         });
+    // }, [])
 
 
     //Code here to update things when a

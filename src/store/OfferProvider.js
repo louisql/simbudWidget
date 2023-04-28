@@ -21,19 +21,15 @@ const offerReducer = (state, action) => {
     }
 
     if (action.type === "INIT"){
-        console.log("init")
+        console.log(action)
     }
 
     return state
 }
 
-
-
-
 const OfferProvider = (props) => {
     const [isLoaded, setIsLoaded] = useState(false)
     const [error, setError] = useState(null)
-    const [countries, setCountries] = useState([])
     const [offerState, dispatchOfferAction] = useReducer(
         offerReducer,
         defaultOfferState
@@ -48,11 +44,16 @@ const OfferProvider = (props) => {
         })
     }
 
-    const initiateDataHandler = (data) => {
-        console.log("initialisation")
+    const initiateDataHandler = (data, loadedCountries, isLoaded) => {
+        dispatchOfferAction({
+            type: "INIT",
+            data: data,
+            loadedCountries: loadedCountries,
+            isLoaded: isLoaded
+        })
     }
 
-    const OfferContext = {
+    const offerContext = {
         data: offerState.data,
         isLoaded: offerState.isLoaded,
         error: offerState.error,
@@ -85,8 +86,7 @@ const OfferProvider = (props) => {
                 loadedCountries.sort((a, b) => {
                     return a.name.localeCompare(b.name)
                 })
-                setCountries(loadedCountries);
-                initiateDataHandler()
+                initiateDataHandler(dataJSON, loadedCountries, true)
             })
             .catch((error) => {
                 setIsLoaded(true)
@@ -96,7 +96,7 @@ const OfferProvider = (props) => {
     }, [])
 
     return (
-        <OfferContext.Provider value={offer}>
+        <OfferContext.Provider value={offerContext}>
             {props.children}
 
         </OfferContext.Provider>
