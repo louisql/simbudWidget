@@ -11,8 +11,8 @@ const defaultOfferState = {
 }
 
 const offerReducer = (state, action) => {
-    if (action.type === 'CHANGE'){
-        console.log(action)
+    if (action.type === 'CHANGE') {
+        console.log(action.country)
         // const updatedSelectedCOuntry = action.country
 
         return {
@@ -21,7 +21,7 @@ const offerReducer = (state, action) => {
         }
     }
 
-    if (action.type === "INIT"){
+    if (action.type === "INIT") {
         // console.log(JSON.stringify(action.data))
         // console.log(JSON.stringify(action.loadedCountries))
 
@@ -33,7 +33,7 @@ const offerReducer = (state, action) => {
         }
     }
 
-    if (action.type === "ERROR"){
+    if (action.type === "ERROR") {
         return {
             ...state,
             error: action.error,
@@ -80,6 +80,7 @@ const OfferProvider = (props) => {
         isLoaded: offerState.isLoaded,
         error: offerState.error,
         selectedCountry: offerState.selectedCountry,
+        loadedCountries: offerState.loadedCountries,
         changeCountry: changeCountryToOfferHandler
     }
 

@@ -5,13 +5,9 @@ import { useEffect, useState, useContext } from "react"
 import OfferContext from '../../store/OfferContext';
 
 const CountrySelector = () => {
-    const [isLoaded, setIsLoaded] = useState(false)
-    const [error, setError] = useState(null)
     const [countries, setCountries] = useState([])
 
     const offerCtx = useContext(OfferContext)
-
-    console.log(offerCtx.loadedCountries)
 
     const widgetDefaultCountry = 'Canada'
 
@@ -52,11 +48,11 @@ const CountrySelector = () => {
 
 
     //Code here to update things when a country is selected
-    useEffect(() => {
+    // useEffect(() => {
         
-    }, [countries])
+    // }, [countries])
 
-    const options = countries.map(
+    const options = offerCtx.loadedCountries.map(
         (country) => (
             country.name
         )
@@ -68,13 +64,17 @@ const CountrySelector = () => {
         );
     };
 
+    const handleChange = (event, value) => {
+        // console.log(value)
+        // console.log(offerCtx)
+        console.log(offerCtx.changeCountry(value))
+    }
 
-    if (error) {
-        return <div>Error: {error}</div>
-    } else if (!isLoaded) {
+    if (offerCtx.error) {
+        return <div>Error: {offerCtx.error}</div>
+    } else if (!offerCtx.isLoaded) {
         return <div>Loading...</div>
     } else {
-        // console.log(options)
         return (
             <>
                 <Autocomplete
@@ -83,7 +83,8 @@ const CountrySelector = () => {
                     options={options}
                     sx={{ width: 300 }}
                     filterOptions={filterOptions}
-                    defaultValue={widgetDefaultCountry}
+                    defaultValue={offerCtx.selectedCountry}
+                    onChange={handleChange}
                     renderInput={(params) =>
 
                         <TextField
