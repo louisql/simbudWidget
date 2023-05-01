@@ -1,13 +1,18 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import Card from '../UI/Card';
 import CheckAllOffers from '../CheckAllOffers/CheckAllOffers'
 import classes from "./Offers.module.css";
+import OfferContext from '../../store/OfferContext';
 
 const Offers = (props) => {
     const [offersData, setOffersData] = useState([]);
     const [nberOfOffers, setnberOfOffers] = useState([0])
+    const offerCtx = useContext(OfferContext)
+
+    const selectedCountry = offerCtx.selectedCountry;
+    // console.log(selectedCountry)
 
     useEffect(() => {
         fetch("offers.json")
@@ -29,7 +34,9 @@ const Offers = (props) => {
             });
     }, [nberOfOffers])
 
-    const offersList = offersData.map((offer) => (
+    const filteredList = offersData.filter(offer => offer.country.toLowerCase().includes(selectedCountry.toLowerCase()))
+
+    const offersList = filteredList.map((offer) => (
         <Card
             id={offer.id}
             key={offer.id}
@@ -43,6 +50,7 @@ const Offers = (props) => {
             />
     ));
 
+    
     return (
         <div className={classes.mainContainer}>
             <div className={classes.proposal_plans}>
