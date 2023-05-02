@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Offers from './components/Offers/Offers';
 import CountrySelector from './components/CountrySelector/CountrySelector';
 import OfferProvider from './store/OfferProvider';
+import DataSelector from './components/DataSelector/DataSelector';
 
 const App = () => {
   
@@ -30,6 +31,7 @@ const App = () => {
       <div className="App">
         <div className={classes.appContainer}>
           <CountrySelector />
+          <DataSelector />
           <Offers onSendData={getNberOfOffers} />
         </div>
       </div>

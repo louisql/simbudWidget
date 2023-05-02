@@ -9,7 +9,7 @@ const defaultOfferState = {
     error: null,
     selectedCountry: 'Canada',
     validity: "7 days",
-    capacity: "1 GB"
+    selectedCapacity: "1 GB"
 }
 
 const offerReducer = (state, action) => {
@@ -27,9 +27,10 @@ const offerReducer = (state, action) => {
             }
 
         case 'CHANGE_CAPACITY':
+            console.log(action.capacity)
             return { 
                 ...state,
-                capacity: action.capacity
+                selectedCapacity: action.capacity
             }
 
         case 'INIT':
@@ -103,6 +104,7 @@ const OfferProvider = (props) => {
         error: offerState.error,
         selectedCountry: offerState.selectedCountry,
         loadedCountries: offerState.loadedCountries,
+        selectedCapacity: offerState.selectedCapacity,
         changeCountry: changeCountryToOfferHandler,
         changeValidity: changeValiditytoOfferHandler,
         changeCapacity: changeCapacitytoOfferHandler

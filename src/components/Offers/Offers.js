@@ -36,7 +36,13 @@ const Offers = () => {
     //         });
     // }, [nberOfOffers])
 
-    const filteredList = offerCtx.data.filter(offer => offer.country.toLowerCase().includes(selectedCountry.toLowerCase()))
+    const filteredList = offerCtx.data.filter(offer => {
+       const countryMatch = offer.country.toLowerCase().includes(selectedCountry.toLowerCase()) 
+       const capacityMatch = offer.capacity === offerCtx.selectedCapacity || !offerCtx.selectedCapacity;
+       console.log(offerCtx)
+       console.log(offerCtx.selectedCapacity)
+       return countryMatch && capacityMatch
+    });
 
     let offersList
 
