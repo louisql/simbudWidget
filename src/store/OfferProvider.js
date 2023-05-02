@@ -96,6 +96,7 @@ const OfferProvider = (props) => {
             .then((dataJSON) => {
                 const loadedCountries = [];
 
+                //
                 for (const key in dataJSON) {
                     loadedCountries.push({
                         id: key,

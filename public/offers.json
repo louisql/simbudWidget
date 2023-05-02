@@ -28,5 +28,15 @@
     "logo": "../../assets/logo/nomad-100x100.png",
     "planName": "Canada 2 GB",
     "validity": "7 days"
+  },
+  {
+    "id": 3,
+    "provider": "Nomad",
+    "capacity": "2 GB",
+    "price": 8,
+    "country": "Afghanistan",
+    "logo": "../../assets/logo/nomad-100x100.png",
+    "planName": "Afghanistan 2 GB",
+    "validity": "7 days"
   }
 ]

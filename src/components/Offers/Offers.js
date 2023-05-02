@@ -52,7 +52,7 @@ const Offers = (props) => {
                 validity={offer.validity}
             />
         ));
-    } else {
+    } else if (offerCtx.isLoaded) {
         offersList = (
             <div> No results - Go to our website to find some more</div>
         )
