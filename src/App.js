@@ -5,6 +5,7 @@ import Offers from './components/Offers/Offers';
 import CountrySelector from './components/CountrySelector/CountrySelector';
 import OfferProvider from './store/OfferProvider';
 import DataSelector from './components/DataSelector/DataSelector';
+import DurationSelector from './components/DurationSelector/DurationSelector';
 
 const App = () => {
   
@@ -30,8 +31,11 @@ const App = () => {
     <OfferProvider>
       <div className="App">
         <div className={classes.appContainer}>
-          <CountrySelector />
-          <DataSelector />
+          <div className={classes.inputsContainer}>
+            <CountrySelector />
+            <DataSelector />
+            <DurationSelector />
+          </div>
           <Offers onSendData={getNberOfOffers} />
         </div>
       </div>

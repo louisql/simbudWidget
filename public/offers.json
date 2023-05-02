@@ -30,7 +30,7 @@
     "validity": "7 days"
   },
   {
-    "id": 3,
+    "id": 4,
     "provider": "Nomad",
     "capacity": "2 GB",
     "price": 8,
@@ -38,5 +38,25 @@
     "logo": "../../assets/logo/nomad-100x100.png",
     "planName": "Afghanistan 2 GB",
     "validity": "7 days"
+  },
+  {
+    "id": 5,
+    "provider": "Flexiroam",
+    "capacity": "1 GB",
+    "price": 10,
+    "country": "Canada",
+    "logo": "../../assets/logo/flexiroam-100x100.png",
+    "planName": "1 GB Global Plan",
+    "validity": "3 days"
+  },
+  {
+    "id": 6,
+    "provider": "Nomad",
+    "capacity": "1 GB",
+    "price": 10,
+    "country": "Canada",
+    "logo": "../../assets/logo/nomad-100x100.png",
+    "planName": "Canada 1GB",
+    "validity": "3 days"
   }
 ]

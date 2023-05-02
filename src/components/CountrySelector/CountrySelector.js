@@ -21,6 +21,7 @@ const CountrySelector = () => {
 
     const handleChange = (event, value) => {
         if (value) offerCtx.changeCountry(value);
+        offerCtx.changeCapacity(offerCtx.selectedCapacity)
     }
 
     if (offerCtx.error) {
@@ -34,7 +35,7 @@ const CountrySelector = () => {
                     disablePortal
                     id="combo-box-demo"
                     options={options}
-                    sx={{ width: 300 }}
+                    sx={{ width: 250 }}
                     filterOptions={filterOptions}
                     defaultValue={offerCtx.selectedCountry}
                     onChange={handleChange}

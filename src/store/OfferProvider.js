@@ -8,7 +8,7 @@ const defaultOfferState = {
     isLoaded: false,
     error: null,
     selectedCountry: 'Canada',
-    validity: "7 days",
+    selectedValidity: "7 days",
     selectedCapacity: "1 GB"
 }
 
@@ -27,7 +27,6 @@ const offerReducer = (state, action) => {
             }
 
         case 'CHANGE_CAPACITY':
-            console.log(action.capacity)
             return { 
                 ...state,
                 selectedCapacity: action.capacity
