@@ -85,35 +85,77 @@ const OfferProvider = (props) => {
     }
 
     useEffect(() => {
-        fetch("https://restcountries.com/v3.1/all")
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Error while fetching the data');
-                }
-            })
-            .then((dataJSON) => {
-                const loadedCountries = [];
+        // fetch("https://restcountries.com/v3.1/all")
+        //     .then((response) => {
+        //         if (response.ok) {
+        //             return response.json();
+        //         } else {
+        //             throw new Error('Error while fetching the data');
+        //         }
+        //     })
+        //     .then((dataJSON) => {
+        //         const loadedCountries = [];
 
-                //
-                for (const key in dataJSON) {
-                    loadedCountries.push({
-                        id: key,
-                        name: dataJSON[key].name.common,
-                        code: dataJSON[key].cca3
-                    })
-                }
+        //         //
+        //         for (const key in dataJSON) {
+        //             loadedCountries.push({
+        //                 id: key,
+        //                 name: dataJSON[key].name.common,
+        //                 code: dataJSON[key].cca3
+        //             })
+        //         }
 
-                loadedCountries.sort((a, b) => {
-                    return a.name.localeCompare(b.name)
+        //         loadedCountries.sort((a, b) => {
+        //             return a.name.localeCompare(b.name)
+        //         })
+
+        //         initiateDataHandler(dataJSON, loadedCountries, true)
+        //     })
+        //     .catch((error) => {
+        //         setErrorHandler(true, error)
+        //     });
+
+
+
+        //Implementing simultaneous fetching
+
+        Promise.all([
+            fetch('https://restcountries.com/v3.1/all'),
+            fetch('offers.json')
+        ]).then((responses) => {
+            // Get a JSON object from each of the responses
+            return Promise.all(responses.map((response) => {
+                return response.json();
+            }));
+        }).then((dataJSON) => {
+            // Log the data to the console
+            // You would do something with both sets of data here
+
+            const loadedCountries = [];
+
+
+            for (const key in dataJSON[0]) {
+                loadedCountries.push({
+                    id: key,
+                    name: dataJSON[0][key].name.common,
+                    code: dataJSON[0][key].cca3
                 })
+            }
 
-                initiateDataHandler(dataJSON, loadedCountries, true)
+            loadedCountries.sort((a, b) => {
+                return a.name.localeCompare(b.name)
             })
-            .catch((error) => {
-                setErrorHandler(true, error)
-            });
+
+            
+
+            initiateDataHandler(dataJSON[1], loadedCountries, true)
+
+
+        }).catch((error) => {
+            // if there's an error, log it
+            console.log(error);
+        });
+
     }, [])
 
     return (

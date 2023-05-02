@@ -7,33 +7,34 @@ import classes from "./Offers.module.css";
 import OfferContext from '../../store/OfferContext';
 
 const Offers = (props) => {
-    const [offersData, setOffersData] = useState([]);
-    const [nberOfOffers, setnberOfOffers] = useState([0])
+    // const [offersData, setOffersData] = useState([]);
+    // const [nberOfOffers, setnberOfOffers] = useState([0])
     const offerCtx = useContext(OfferContext)
 
     const selectedCountry = offerCtx.selectedCountry;
 
-    useEffect(() => {
-        fetch("offers.json")
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Error while fetching the data');
-                }
-            })
-            .then((dataJSON) => {
-                setnberOfOffers(dataJSON.length);
-                props.onSendData(nberOfOffers)
-                setOffersData(dataJSON);
-            })
-            .catch((error) => {
-                console.error(error);
-                // console.log(response.body);
-            });
-    }, [nberOfOffers])
+    // OLD WAY OF COUNTING NUMBER OF OFFERS
+    // useEffect(() => {
+    //     fetch("offers.json")
+    //         .then((response) => {
+    //             if (response.ok) {
+    //                 return response.json();
+    //             } else {
+    //                 throw new Error('Error while fetching the data');
+    //             }
+    //         })
+    //         .then((dataJSON) => {
+    //             setnberOfOffers(dataJSON.length);
+    //             props.onSendData(nberOfOffers)
+    //             setOffersData(dataJSON);
+    //         })
+    //         .catch((error) => {
+    //             console.error(error);
+    //             // console.log(response.body);
+    //         });
+    // }, [nberOfOffers])
 
-    const filteredList = offersData.filter(offer => offer.country.toLowerCase().includes(selectedCountry.toLowerCase()))
+    const filteredList = offerCtx.data.filter(offer => offer.country.toLowerCase().includes(selectedCountry.toLowerCase()))
 
     let offersList
 

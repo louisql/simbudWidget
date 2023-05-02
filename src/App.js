@@ -6,6 +6,8 @@ import CountrySelector from './components/CountrySelector/CountrySelector';
 import OfferProvider from './store/OfferProvider';
 
 const App = () => {
+  
+  //think if I replace this by a call to context to get the nber of offers
   const [nberOfOffers, setnberOfOffers] = useState([0])
 
   const getNberOfOffers = (val) => {
