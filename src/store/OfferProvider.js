@@ -8,40 +8,48 @@ const defaultOfferState = {
     isLoaded: false,
     error: null,
     selectedCountry: 'Canada',
+    validity: "7 days",
+    capacity: "1 GB"
 }
 
 const offerReducer = (state, action) => {
-    if (action.type === 'CHANGE') {
-        console.log(action.country)
-        // const updatedSelectedCOuntry = action.country
+    switch (action.type) {
+        case 'CHANGE_COUNTRY':
+            return {
+                ...state,
+                selectedCountry: action.country
+            }
 
-        return {
-            ...state,
-            selectedCountry: action.country
-        }
+        case 'CHANGE_VALIDITY':
+            return { 
+                ...state,
+                validity: action.validity
+            }
+
+        case 'CHANGE_CAPACITY':
+            return { 
+                ...state,
+                capacity: action.capacity
+            }
+
+        case 'INIT':
+            return {
+                ...state,
+                data: action.data,
+                loadedCountries: action.loadedCountries,
+                isLoaded: action.isLoaded
+            }
+
+        case 'ERROR':
+            return {
+                ...state,
+                error: action.error,
+                isLoaded: action.isLoaded
+            }
+
+        default:
+            return state
     }
-
-    if (action.type === "INIT") {
-        // console.log(JSON.stringify(action.data))
-        // console.log(JSON.stringify(action.loadedCountries))
-
-        return {
-            ...state,
-            data: action.data,
-            loadedCountries: action.loadedCountries,
-            isLoaded: action.isLoaded
-        }
-    }
-
-    if (action.type === "ERROR") {
-        return {
-            ...state,
-            error: action.error,
-            isLoaded: action.isLoaded
-        }
-    }
-
-    return state
 }
 
 const OfferProvider = (props) => {
@@ -53,8 +61,22 @@ const OfferProvider = (props) => {
 
     const changeCountryToOfferHandler = (country) => {
         dispatchOfferAction({
-            type: "CHANGE",
+            type: "CHANGE_COUNTRY",
             country: country
+        })
+    }
+
+    const changeValiditytoOfferHandler = (validity) => {
+        dispatchOfferAction({
+            type: "CHANGE_VALIDITY",
+            validity: validity
+        })
+    }
+    
+    const changeCapacitytoOfferHandler = (capacity) => {
+        dispatchOfferAction({
+            type: "CHANGE_CAPACITY",
+            capacity: capacity
         })
     }
 
@@ -81,42 +103,12 @@ const OfferProvider = (props) => {
         error: offerState.error,
         selectedCountry: offerState.selectedCountry,
         loadedCountries: offerState.loadedCountries,
-        changeCountry: changeCountryToOfferHandler
+        changeCountry: changeCountryToOfferHandler,
+        changeValidity: changeValiditytoOfferHandler,
+        changeCapacity: changeCapacitytoOfferHandler
     }
 
     useEffect(() => {
-        // fetch("https://restcountries.com/v3.1/all")
-        //     .then((response) => {
-        //         if (response.ok) {
-        //             return response.json();
-        //         } else {
-        //             throw new Error('Error while fetching the data');
-        //         }
-        //     })
-        //     .then((dataJSON) => {
-        //         const loadedCountries = [];
-
-        //         //
-        //         for (const key in dataJSON) {
-        //             loadedCountries.push({
-        //                 id: key,
-        //                 name: dataJSON[key].name.common,
-        //                 code: dataJSON[key].cca3
-        //             })
-        //         }
-
-        //         loadedCountries.sort((a, b) => {
-        //             return a.name.localeCompare(b.name)
-        //         })
-
-        //         initiateDataHandler(dataJSON, loadedCountries, true)
-        //     })
-        //     .catch((error) => {
-        //         setErrorHandler(true, error)
-        //     });
-
-
-
         //Implementing simultaneous fetching
 
         Promise.all([
@@ -128,11 +120,7 @@ const OfferProvider = (props) => {
                 return response.json();
             }));
         }).then((dataJSON) => {
-            // Log the data to the console
-            // You would do something with both sets of data here
-
             const loadedCountries = [];
-
 
             for (const key in dataJSON[0]) {
                 loadedCountries.push({
@@ -146,14 +134,11 @@ const OfferProvider = (props) => {
                 return a.name.localeCompare(b.name)
             })
 
-            
-
             initiateDataHandler(dataJSON[1], loadedCountries, true)
 
 
         }).catch((error) => {
-            // if there's an error, log it
-            console.log(error);
+            setErrorHandler(true, error);
         });
 
     }, [])

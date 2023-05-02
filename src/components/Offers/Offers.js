@@ -6,14 +6,16 @@ import CheckAllOffers from '../CheckAllOffers/CheckAllOffers'
 import classes from "./Offers.module.css";
 import OfferContext from '../../store/OfferContext';
 
-const Offers = (props) => {
-    // const [offersData, setOffersData] = useState([]);
-    // const [nberOfOffers, setnberOfOffers] = useState([0])
+const Offers = () => {
+
     const offerCtx = useContext(OfferContext)
 
     const selectedCountry = offerCtx.selectedCountry;
 
     // OLD WAY OF COUNTING NUMBER OF OFFERS
+    // const [offersData, setOffersData] = useState([]);
+    // const [nberOfOffers, setnberOfOffers] = useState([0])
+
     // useEffect(() => {
     //     fetch("offers.json")
     //         .then((response) => {
