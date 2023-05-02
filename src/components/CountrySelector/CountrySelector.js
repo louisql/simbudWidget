@@ -65,9 +65,7 @@ const CountrySelector = () => {
     };
 
     const handleChange = (event, value) => {
-        // console.log(value)
-        // console.log(offerCtx)
-        console.log(offerCtx.changeCountry(value))
+        if (value) offerCtx.changeCountry(value);
     }
 
     if (offerCtx.error) {
