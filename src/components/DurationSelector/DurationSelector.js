@@ -18,12 +18,20 @@ const DurationSelector = () => {
         setOptions(filteredDuration)
 
 
-        if (offerCtx.selectedDuration) {
-            setDefaultDuration(offerCtx.selectedDuration)
-        } else if (filteredList.length > 0) {
-            setDefaultDuration(filteredList[0].duration)
+        // if (offerCtx.selectedDuration) {
+        //     setDefaultDuration(offerCtx.selectedDuration)
+        // } else 
+        if (filteredList.length > 0) {
+            console.log(filteredList[0])
+            setDefaultDuration(filteredList[0].validity)
         }
 
+
+        const isvalidityInPlan = filteredDuration.includes(offerCtx.selectedvalidity)
+        // console.log(filteredList)
+        if (isvalidityInPlan) {
+            setDefaultDuration(offerCtx.selectedvalidity)
+        }  
 
     }, [offerCtx.selectedCountry, offerCtx.data])
 
@@ -35,7 +43,7 @@ const DurationSelector = () => {
     };
 
     const handleChange = (event, value) => {
-        if (value) offerCtx.changeCapacity(value);
+        if (value) offerCtx.changeValidity(value);
     }
 
 
@@ -46,7 +54,6 @@ const DurationSelector = () => {
     } else if (!offerCtx.isLoaded) {
         return <div>Loading...</div>
     } else {
-        // console.log(defaultDuration)
         return (
             <>
                 {defaultDuration && (
@@ -70,7 +77,7 @@ const DurationSelector = () => {
                                 }}
                             />}
                     />
-                )}
+                 )}
             </>
         )
     }

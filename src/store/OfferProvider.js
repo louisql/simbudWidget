@@ -21,6 +21,7 @@ const offerReducer = (state, action) => {
             }
 
         case 'CHANGE_VALIDITY':
+            console.log(action.validity)
             return { 
                 ...state,
                 validity: action.validity
@@ -67,6 +68,8 @@ const OfferProvider = (props) => {
     }
 
     const changeValiditytoOfferHandler = (validity) => {
+
+        console.log(validity.validity)
         dispatchOfferAction({
             type: "CHANGE_VALIDITY",
             validity: validity
