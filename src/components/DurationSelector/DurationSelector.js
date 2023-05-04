@@ -22,7 +22,7 @@ const DurationSelector = () => {
         //     setDefaultDuration(offerCtx.selectedDuration)
         // } else 
         if (filteredList.length > 0) {
-            console.log(filteredList[0])
+            // console.log(filteredList[0])
             setDefaultDuration(filteredList[0].validity)
         }
 

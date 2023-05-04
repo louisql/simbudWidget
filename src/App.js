@@ -9,9 +9,8 @@ import DurationSelector from './components/DurationSelector/DurationSelector';
 
 const App = () => {
   
-  //think if I replace this by a call to context to get the nber of offers
+  //To be updated with call useContext to get the number of offers
   const [nberOfOffers, setnberOfOffers] = useState([0])
-
   const getNberOfOffers = (val) => {
     setnberOfOffers(val)
   }
@@ -20,11 +19,14 @@ const App = () => {
     let communication = () => {
       let url = window.location != window.parent.location ? document.referrer : document.location.href;
 
-      window.parent.postMessage(nberOfOffers, url);
+      console.log('message parent')
+      window.parent.postMessage(3, url);
+      // window.parent.postMessage(nberOfOffers, url);
     };
 
     communication();
-  }, [nberOfOffers]);
+  // }, [nberOfOffers]);
+  }, []);
 
 
   return (
