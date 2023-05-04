@@ -3,3 +3,9 @@
     flex-direction: column;
     align-items: center;
 }
+
+.inputsContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}

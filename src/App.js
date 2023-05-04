@@ -3,8 +3,13 @@ import classes from './App.module.css'
 import { useState, useEffect } from 'react';
 import Offers from './components/Offers/Offers';
 import CountrySelector from './components/CountrySelector/CountrySelector';
+import OfferProvider from './store/OfferProvider';
+import DataSelector from './components/DataSelector/DataSelector';
+import DurationSelector from './components/DurationSelector/DurationSelector';
 
 const App = () => {
+  
+  //think if I replace this by a call to context to get the nber of offers
   const [nberOfOffers, setnberOfOffers] = useState([0])
 
   const getNberOfOffers = (val) => {
@@ -23,12 +28,18 @@ const App = () => {
 
 
   return (
-    <div className="App">
-      <div className={classes.appContainer}>
-        <CountrySelector />
-        <Offers onSendData={getNberOfOffers} />
+    <OfferProvider>
+      <div className="App">
+        <div className={classes.appContainer}>
+          <div className={classes.inputsContainer}>
+            <CountrySelector />
+            <DataSelector />
+            <DurationSelector />
+          </div>
+          <Offers onSendData={getNberOfOffers} />
+        </div>
       </div>
-    </div>
+    </OfferProvider>
   );
 }
 
