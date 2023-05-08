@@ -26,7 +26,7 @@ const App = () => {
     };
     communication();
   // }, [nberOfOffers]);
-  }, []);
+  }, [nberOfOffers]);
 
 
   return (
