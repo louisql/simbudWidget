@@ -21,6 +21,7 @@ const App = () => {
 
       console.log('message parent 2')
       console.log(nberOfOffers)
+      console.log(url)
       window.parent.postMessage(nberOfOffers, url);
       // window.parent.postMessage(nberOfOffers, url);
     };
