@@ -9,8 +9,8 @@ import OfferContext from '../../store/OfferContext';
 const Offers = () => {
 
     const offerCtx = useContext(OfferContext)
-
     const selectedCountry = offerCtx.selectedCountry;
+    console.log(selectedCountry)
 
     // OLD WAY OF COUNTING NUMBER OF OFFERS
     // const [offersData, setOffersData] = useState([]);
@@ -36,19 +36,16 @@ const Offers = () => {
     //         });
     // }, [nberOfOffers])
 
+    let offersList
+
     const filteredList = offerCtx.data.filter(offer => {
        const countryMatch = offer.country.toLowerCase().includes(selectedCountry.toLowerCase()) 
        const capacityMatch = offer.capacity === offerCtx.selectedCapacity || !offerCtx.selectedCapacity;
        const validityMatch = offer.validity === offerCtx.selectedValidity || !offerCtx.selectedValidity
 
-    //    console.log(capacityMatch)
-    //    console.log(offerCtx.selectedValidity)
-    //    console.log(offerCtx)
-
        return countryMatch && capacityMatch && validityMatch
     });
 
-    let offersList
 
     if (filteredList.length > 0){
         //Limiting display to 3 offers
@@ -66,8 +63,9 @@ const Offers = () => {
             />
         ));
     } else if (offerCtx.isLoaded) {
+        console.log(filteredList)
         offersList = (
-            <div> No results - Go to our website to find some more</div>
+            <div> No results - Reset the Capacity & Duraction filters or go to our website to find more offers!</div>
         )
     }
 

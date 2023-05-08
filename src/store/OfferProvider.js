@@ -2,18 +2,23 @@ import OfferContext from "./OfferContext";
 
 import { useEffect, useReducer } from "react";
 
+//Getting the parameters from the url
 const queryString = window.location.search;
 console.log(queryString)
+
+const urlParams = new URLSearchParams(queryString);
+const urlCountry = urlParams.get('country')
+
+const country = (urlCountry === null ? 'Canada' : urlCountry.charAt(0).toUpperCase() + urlCountry.slice(1));
 
 const defaultOfferState = {
     data: [],
     loadedCountries: [],
     isLoaded: false,
     error: null,
-    //recuperation automatique url
-    selectedCountry: 'Canada',
+    selectedCountry: country,
     selectedValidity: undefined,
-    selectedCapacity: "1 GB"
+    selectedCapacity: undefined
 }
 
 const offerReducer = (state, action) => {
