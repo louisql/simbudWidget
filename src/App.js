@@ -23,7 +23,6 @@ const App = () => {
       window.parent.postMessage(3, url);
       // window.parent.postMessage(nberOfOffers, url);
     };
-
     communication();
   // }, [nberOfOffers]);
   }, []);

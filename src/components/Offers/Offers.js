@@ -39,8 +39,13 @@ const Offers = () => {
     const filteredList = offerCtx.data.filter(offer => {
        const countryMatch = offer.country.toLowerCase().includes(selectedCountry.toLowerCase()) 
        const capacityMatch = offer.capacity === offerCtx.selectedCapacity || !offerCtx.selectedCapacity;
+       const validityMatch = offer.validity === offerCtx.selectedValidity || !offerCtx.selectedValidity
 
-       return countryMatch && capacityMatch
+    //    console.log(capacityMatch)
+    //    console.log(offerCtx.selectedValidity)
+    // console.log(offerCtx)
+
+       return countryMatch && capacityMatch && validityMatch
     });
 
     let offersList

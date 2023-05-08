@@ -6,21 +6,18 @@ import OfferContext from '../../store/OfferContext';
 
 const DataSelector = () => {
     const offerCtx = useContext(OfferContext)
-    const [updatedContent, setupdatedContent] = useState(false)
+    // const [updatedContent, setupdatedContent] = useState(false)
     const [options, setOptions] = useState([])
     const [defaultCapacity, setDefaultCapacity] = useState(null)
 
     let toBeDisplayed;
 
     useEffect(() => {
-        setupdatedContent(false)
+        // setupdatedContent(false)
 
         const selectedCountry = offerCtx.selectedCountry;
         const filteredList = offerCtx.data.filter(offer => offer.country.toLowerCase().includes(selectedCountry.toLowerCase()))
         if (filteredList.length > 0) {
-            // console.log('pas dans plan')
-            // console.log(filteredList)
-            // console.log(filteredList[0].capacity)
             setDefaultCapacity(filteredList[0].capacity)
             // setupdatedContent(true)
         }
@@ -29,13 +26,8 @@ const DataSelector = () => {
 
         setOptions(filteredCapacity)
 
-        // console.log(filteredCapacity)
         const isCapacityInPlan = filteredCapacity.includes(offerCtx.selectedCapacity)
 
-        // console.log(isCapacityInPlan)
-
-
-        // console.log(filteredList)
         if (isCapacityInPlan) {
             setDefaultCapacity(offerCtx.selectedCapacity)
         }  
