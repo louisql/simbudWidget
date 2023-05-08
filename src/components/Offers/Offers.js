@@ -10,7 +10,6 @@ const Offers = () => {
 
     const offerCtx = useContext(OfferContext)
     const selectedCountry = offerCtx.selectedCountry;
-    console.log(selectedCountry)
 
     // OLD WAY OF COUNTING NUMBER OF OFFERS
     // const [offersData, setOffersData] = useState([]);
@@ -62,10 +61,13 @@ const Offers = () => {
                 validity={offer.validity}
             />
         ));
+
+        console.log(offerCtx)
+        console.log(offersList.length)
+        // offerCtx.changeNberOffers(offersList.length)
     } else if (offerCtx.isLoaded) {
-        console.log(filteredList)
         offersList = (
-            <div> No results - Reset the Capacity & Duraction filters or go to our website to find more offers!</div>
+            <div> No result <br /> Reset the Capacity & Duration filters or click below</div>
         )
     }
 
@@ -73,7 +75,6 @@ const Offers = () => {
         <div className={classes.mainContainer}>
             <div className={classes.proposal_plans}>
                 {offersList}
-
             </div>
 
             <CheckAllOffers />

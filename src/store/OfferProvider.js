@@ -4,7 +4,6 @@ import { useEffect, useReducer } from "react";
 
 //Getting the parameters from the url
 const queryString = window.location.search;
-console.log(queryString)
 
 const urlParams = new URLSearchParams(queryString);
 const urlCountry = urlParams.get('country')
@@ -18,7 +17,8 @@ const defaultOfferState = {
     error: null,
     selectedCountry: country,
     selectedValidity: undefined,
-    selectedCapacity: undefined
+    selectedCapacity: undefined,
+    nbreOffersDisplayed: 3
 }
 
 const offerReducer = (state, action) => {
@@ -30,7 +30,6 @@ const offerReducer = (state, action) => {
             }
 
         case 'CHANGE_VALIDITY':
-            console.log(action.validity)
             return { 
                 ...state,
                 selectedValidity: action.validity
@@ -40,6 +39,13 @@ const offerReducer = (state, action) => {
             return { 
                 ...state,
                 selectedCapacity: action.capacity
+            }
+
+        case 'CHANGE_NBRE_OFFERS_DISPLAYED':
+            console.log(action)
+            return { 
+                ...state,
+                nbreOffersDisplayed: action.nbreOffersDisplayed
             }
 
         case 'INIT':
@@ -91,6 +97,14 @@ const OfferProvider = (props) => {
         })
     }
 
+    const changeNberOfferstoOfferHandler = (nbreOffers) => {
+        console.log(nbreOffers)
+        dispatchOfferAction({
+            type: "CHANGE_NBRE_OFFERS_DISPLAYED",
+            nbreOffersDisplayed: nbreOffers
+        })
+    }
+
     const initiateDataHandler = (data, loadedCountries, isLoaded) => {
         dispatchOfferAction({
             type: "INIT",
@@ -116,9 +130,11 @@ const OfferProvider = (props) => {
         loadedCountries: offerState.loadedCountries,
         selectedCapacity: offerState.selectedCapacity,
         selectedValidity: offerState.selectedValidity,
+        nbreOffersDisplayed: offerState.nbreOffersDisplayed,
         changeCountry: changeCountryToOfferHandler,
         changeValidity: changeValiditytoOfferHandler,
-        changeCapacity: changeCapacitytoOfferHandler
+        changeCapacity: changeCapacitytoOfferHandler,
+        changeNberOffers: changeNberOfferstoOfferHandler
     }
 
     useEffect(() => {

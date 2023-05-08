@@ -53,6 +53,7 @@
             // if (value) {
                 offerCtx.changeCapacity(value);
                 offerCtx.changeCountry(offerCtx.selectedCountry)
+                console.log(offerCtx)
                 setupdatedContent(true)
             // }
             // value=
