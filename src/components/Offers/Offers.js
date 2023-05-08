@@ -6,51 +6,23 @@ import CheckAllOffers from '../CheckAllOffers/CheckAllOffers'
 import classes from "./Offers.module.css";
 import OfferContext from '../../store/OfferContext';
 
-const Offers = () => {
+const Offers = (props) => {
 
     const offerCtx = useContext(OfferContext)
-
     const selectedCountry = offerCtx.selectedCountry;
-
-    // OLD WAY OF COUNTING NUMBER OF OFFERS
-    // const [offersData, setOffersData] = useState([]);
-    // const [nberOfOffers, setnberOfOffers] = useState([0])
-
-    // useEffect(() => {
-    //     fetch("offers.json")
-    //         .then((response) => {
-    //             if (response.ok) {
-    //                 return response.json();
-    //             } else {
-    //                 throw new Error('Error while fetching the data');
-    //             }
-    //         })
-    //         .then((dataJSON) => {
-    //             setnberOfOffers(dataJSON.length);
-    //             props.onSendData(nberOfOffers)
-    //             setOffersData(dataJSON);
-    //         })
-    //         .catch((error) => {
-    //             console.error(error);
-    //             // console.log(response.body);
-    //         });
-    // }, [nberOfOffers])
-
-    const filteredList = offerCtx.data.filter(offer => {
-       const countryMatch = offer.country.toLowerCase().includes(selectedCountry.toLowerCase()) 
-       const capacityMatch = offer.capacity === offerCtx.selectedCapacity || !offerCtx.selectedCapacity;
-       const validityMatch = offer.validity === offerCtx.selectedValidity || !offerCtx.selectedValidity
-
-    //    console.log(capacityMatch)
-    //    console.log(offerCtx.selectedValidity)
-    //    console.log(offerCtx)
-
-       return countryMatch && capacityMatch && validityMatch
-    });
 
     let offersList
 
-    if (filteredList.length > 0){
+    const filteredList = offerCtx.data.filter(offer => {
+        const countryMatch = offer.country.toLowerCase().includes(selectedCountry.toLowerCase())
+        const capacityMatch = offer.capacity === offerCtx.selectedCapacity || !offerCtx.selectedCapacity;
+        const validityMatch = offer.validity === offerCtx.selectedValidity || !offerCtx.selectedValidity
+
+        return countryMatch && capacityMatch && validityMatch
+    });
+
+
+    if (filteredList.length > 0) {
         //Limiting display to 3 offers
         offersList = filteredList.slice(0, 3).map((offer) => (
             <Card
@@ -65,17 +37,21 @@ const Offers = () => {
                 validity={offer.validity}
             />
         ));
+
+        props.onSendData(offersList.length)
+
     } else if (offerCtx.isLoaded) {
         offersList = (
-            <div> No results - Go to our website to find some more</div>
+            <div> No result <br /> Reset the Capacity & Duration filters or click below</div>
         )
+        props.onSendData(offersList.length)
     }
+
 
     return (
         <div className={classes.mainContainer}>
             <div className={classes.proposal_plans}>
                 {offersList}
-
             </div>
 
             <CheckAllOffers />

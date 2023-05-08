@@ -26,11 +26,14 @@
 
             const isCapacityInPlan = filteredCapacity.includes(offerCtx.selectedCapacity)
 
+            // console.log(isCapacityInPlan)
+            // console.log(filteredList)
+
             if (isCapacityInPlan) {
                 setDefaultCapacity(offerCtx.selectedCapacity)
             } else if (filteredList.length > 0) {
-                console.log('pas dans plan')
-                console.log(filteredList[0].capacity)
+                // console.log('pas dans plan')
+                // console.log(filteredList[0].capacity)
                 setDefaultCapacity(filteredList[0].capacity)
             }
 
@@ -50,6 +53,7 @@
             // if (value) {
                 offerCtx.changeCapacity(value);
                 offerCtx.changeCountry(offerCtx.selectedCountry)
+                console.log(offerCtx)
                 setupdatedContent(true)
             // }
             // value=
