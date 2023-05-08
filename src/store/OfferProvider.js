@@ -2,6 +2,9 @@ import OfferContext from "./OfferContext";
 
 import { useEffect, useReducer } from "react";
 
+const queryString = window.location.search;
+console.log(queryString)
+
 const defaultOfferState = {
     data: [],
     loadedCountries: [],

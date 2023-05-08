@@ -26,8 +26,6 @@
 
             const isCapacityInPlan = filteredCapacity.includes(offerCtx.selectedCapacity)
 
-            console.log(filteredList)
-
             if (isCapacityInPlan) {
                 setDefaultCapacity(offerCtx.selectedCapacity)
             } else if (filteredList.length > 0) {
