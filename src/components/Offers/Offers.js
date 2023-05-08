@@ -43,7 +43,7 @@ const Offers = () => {
 
     //    console.log(capacityMatch)
     //    console.log(offerCtx.selectedValidity)
-    // console.log(offerCtx)
+    //    console.log(offerCtx)
 
        return countryMatch && capacityMatch && validityMatch
     });

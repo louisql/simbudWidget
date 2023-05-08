@@ -13,14 +13,11 @@ const DurationSelector = () => {
 
     useEffect(() => {
         const selectedValidity = offerCtx.selectedValidity;
-        console.log(offerCtx.data)
 
         const filteredDuration = Array.from(new Set(offerCtx.data.map(offer => offer.validity)))
-        console.log(filteredDuration)
 
         setOptions(filteredDuration)
 
-        console.log(options)
 
         if (selectedValidity) {
             const filteredList = offerCtx.data.filter(offer => offer.validity.toLowerCase().includes(selectedValidity.toLowerCase()))
@@ -43,8 +40,6 @@ const DurationSelector = () => {
 
     }, [offerCtx.selectedValidity, offerCtx.data])
 
-    console.log(defaultDuration)
-
     const filterOptions = (options, { inputValue }) => {
         return options.filter((option) =>
             option.toLowerCase().startsWith(inputValue.toLowerCase())
@@ -52,10 +47,10 @@ const DurationSelector = () => {
     };
 
     const handleChange = (event, value) => {
-        if (value) {
+        // if (value) {
             offerCtx.changeValidity(value);
             offerCtx.changeCountry(offerCtx.selectedCountry)
-        }
+        // }
     }
 
 
