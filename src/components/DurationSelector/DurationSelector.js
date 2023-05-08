@@ -8,33 +8,37 @@ const DurationSelector = () => {
     const [options, setOptions] = useState([])
     const [defaultDuration, setDefaultDuration] = useState(null)
 
-    useEffect(() => {
-        const selectedCountry = offerCtx.selectedCountry;
-        const filteredList = offerCtx.data.filter(offer => offer.country.toLowerCase().includes(selectedCountry.toLowerCase()))
+    let toBeDisplayed;
 
-        const filteredDuration = Array.from(new Set(filteredList.map(offer => offer.validity)))
-        // console.log(filteredDuration)
+
+    useEffect(() => {
+        const selectedValidity = offerCtx.selectedValidity;
+
+        const filteredDuration = Array.from(new Set(offerCtx.data.map(offer => offer.validity)))
 
         setOptions(filteredDuration)
 
 
+        if (selectedValidity) {
+            const filteredList = offerCtx.data.filter(offer => offer.validity.toLowerCase().includes(selectedValidity.toLowerCase()))
+            const isvalidityInPlan = filteredDuration.includes(offerCtx.selectedvalidity)
+            // console.log(filteredList)
+            if (isvalidityInPlan) {
+                setDefaultDuration(offerCtx.selectedvalidity)
+            }
+            if (filteredList.length > 0) {
+                setDefaultDuration(filteredList[0].validity)
+            }
+
+        }
+
         // if (offerCtx.selectedDuration) {
         //     setDefaultDuration(offerCtx.selectedDuration)
         // } else 
-        if (filteredList.length > 0) {
-            // console.log(filteredList[0])
-            setDefaultDuration(filteredList[0].validity)
-        }
 
 
-        const isvalidityInPlan = filteredDuration.includes(offerCtx.selectedvalidity)
-        // console.log(filteredList)
-        if (isvalidityInPlan) {
-            setDefaultDuration(offerCtx.selectedvalidity)
-        }  
 
-    }, [offerCtx.selectedCountry, offerCtx.data])
-
+    }, [offerCtx.selectedValidity, offerCtx.data])
 
     const filterOptions = (options, { inputValue }) => {
         return options.filter((option) =>
@@ -43,7 +47,10 @@ const DurationSelector = () => {
     };
 
     const handleChange = (event, value) => {
-        if (value) offerCtx.changeValidity(value);
+        // if (value) {
+            offerCtx.changeValidity(value);
+            offerCtx.changeCountry(offerCtx.selectedCountry)
+        // }
     }
 
 
@@ -56,7 +63,7 @@ const DurationSelector = () => {
     } else {
         return (
             <>
-                {defaultDuration && (
+                {(
                     <Autocomplete
                         disablePortal
                         id="combo-box-demo"
@@ -66,7 +73,7 @@ const DurationSelector = () => {
                         defaultValue={defaultDuration}
                         onChange={handleChange}
                         renderInput={(params) =>
-    
+
                             <TextField
                                 {...params}
                                 label="Select duration"
@@ -77,7 +84,7 @@ const DurationSelector = () => {
                                 }}
                             />}
                     />
-                 )}
+                )}
             </>
         )
     }

@@ -2,13 +2,17 @@ import OfferContext from "./OfferContext";
 
 import { useEffect, useReducer } from "react";
 
+const queryString = window.location.search;
+console.log(queryString)
+
 const defaultOfferState = {
     data: [],
     loadedCountries: [],
     isLoaded: false,
     error: null,
+    //recuperation automatique url
     selectedCountry: 'Canada',
-    selectedValidity: "7 days",
+    selectedValidity: undefined,
     selectedCapacity: "1 GB"
 }
 
@@ -24,7 +28,7 @@ const offerReducer = (state, action) => {
             console.log(action.validity)
             return { 
                 ...state,
-                validity: action.validity
+                selectedValidity: action.validity
             }
 
         case 'CHANGE_CAPACITY':
@@ -69,7 +73,6 @@ const OfferProvider = (props) => {
 
     const changeValiditytoOfferHandler = (validity) => {
 
-        console.log(validity.validity)
         dispatchOfferAction({
             type: "CHANGE_VALIDITY",
             validity: validity
@@ -107,6 +110,7 @@ const OfferProvider = (props) => {
         selectedCountry: offerState.selectedCountry,
         loadedCountries: offerState.loadedCountries,
         selectedCapacity: offerState.selectedCapacity,
+        selectedValidity: offerState.selectedValidity,
         changeCountry: changeCountryToOfferHandler,
         changeValidity: changeValiditytoOfferHandler,
         changeCapacity: changeCapacitytoOfferHandler

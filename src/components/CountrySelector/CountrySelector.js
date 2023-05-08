@@ -21,7 +21,10 @@ const CountrySelector = () => {
 
     const handleChange = (event, value) => {
         if (value) offerCtx.changeCountry(value);
-        offerCtx.changeCapacity(offerCtx.selectedCapacity)
+        // offerCtx.changeCapacity(offerCtx.selectedCapacity)
+        offerCtx.changeCapacity(null);
+        offerCtx.changeValidity(null);
+
     }
 
     if (offerCtx.error) {
