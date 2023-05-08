@@ -8,35 +8,42 @@ const DurationSelector = () => {
     const [options, setOptions] = useState([])
     const [defaultDuration, setDefaultDuration] = useState(null)
 
+    let toBeDisplayed;
+
+
     useEffect(() => {
         const selectedValidity = offerCtx.selectedValidity;
-        const filteredList = offerCtx.data.filter(offer => offer.validity.toLowerCase().includes(selectedValidity.toLowerCase()))
-        console.log(filteredList)
-        console.log(offerCtx)
+        console.log(offerCtx.data)
 
         const filteredDuration = Array.from(new Set(offerCtx.data.map(offer => offer.validity)))
-        // console.log(filteredDuration)
+        console.log(filteredDuration)
 
         setOptions(filteredDuration)
 
+        console.log(options)
+
+        if (selectedValidity) {
+            const filteredList = offerCtx.data.filter(offer => offer.validity.toLowerCase().includes(selectedValidity.toLowerCase()))
+            const isvalidityInPlan = filteredDuration.includes(offerCtx.selectedvalidity)
+            // console.log(filteredList)
+            if (isvalidityInPlan) {
+                setDefaultDuration(offerCtx.selectedvalidity)
+            }
+            if (filteredList.length > 0) {
+                setDefaultDuration(filteredList[0].validity)
+            }
+
+        }
 
         // if (offerCtx.selectedDuration) {
         //     setDefaultDuration(offerCtx.selectedDuration)
         // } else 
-        if (filteredList.length > 0) {
-            console.log(filteredList[0])
-            setDefaultDuration(filteredList[0].validity)
-        }
 
 
-        const isvalidityInPlan = filteredDuration.includes(offerCtx.selectedvalidity)
-        // console.log(filteredList)
-        if (isvalidityInPlan) {
-            setDefaultDuration(offerCtx.selectedvalidity)
-        }  
 
     }, [offerCtx.selectedValidity, offerCtx.data])
 
+    console.log(defaultDuration)
 
     const filterOptions = (options, { inputValue }) => {
         return options.filter((option) =>
@@ -61,7 +68,7 @@ const DurationSelector = () => {
     } else {
         return (
             <>
-                {defaultDuration && (
+                {(
                     <Autocomplete
                         disablePortal
                         id="combo-box-demo"
@@ -71,7 +78,7 @@ const DurationSelector = () => {
                         defaultValue={defaultDuration}
                         onChange={handleChange}
                         renderInput={(params) =>
-    
+
                             <TextField
                                 {...params}
                                 label="Select duration"
@@ -82,7 +89,7 @@ const DurationSelector = () => {
                                 }}
                             />}
                     />
-                 )}
+                )}
             </>
         )
     }

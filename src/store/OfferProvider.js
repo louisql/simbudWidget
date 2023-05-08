@@ -9,7 +9,7 @@ const defaultOfferState = {
     error: null,
     //recuperation automatique url
     selectedCountry: 'Canada',
-    selectedValidity: "7 days",
+    selectedValidity: undefined,
     selectedCapacity: "1 GB"
 }
 
