@@ -17,11 +17,11 @@ import common_fr from "./translations/fr/common.json";
 
 const App = () => {
   i18next.use(LanguageDetector).init({
-    interpolation: { escapeValue: false },  // React already does escaping
-    // lng: 'fr',                              // language to use
+    interpolation: { escapeValue: false },  
+    // lng: 'fr',                              
     resources: {
         en: {
-            common: common_en               // 'common' is our custom namespace
+            common: common_en               
         },
         fr: {
             common: common_fr
@@ -29,7 +29,7 @@ const App = () => {
     },
   });
 
-  console.log(i18next.language)
+  // console.log(i18next.language)
 
   const [nberOfOffers, setnberOfOffers] = useState([0])
   const getNberOfOffers = (val) => {

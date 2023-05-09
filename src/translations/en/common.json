@@ -3,11 +3,11 @@
         "choose": "Choose your destination"
     },
     "capacity": {
-        "choose": "Select capacity"
+        "choose": "Capacity"
     }
     ,
     "duration": {
-        "choose": "Select duration"
+        "choose": "Duration"
     },
     "offer": {
         "check": "Check offer",

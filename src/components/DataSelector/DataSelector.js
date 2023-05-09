@@ -26,13 +26,13 @@ const DataSelector = () => {
 
         setOptions(filteredCapacity)
 
-        const isCapacityInPlan = filteredCapacity.includes(offerCtx.selectedCapacity)
+        // const isCapacityInPlan = filteredCapacity.includes(offerCtx.selectedCapacity)
 
-        if (isCapacityInPlan) {
-            setDefaultCapacity(offerCtx.selectedCapacity)
-        } else if (filteredList.length > 0) {
-            setDefaultCapacity(filteredList[0].capacity)
-        }
+        // if (isCapacityInPlan) {
+        //     setDefaultCapacity(offerCtx.selectedCapacity)
+        // } else if (filteredList.length > 0) {
+        //     setDefaultCapacity(filteredList[0].capacity)
+        // }
 
 
 
@@ -62,7 +62,7 @@ const DataSelector = () => {
                     options={options}
                     sx={{ width: 150 }}
                     filterOptions={filterOptions}
-                    defaultValue={defaultCapacity ?? " "}
+                    // defaultValue={defaultCapacity ?? " "}
                     onChange={handleChange}
                     renderInput={(params) =>
 
