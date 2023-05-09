@@ -1,6 +1,10 @@
 import classes from "./Card.module.css"
 
+import {useTranslation} from "react-i18next";
+
 const Card = props => {
+
+    const {t, i18n} = useTranslation('common');
 
     return (
         <div className={classes.card}>
@@ -14,12 +18,6 @@ const Card = props => {
                 </div>
                 <div className={classes.secondColumn}> {/* Container 2nd column */}
                     <span> <b>{props.planName}</b> </span>
-
-                    {/*                     <ul>
-                        <li>Validite</li>
-                        <li>Prix</li>
-                        <li>Pays</li>
-                    </ul> */}
 
                     <div className={classes.description}>
 
@@ -56,7 +54,7 @@ const Card = props => {
                                 <path d="M16 19h6"></path>
                                 <path d="M19 16v6"></path>
                             </svg>
-                        <span>{props.validity} validity</span>
+                        <span>{props.validity} {t('offer.validity')}</span>
                         </div>
 
                     </div>
@@ -65,8 +63,7 @@ const Card = props => {
 
             <div className={` ${classes.flexContainer} ${classes.scdLineContainer}`}> {/* Container 2nd line */}
                 <div className={` ${classes.firstColumn} ${classes.planSizeContainer}`}><b>$ {props.price}</b></div>
-                {/* <span className={classes.secondColumn}><a href="#"> Check Offer </a> </span> */}
-                <a className={classes.secondColumn} href="https://simbud.com/country/canada/" target="_blank"> Check Offer </a>
+                <a className={classes.secondColumn} href="https://simbud.com/country/canada/" target="_blank">{t('offer.check')}</a>
             </div>
         </div>
     )

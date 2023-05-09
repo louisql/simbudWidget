@@ -4,6 +4,9 @@ import { Autocomplete, TextField } from "@mui/material"
 import { useContext, useEffect, useState } from "react"
 import OfferContext from '../../store/OfferContext';
 
+import {useTranslation} from "react-i18next";
+
+
 const DataSelector = () => {
     const offerCtx = useContext(OfferContext)
     const [updatedContent, setupdatedContent] = useState(false)
@@ -23,13 +26,13 @@ const DataSelector = () => {
 
         setOptions(filteredCapacity)
 
-        const isCapacityInPlan = filteredCapacity.includes(offerCtx.selectedCapacity)
+        // const isCapacityInPlan = filteredCapacity.includes(offerCtx.selectedCapacity)
 
-        if (isCapacityInPlan) {
-            setDefaultCapacity(offerCtx.selectedCapacity)
-        } else if (filteredList.length > 0) {
-            setDefaultCapacity(filteredList[0].capacity)
-        }
+        // if (isCapacityInPlan) {
+        //     setDefaultCapacity(offerCtx.selectedCapacity)
+        // } else if (filteredList.length > 0) {
+        //     setDefaultCapacity(filteredList[0].capacity)
+        // }
 
 
 
@@ -48,6 +51,7 @@ const DataSelector = () => {
         setupdatedContent(true)
     }
 
+    const {t, i18n} = useTranslation('common');
 
     return (
         <>
@@ -58,14 +62,15 @@ const DataSelector = () => {
                     options={options}
                     sx={{ width: 150 }}
                     filterOptions={filterOptions}
-                    defaultValue={defaultCapacity ?? " "}
+                    // defaultValue={defaultCapacity ?? " "}
                     onChange={handleChange}
                     renderInput={(params) =>
 
                         <TextField
                             {...params}
                             isOptionEqualToValue={(option, value) => option === value}
-                            label="Select capacity"
+                            // label="Select capacity"
+                            label={t('capacity.choose')}
                             borderRadius="16px"
                             style={{
                                 textAlign: "left",
