@@ -19,9 +19,7 @@ const App = () => {
     let communication = () => {
       let url = window.location != window.parent.location ? document.referrer : document.location.href;
 
-      console.log('message parent 2')
-      console.log(nberOfOffers)
-      console.log(url)
+      // console.log('message parent 2')
       window.parent.postMessage(nberOfOffers, url);
       // window.parent.postMessage(nberOfOffers, url);
     };
