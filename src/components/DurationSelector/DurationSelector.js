@@ -2,6 +2,8 @@ import { Autocomplete, TextField } from "@mui/material"
 import { useContext, useEffect, useState } from "react"
 import OfferContext from '../../store/OfferContext'
 
+import {useTranslation} from "react-i18next";
+
 
 const DurationSelector = () => {
     const offerCtx = useContext(OfferContext)
@@ -40,6 +42,8 @@ const DurationSelector = () => {
         offerCtx.changeCountry(offerCtx.selectedCountry)
     }
 
+    const {t, i18n} = useTranslation('common');
+
     if (offerCtx.error) {
         return <div>Error: {offerCtx.error}</div>
     } else if (!offerCtx.isLoaded) {
@@ -60,7 +64,8 @@ const DurationSelector = () => {
 
                             <TextField
                                 {...params}
-                                label="Select duration"
+                                // label="Select duration"
+                                label={t('duration.choose')}
                                 borderRadius="16px"
                                 style={{
                                     textAlign: "left",

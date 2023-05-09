@@ -1,0 +1,17 @@
+{
+    "country": {
+        "choose": "Choisissez votre destination"
+    },
+    "capacity": {
+        "choose": "Capacité"
+    }
+    ,
+    "duration": {
+        "choose": "Choisissez la durée"
+    },
+    "offer": {
+        "check": "Voir l'offre",
+        "validity": "valide",
+        "checkall": "Voir toutes les offres"
+    }
+}

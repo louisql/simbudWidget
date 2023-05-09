@@ -4,6 +4,9 @@ import { Autocomplete, TextField } from "@mui/material"
 import { useContext, useEffect, useState } from "react"
 import OfferContext from '../../store/OfferContext';
 
+import {useTranslation} from "react-i18next";
+
+
 const DataSelector = () => {
     const offerCtx = useContext(OfferContext)
     const [updatedContent, setupdatedContent] = useState(false)
@@ -48,6 +51,7 @@ const DataSelector = () => {
         setupdatedContent(true)
     }
 
+    const {t, i18n} = useTranslation('common');
 
     return (
         <>
@@ -65,7 +69,8 @@ const DataSelector = () => {
                         <TextField
                             {...params}
                             isOptionEqualToValue={(option, value) => option === value}
-                            label="Select capacity"
+                            // label="Select capacity"
+                            label={t('capacity.choose')}
                             borderRadius="16px"
                             style={{
                                 textAlign: "left",

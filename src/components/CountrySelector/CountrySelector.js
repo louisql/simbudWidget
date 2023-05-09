@@ -4,6 +4,8 @@ import { Autocomplete, TextField } from "@mui/material"
 import { useContext } from "react"
 import OfferContext from '../../store/OfferContext';
 
+import {useTranslation} from "react-i18next";
+
 const CountrySelector = () => {
     const offerCtx = useContext(OfferContext)
 
@@ -26,6 +28,8 @@ const CountrySelector = () => {
 
     }
 
+    const {t, i18n} = useTranslation('common');
+
     if (offerCtx.error) {
         return <div>Error: {offerCtx.error}</div>
     } else if (!offerCtx.isLoaded) {
@@ -45,7 +49,8 @@ const CountrySelector = () => {
 
                         <TextField
                             {...params}
-                            label="Choose your destination"
+                            // label="Choose your destination"
+                            label={t('country.choose')}
                             borderRadius="16px"
                             style={{
                                 textAlign: "left",
