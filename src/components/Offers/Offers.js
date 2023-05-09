@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from 'react';
 import Card from '../UI/Card';
 import CheckAllOffers from '../CheckAllOffers/CheckAllOffers'
 import classes from "./Offers.module.css";
-import OfferContext from '../../store/OfferContext';
+
 import CurrencySelector from '../CurrencySelector/CurrencySelector';
 
 const Offers = (props) => {
