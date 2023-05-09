@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Card from '../UI/Card';
 import CheckAllOffers from '../CheckAllOffers/CheckAllOffers'
 import classes from "./Offers.module.css";
+import CurrencySelector from '../CurrencySelector/CurrencySelector';
 
 const Offers = (props) => {
     const [offersData, setOffersData] = useState([]);
@@ -51,6 +52,7 @@ const Offers = (props) => {
             </div>
 
             <CheckAllOffers />
+            <CurrencySelector />
 
         </div>
     )
