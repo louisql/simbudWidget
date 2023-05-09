@@ -37,6 +37,7 @@ const DataSelector = () => {
 
 
 
+
     }, [offerCtx.selectedCountry, offerCtx.data, updatedContent])
 
     const filterOptions = (options, { inputValue }) => {
@@ -62,7 +63,9 @@ const DataSelector = () => {
                     options={options}
                     sx={{ width: 150 }}
                     filterOptions={filterOptions}
-                    defaultValue={defaultCapacity ?? " "}
+
+                    // defaultValue={defaultCapacity ?? " "}
+
                     onChange={handleChange}
                     renderInput={(params) =>
 

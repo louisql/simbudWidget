@@ -1,55 +1,15 @@
 import './CountrySelector.css';
 
 import { Autocomplete, TextField } from "@mui/material"
-import { useEffect, useState } from "react"
+import { useContext } from "react"
+import OfferContext from '../../store/OfferContext';
+
+import {useTranslation} from "react-i18next";
 
 const CountrySelector = () => {
-    const [isLoaded, setIsLoaded] = useState(false)
-    const [error, setError] = useState(null)
-    const [countries, setCountries] = useState([])
+    const offerCtx = useContext(OfferContext)
 
-    const widgetDefaultCountry = 'Canada'
-
-    useEffect(() => {
-        fetch("https://restcountries.com/v3.1/all")
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Error while fetching the data');
-                }
-            })
-            .then((dataJSON) => {
-                setIsLoaded(true)
-
-                const loadedCountries = [];
-
-                for (const key in dataJSON) {
-                    loadedCountries.push({
-                        id: key,
-                        name: dataJSON[key].name.common,
-                        code: dataJSON[key].cca3
-                    })
-                }
-
-                loadedCountries.sort((a, b) => {
-                    return a.name.localeCompare(b.name)
-                })
-
-                setCountries(loadedCountries);
-            })
-            .catch((error) => {
-                setIsLoaded(true)
-                setError(error);
-                // console.log(response.body);
-            });
-    }, [])
-
-    useEffect(() => {
-        
-    }, [countries])
-
-    const options = countries.map(
+    const options = offerCtx.loadedCountries.map(
         (country) => (
             country.name
         )
@@ -61,27 +21,36 @@ const CountrySelector = () => {
         );
     };
 
+    const handleChange = (event, value) => {
+        if (value) offerCtx.changeCountry(value);
+        offerCtx.changeCapacity(null);
+        offerCtx.changeValidity(null);
 
-    if (error) {
-        return <div>Error: {error}</div>
-    } else if (!isLoaded) {
+    }
+
+    const {t, i18n} = useTranslation('common');
+
+    if (offerCtx.error) {
+        return <div>Error: {offerCtx.error}</div>
+    } else if (!offerCtx.isLoaded) {
         return <div>Loading...</div>
     } else {
-        console.log(options)
         return (
             <>
                 <Autocomplete
                     disablePortal
                     id="combo-box-demo"
                     options={options}
-                    sx={{ width: 300 }}
+                    sx={{ width: 250 }}
                     filterOptions={filterOptions}
-                    defaultValue={widgetDefaultCountry}
+                    defaultValue={offerCtx.selectedCountry}
+                    onChange={handleChange}
                     renderInput={(params) =>
 
                         <TextField
                             {...params}
-                            label="Choose your destination"
+                            // label="Choose your destination"
+                            label={t('country.choose')}
                             borderRadius="16px"
                             style={{
                                 textAlign: "left",
