@@ -8,15 +8,17 @@ import DataSelector from './components/DataSelector/DataSelector';
 import DurationSelector from './components/DurationSelector/DurationSelector';
 import { I18nextProvider } from "react-i18next";
 import i18next from "i18next";
+import LanguageDetector from 'i18next-browser-languagedetector';
+
 
 import common_en from "./translations/en/common.json";
 import common_fr from "./translations/fr/common.json";
 
 
 const App = () => {
-  i18next.init({
+  i18next.use(LanguageDetector).init({
     interpolation: { escapeValue: false },  // React already does escaping
-    lng: 'fr',                              // language to use
+    // lng: 'fr',                              // language to use
     resources: {
         en: {
             common: common_en               // 'common' is our custom namespace
@@ -26,6 +28,8 @@ const App = () => {
         },
     },
   });
+
+  console.log(i18next.language)
 
   const [nberOfOffers, setnberOfOffers] = useState([0])
   const getNberOfOffers = (val) => {
