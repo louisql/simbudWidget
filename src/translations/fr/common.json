@@ -12,6 +12,7 @@
     "offer": {
         "check": "Voir l'offre",
         "validity": "valide",
-        "checkall": "Voir toutes les offres"
+        "checkall": "Voir toutes les offres",
+        "currency": "Devise"
     }
 }

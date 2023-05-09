@@ -56,9 +56,10 @@ const Offers = (props) => {
             <div className={classes.proposal_plans}>
                 {offersList}
             </div>
-
-            <CheckAllOffers />
-            <CurrencySelector />
+            <div className={classes.offersNCurrencyContainer}>
+                <CheckAllOffers />
+                <CurrencySelector />
+            </div>
 
         </div>
     )
