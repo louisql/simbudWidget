@@ -12,6 +12,8 @@
     "offer": {
         "check": "Check offer",
         "validity": "validity",
-        "checkall": "Check all offers"
+        "checkall": "Check all offers",
+        "currency": "Currency"
+
     }
 }
