@@ -2,12 +2,14 @@ import OfferContext from "./OfferContext";
 
 import { useEffect, useReducer } from "react";
 
+
 //Getting the parameters from the url
 const queryString = window.location.search;
 
 const urlParams = new URLSearchParams(queryString);
 const urlCountry = urlParams.get('country')
 
+//Setting Canada as default country if no country is passed
 const country = (urlCountry === null ? 'Canada' : urlCountry.charAt(0).toUpperCase() + urlCountry.slice(1));
 
 const defaultOfferState = {
@@ -30,20 +32,19 @@ const offerReducer = (state, action) => {
             }
 
         case 'CHANGE_VALIDITY':
-            return { 
+            return {
                 ...state,
                 selectedValidity: action.validity
             }
 
         case 'CHANGE_CAPACITY':
-            return { 
+            return {
                 ...state,
                 selectedCapacity: action.capacity
             }
 
         case 'CHANGE_NBRE_OFFERS_DISPLAYED':
-            console.log(action)
-            return { 
+            return {
                 ...state,
                 nbreOffersDisplayed: action.nbreOffersDisplayed
             }
@@ -89,7 +90,7 @@ const OfferProvider = (props) => {
             validity: validity
         })
     }
-    
+
     const changeCapacitytoOfferHandler = (capacity) => {
         dispatchOfferAction({
             type: "CHANGE_CAPACITY",
@@ -98,7 +99,6 @@ const OfferProvider = (props) => {
     }
 
     const changeNberOfferstoOfferHandler = (nbreOffers) => {
-        console.log(nbreOffers)
         dispatchOfferAction({
             type: "CHANGE_NBRE_OFFERS_DISPLAYED",
             nbreOffersDisplayed: nbreOffers

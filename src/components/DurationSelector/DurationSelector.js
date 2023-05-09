@@ -8,9 +8,6 @@ const DurationSelector = () => {
     const [options, setOptions] = useState([])
     const [defaultDuration, setDefaultDuration] = useState(null)
 
-    let toBeDisplayed;
-
-
     useEffect(() => {
         const selectedValidity = offerCtx.selectedValidity;
 
@@ -22,7 +19,6 @@ const DurationSelector = () => {
         if (selectedValidity) {
             const filteredList = offerCtx.data.filter(offer => offer.validity.toLowerCase().includes(selectedValidity.toLowerCase()))
             const isvalidityInPlan = filteredDuration.includes(offerCtx.selectedvalidity)
-            // console.log(filteredList)
             if (isvalidityInPlan) {
                 setDefaultDuration(offerCtx.selectedvalidity)
             }
@@ -31,13 +27,6 @@ const DurationSelector = () => {
             }
 
         }
-
-        // if (offerCtx.selectedDuration) {
-        //     setDefaultDuration(offerCtx.selectedDuration)
-        // } else 
-
-
-
     }, [offerCtx.selectedValidity, offerCtx.data])
 
     const filterOptions = (options, { inputValue }) => {
@@ -47,14 +36,9 @@ const DurationSelector = () => {
     };
 
     const handleChange = (event, value) => {
-        // if (value) {
-            offerCtx.changeValidity(value);
-            offerCtx.changeCountry(offerCtx.selectedCountry)
-        // }
+        offerCtx.changeValidity(value);
+        offerCtx.changeCountry(offerCtx.selectedCountry)
     }
-
-
-
 
     if (offerCtx.error) {
         return <div>Error: {offerCtx.error}</div>

@@ -8,8 +8,7 @@ import DataSelector from './components/DataSelector/DataSelector';
 import DurationSelector from './components/DurationSelector/DurationSelector';
 
 const App = () => {
-  
-  //To be updated with call useContext to get the number of offers
+
   const [nberOfOffers, setnberOfOffers] = useState([0])
   const getNberOfOffers = (val) => {
     setnberOfOffers(val)
@@ -19,14 +18,10 @@ const App = () => {
     let communication = () => {
       let url = window.location != window.parent.location ? document.referrer : document.location.href;
 
-      console.log('message parent 2')
-      console.log(nberOfOffers)
-      console.log(url)
+      // console.log('messaging parent window')
       window.parent.postMessage(nberOfOffers, url);
-      // window.parent.postMessage(nberOfOffers, url);
     };
     communication();
-  // }, [nberOfOffers]);
   }, [nberOfOffers]);
 
 
