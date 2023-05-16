@@ -14,6 +14,9 @@
     flex-basis: 25%;
     flex-direction: column;
     gap: 5px;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight: 600;
+
 }
 
 .firstColumn img{
@@ -31,6 +34,8 @@
     background-color: rgb(255, 87, 0); /* L Actualite Color */
     border-radius: 100px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight: 700;
     padding: 20px 20px;
     margin-left: 15px;
     color: #ffff;
@@ -48,6 +53,8 @@
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 5px;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight: 450;
 }
 
 .material-symbols-outlined {
@@ -77,4 +84,9 @@
 
 .scdLineContainer{
     align-items: center;
+}
+
+.offerTitle{
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-size: 15px;
 }

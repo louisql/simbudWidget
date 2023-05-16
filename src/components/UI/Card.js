@@ -17,7 +17,7 @@ const Card = props => {
                     </span>
                 </div>
                 <div className={classes.secondColumn}> {/* Container 2nd column */}
-                    <span> <b>{props.planName}</b> </span>
+                    <span className={classes.offerTitle}> <b>{props.planName}</b> </span>
 
                     <div className={classes.description}>
 
