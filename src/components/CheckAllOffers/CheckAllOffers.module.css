@@ -1,12 +1,14 @@
 .offerButton {
   /* flex-basis: 66%; */
   flex: 2 1 auto;
-  background-color: rgb(8, 254, 102); /* Muted blue color */
-  border-radius: 10px;
+  /* background-color: rgb(8, 254, 102); Simbud color */
+  background-color: #ff5700; /* L Actualite Color */
+  /* border-radius: 10px; */
+  border-radius: 50px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
   padding: 20px 20px;
   /* margin-left: 15px; */
-  color: unset;
+  color: #fff;
   text-decoration: none;
   width: 200px;
 
@@ -15,13 +17,16 @@
   justify-content: center;
   align-items: center;
   padding: 11px 16px;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   font-style: normal;
-  font-weight: bold;
+  /* font-weight: bold; */
+  font-weight: 700;
   cursor: pointer;
   line-height: normal;
 }
 
 .offerButton:hover{
-    background-color: rgb(8, 200, 150);
+  background-color: #ffe7db; /* L Actualite Color */
+  border: 1px solid #ff5700!important;
+  color: #ff5700;
 }
