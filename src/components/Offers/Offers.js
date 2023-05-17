@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 
 import Card from '../UI/Card';
 import CheckAllOffers from '../CheckAllOffers/CheckAllOffers'
@@ -38,6 +38,8 @@ const Offers = (props) => {
                 location={offer.country}
                 price={offer.price}
                 validity={offer.validity}
+                referal={offerCtx.referal}
+                url={offer.url}
             />
         ));
 

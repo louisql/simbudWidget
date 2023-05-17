@@ -7,7 +7,9 @@
     "country": "Canada",
     "logo": "../../assets/logo/airalo-100x100.png",
     "planName": "Tuque Mobile - 1 GB",
-    "validity": "3 days"
+    "validity": "3 days",
+    "url": "https://airalo.pxf.io/c/3581881/1693960/15608?subId1=actualite&p.code=AMELTALKS"
+            
   },
   {
     "id": 2,
@@ -17,7 +19,8 @@
     "country": "Canada",
     "logo": "../../assets/logo/flexiroam-100x100.png",
     "planName": "3 GB Global Plan",
-    "validity": "15 days"
+    "validity": "15 days",
+    "url": "https://travel.flexiroam.com/shop#a_aid=Planhub&a_bid=11110007&chan=actualite"
   },
   {
     "id": 3,
@@ -47,7 +50,8 @@
     "country": "Canada",
     "logo": "../../assets/logo/flexiroam-100x100.png",
     "planName": "1 GB Global Plan",
-    "validity": "3 days"
+    "validity": "3 days",
+    "url": "https://travel.flexiroam.com/shop#a_aid=Planhub&a_bid=11110007&chan=actualite"
   },
   {
     "id": 6,
