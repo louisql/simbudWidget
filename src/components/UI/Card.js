@@ -24,8 +24,6 @@ const Card = props => {
         } 
     }, [])
 
-    console.log(urlModified)
-
     return (
         <div className={classes.card}>
 
