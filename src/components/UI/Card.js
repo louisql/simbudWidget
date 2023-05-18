@@ -15,10 +15,7 @@ const Card = props => {
 
     useEffect(() => {
         if (referal) {
-            console.log(url)
-            console.log(referal)
             const adjustedURL = url.replace("actualite", referal);
-            // console.log(adjustedURL)
             setAdjustedURL(adjustedURL)
             setUrlModified(true)
         } 
