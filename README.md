@@ -12,6 +12,9 @@ localhost:3000/?country=canada
 
 add /?country={countryName}
 
+## Customize referer
+in url add &referal=actualite
+
 
 ## Language change automatically based on browser preferences
 
