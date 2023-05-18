@@ -8,7 +8,8 @@
     "logo": "../../assets/logo/airalo-100x100.png",
     "planName": "Tuque Mobile - 1 GB",
     "validity": "3 days",
-    "url": "https://airalo.pxf.io/c/3581881/1693960/15608?subId1=actualite&p.code=AMELTALKS"
+    "url": "https://airalo.pxf.io/c/3581881/1693960/15608?subId1=actualite&p.code=AMELTALKS",
+    "backupUrl": "https://airalo.pxf.io/simbud"
             
   },
   {
@@ -20,7 +21,8 @@
     "logo": "../../assets/logo/flexiroam-100x100.png",
     "planName": "3 GB Global Plan",
     "validity": "15 days",
-    "url": "https://travel.flexiroam.com/shop#a_aid=Planhub&a_bid=11110007&chan=actualite"
+    "url": "https://travel.flexiroam.com/shop#a_aid=Planhub&a_bid=11110007&chan=actualite",
+    "backupUrl":"https://travel.flexiroam.com/shop#a_aid=Planhub"
   },
   {
     "id": 3,
@@ -30,7 +32,10 @@
     "country": "Canada",
     "logo": "../../assets/logo/nomad-100x100.png",
     "planName": "Canada 2 GB",
-    "validity": "7 days"
+    "validity": "7 days",
+    "url": "https://www.getnomad.app/?rfsn=6805394.b005bf&subid=actualite",
+    "backupUrl": "https://www.getnomad.app/?rfsn=6805394.b005bf"
+
   },
   {
     "id": 4,
@@ -40,7 +45,10 @@
     "country": "Afghanistan",
     "logo": "../../assets/logo/nomad-100x100.png",
     "planName": "Afghanistan 2 GB",
-    "validity": "7 days"
+    "validity": "7 days",
+    "url": "https://www.getnomad.app/?rfsn=6805394.b005bf&subid=actualite",
+    "backupUrl": "https://www.getnomad.app/?rfsn=6805394.b005bf"
+
   },
   {
     "id": 5,
@@ -51,7 +59,8 @@
     "logo": "../../assets/logo/flexiroam-100x100.png",
     "planName": "1 GB Global Plan",
     "validity": "3 days",
-    "url": "https://travel.flexiroam.com/shop#a_aid=Planhub&a_bid=11110007&chan=actualite"
+    "url": "https://travel.flexiroam.com/shop#a_aid=Planhub&a_bid=11110007&chan=actualite",
+    "backupUrl":"https://travel.flexiroam.com/shop#a_aid=Planhub"
   },
   {
     "id": 6,
@@ -61,6 +70,8 @@
     "country": "Canada",
     "logo": "../../assets/logo/nomad-100x100.png",
     "planName": "Canada 1GB",
-    "validity": "3 days"
+    "validity": "3 days",
+    "url": "https://www.getnomad.app/?rfsn=6805394.b005bf&subid=actualite",
+    "backupUrl": "https://www.getnomad.app/?rfsn=6805394.b005bf"
   }
 ]

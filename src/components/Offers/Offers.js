@@ -13,6 +13,7 @@ const Offers = (props) => {
 
     const offerCtx = useContext(OfferContext)
     const selectedCountry = offerCtx.selectedCountry;
+    
 
     let offersList
 
@@ -40,6 +41,7 @@ const Offers = (props) => {
                 validity={offer.validity}
                 referal={offerCtx.referal}
                 url={offer.url}
+                backupUrl={offer.backupUrl}
             />
         ));
 

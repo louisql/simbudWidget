@@ -10,15 +10,21 @@ const Card = props => {
 
     const url = props.url;
     const referal = props.referal
+    const backupUrl = props.backupUrl
     
 
     useEffect(() => {
-        if (url) {
+        if (referal) {
+            console.log(url)
+            console.log(referal)
             const adjustedURL = url.replace("actualite", referal);
+            // console.log(adjustedURL)
             setAdjustedURL(adjustedURL)
             setUrlModified(true)
-        }
+        } 
     }, [])
+
+    console.log(urlModified)
 
     return (
         <div className={classes.card}>
@@ -77,7 +83,7 @@ const Card = props => {
 
             <div className={` ${classes.flexContainer} ${classes.scdLineContainer}`}> {/* Container 2nd line */}
                 <div className={` ${classes.firstColumn} ${classes.planSizeContainer}`}><b>$ {props.price}</b></div>
-                {!urlModified && (<a className={classes.secondColumn} href="https://simbud.com/country/canada/" target="_blank">{t('offer.check')}</a>)}
+                {!urlModified && (<a className={classes.secondColumn} href={backupUrl} target="_blank">{t('offer.check')}</a>)}
                 {urlModified && (<a className={classes.secondColumn} href={adjustedURL} target="_blank">{t('offer.check')}</a>)}
                 
             </div>
