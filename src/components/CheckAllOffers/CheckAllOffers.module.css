@@ -7,6 +7,8 @@
   color: #fff;
   text-decoration: none;
   width: 200px;
+  max-width: 70%;
+  border: 1px solid #ff5700!important;
 
   display: flex;
   flex-direction: row;
@@ -14,7 +16,7 @@
   align-items: center;
   padding: 11px 16px;
   font-style: normal;
-  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-family: 'fieldwork';
   font-weight: 800;
   cursor: pointer;
   line-height: normal;

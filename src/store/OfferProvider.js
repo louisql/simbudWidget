@@ -7,10 +7,16 @@ import { useEffect, useReducer } from "react";
 const queryString = window.location.search;
 
 const urlParams = new URLSearchParams(queryString);
+
 const urlCountry = urlParams.get('country')
+const urlReferal = urlParams.get('referal')
+
 
 //Setting Canada as default country if no country is passed
 const country = (urlCountry === null ? 'Canada' : urlCountry.charAt(0).toUpperCase() + urlCountry.slice(1));
+const referal = (urlReferal === null ? '' : urlReferal.toLocaleLowerCase());
+
+console.log(referal);
 
 const defaultOfferState = {
     data: [],
@@ -20,6 +26,7 @@ const defaultOfferState = {
     selectedCountry: country,
     selectedValidity: undefined,
     selectedCapacity: undefined,
+    referal: referal,
     nbreOffersDisplayed: 3
 }
 
@@ -131,6 +138,7 @@ const OfferProvider = (props) => {
         selectedCapacity: offerState.selectedCapacity,
         selectedValidity: offerState.selectedValidity,
         nbreOffersDisplayed: offerState.nbreOffersDisplayed,
+        referal: offerState.referal,
         changeCountry: changeCountryToOfferHandler,
         changeValidity: changeValiditytoOfferHandler,
         changeCapacity: changeCapacitytoOfferHandler,

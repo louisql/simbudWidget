@@ -1,6 +1,6 @@
 import './App.css';
 import classes from './App.module.css'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Offers from './components/Offers/Offers';
 import CountrySelector from './components/CountrySelector/CountrySelector';
 import OfferProvider from './store/OfferProvider';
@@ -16,6 +16,9 @@ import common_fr from "./translations/fr/common.json";
 
 
 const App = () => {
+  const appRef = useRef()
+  const [appHeight, setAppHeight] = useState(0)
+
   i18next.use(LanguageDetector).init({
     interpolation: { escapeValue: false },  
     // lng: 'fr',                              
@@ -29,29 +32,28 @@ const App = () => {
     },
   });
 
-  // console.log(i18next.language)
-
   const [nberOfOffers, setnberOfOffers] = useState([0])
   const getNberOfOffers = (val) => {
     setnberOfOffers(val)
   }
 
   useEffect(() => {
+    setAppHeight(appRef.current.offsetHeight)
+    
+
     let communication = () => {
       let url = window.location != window.parent.location ? document.referrer : document.location.href;
 
       // console.log('messaging parent window')
-      window.parent.postMessage(nberOfOffers, url);
+      window.parent.postMessage(appHeight, url);
     };
     communication();
-  }, [nberOfOffers]);
-
-
-
+  }, [nberOfOffers, appHeight]);
+  
   return (
     <I18nextProvider i18n={i18next}>
       <OfferProvider>
-        <div className="App">
+        <div className="App" ref={appRef}>
           <div className={classes.appContainer}>
             <div className={classes.inputsContainer}>
               <CountrySelector />

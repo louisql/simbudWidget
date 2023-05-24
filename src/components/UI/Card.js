@@ -1,10 +1,25 @@
 import classes from "./Card.module.css"
-
+import { useState, useEffect } from "react";
 import {useTranslation} from "react-i18next";
 
 const Card = props => {
+    const [urlModified, setUrlModified] = useState(false)
+    const [adjustedURL, setAdjustedURL] = useState('')
 
     const {t, i18n} = useTranslation('common');
+
+    const url = props.url;
+    const referal = props.referal
+    const backupUrl = props.backupUrl
+    
+
+    useEffect(() => {
+        if (referal) {
+            const adjustedURL = url.replace("actualite", referal);
+            setAdjustedURL(adjustedURL)
+            setUrlModified(true)
+        } 
+    }, [])
 
     return (
         <div className={classes.card}>
@@ -63,7 +78,9 @@ const Card = props => {
 
             <div className={` ${classes.flexContainer} ${classes.scdLineContainer}`}> {/* Container 2nd line */}
                 <div className={` ${classes.firstColumn} ${classes.planSizeContainer}`}><b>$ {props.price}</b></div>
-                <a className={classes.secondColumn} href="https://simbud.com/country/canada/" target="_blank">{t('offer.check')}</a>
+                {!urlModified && (<a className={classes.secondColumn} href={backupUrl} target="_blank">{t('offer.check')}</a>)}
+                {urlModified && (<a className={classes.secondColumn} href={adjustedURL} target="_blank">{t('offer.check')}</a>)}
+                
             </div>
         </div>
     )
