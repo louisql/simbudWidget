@@ -73,5 +73,29 @@
     "validity": "3 days",
     "url": "https://www.getnomad.app/?rfsn=6805394.b005bf&subid=actualite",
     "backupUrl": "https://www.getnomad.app/?rfsn=6805394.b005bf"
+  },
+  {
+    "id": 7,
+    "provider": "Nomad",
+    "capacity": "1 GB",
+    "price": 5,
+    "country": "Afghanistan",
+    "logo": "../../assets/logo/nomad-100x100.png",
+    "planName": "Afghanistan 1 GB",
+    "validity": "7 days",
+    "url": "https://www.getnomad.app/?rfsn=6805394.b005bf&subid=actualite",
+    "backupUrl": "https://www.getnomad.app/?rfsn=6805394.b005bf"
+  },
+  {
+    "id": 8,
+    "provider": "Flexiroam",
+    "capacity": "2 GB",
+    "price": 13,
+    "country": "Canada",
+    "logo": "../../assets/logo/flexiroam-100x100.png",
+    "planName": "2 GB Global Plan",
+    "validity": "15 days",
+    "url": "https://travel.flexiroam.com/shop#a_aid=Planhub&a_bid=11110007&chan=actualite",
+    "backupUrl":"https://travel.flexiroam.com/shop#a_aid=Planhub"
   }
 ]

@@ -7,6 +7,7 @@
   color: #fff;
   text-decoration: none;
   width: 200px;
+  max-width: 70%;
   border: 1px solid #ff5700!important;
 
   display: flex;
