@@ -16,8 +16,6 @@ const urlReferal = urlParams.get('referal')
 const country = (urlCountry === null ? 'Canada' : urlCountry.charAt(0).toUpperCase() + urlCountry.slice(1));
 const referal = (urlReferal === null ? '' : urlReferal.toLocaleLowerCase());
 
-console.log(referal);
-
 const defaultOfferState = {
     data: [],
     loadedCountries: [],
