@@ -1,13 +1,13 @@
 import CurrencyContext from "./CurrencyContext";
 
 import { useEffect, useReducer } from "react";
-
 const defaultCurrencyState = {
-    data: [],
     isLoaded: false,
     error: null,
     selectedCurrency: '',
-    setSelectedCurrency: () => {}
+    loadedCurrencies: [],
+    selectedCurrency: 'USD',
+    setSelectedCurrency: () => { }
 }
 
 const currencyReducer = (state, action) => {
@@ -21,8 +21,8 @@ const currencyReducer = (state, action) => {
         case 'INIT':
             return {
                 ...state,
-                data: action.data,
-                isLoaded: action.isLoaded
+                isLoaded: action.isLoaded,
+                loadedCurrencies: action.loadedCurrencies,
             }
 
         case 'ERROR':
@@ -37,7 +37,7 @@ const currencyReducer = (state, action) => {
     }
 }
 
-const currencyProvider = (props) => {
+const CurrencyProvider = (props) => {
     const [currencyState, dispatchCurrencyAction] = useReducer(
         currencyReducer,
         defaultCurrencyState
@@ -50,10 +50,10 @@ const currencyProvider = (props) => {
         })
     }
 
-    const initiateDataHandler = (data, isLoaded) => {
+    const initiateDataHandler = (loadedCurrencies, isLoaded) => {
         dispatchCurrencyAction({
             type: "INIT",
-            data: data,
+            loadedCurrencies: loadedCurrencies,
             isLoaded: isLoaded
         })
     }
@@ -67,8 +67,38 @@ const currencyProvider = (props) => {
     }
 
     const currencyContext = {
-        data: currencyState.data,
+        loadedCurrencies: currencyState.loadedCurrencies,
+        selectedCurrency: currencyState.selectedCurrency,
         isLoaded: currencyState.isLoaded,
-        error: currencyState
+        error: currencyState,
+        changeCurrency: changeCurrencyToCurrencyHandler,
     }
+
+
+
+
+    useEffect(() => {
+
+        fetch('https://v6.exchangerate-api.com/v6/828f80c7ea1d5bf55ef4c1aa/latest/' + currencyState.selectedCurrency)
+            .then((response) => {
+                return response.json();
+            }).then((dataJSON) => {
+                const loadedCurrencies = [];
+
+                for (const key in dataJSON.conversion_rates) {
+                    loadedCurrencies.push(key)
+                }
+                initiateDataHandler(loadedCurrencies, true)
+            }).catch((error) => {
+                setErrorHandler(true, error);
+            });
+    }, [])
+
+    return (
+        <CurrencyContext.Provider value={currencyContext}>
+            {props.children}
+        </CurrencyContext.Provider>
+    )
 }
+
+export default CurrencyProvider;

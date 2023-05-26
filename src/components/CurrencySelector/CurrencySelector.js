@@ -1,17 +1,18 @@
 import { Autocomplete, TextField } from "@mui/material"
 import { useContext } from 'react';
 
-import OfferContext from '../../store/OfferContext';
+import CurrencyContext from "../../store/CurrencyContext";
 
 import {useTranslation} from "react-i18next";
 
 const CurrencySelector = () => {
 
-    const offerCtx = useContext(OfferContext)
-    const selectedCurrency = offerCtx.selectedCurrency
-    const currencies = offerCtx.loadedCurrencies
+    const currencyCtx = useContext(CurrencyContext)
 
-    console.log(selectedCurrency)
+    const selectedCurrency = currencyCtx.selectedCurrency
+    const currencies = currencyCtx.loadedCurrencies
+
+    // console.log(selectedCurrency)
 
     // const filterOptions = (options, { inputValue }) => {
     //     return options.filter((option) =>
@@ -20,7 +21,7 @@ const CurrencySelector = () => {
     // };
 
     const handleChange = (event, value) => {
-        offerCtx.changeCurrency(value);
+        currencyCtx.changeCurrency(value);
     }
 
     const {t, i18n} = useTranslation('common');

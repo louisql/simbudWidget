@@ -8,10 +8,12 @@ import classes from "./Offers.module.css";
 import OfferContext from '../../store/OfferContext';
 
 import CurrencySelector from '../CurrencySelector/CurrencySelector';
+import CurrencyContext from '../../store/CurrencyContext';
 
 const Offers = (props) => {
 
     const offerCtx = useContext(OfferContext)
+    const currencyCtx = useContext(CurrencyContext)
     const selectedCountry = offerCtx.selectedCountry;
     
 
@@ -64,7 +66,6 @@ const Offers = (props) => {
                 <CheckAllOffers />
                 <CurrencySelector />
             </div>
-
         </div>
     )
 }

@@ -24,13 +24,11 @@ const referal = (urlReferal === null ? '' : urlReferal.toLocaleLowerCase());
 const defaultOfferState = {
     data: [],
     loadedCountries: [],
-    loadedCurrencies: [],
     isLoaded: false,
     error: null,
     selectedCountry: country,
     selectedValidity: undefined,
     selectedCapacity: undefined,
-    selectedCurrency: 'USD',
     referal: referal,
     nbreOffersDisplayed: 3
 }
@@ -59,12 +57,6 @@ const offerReducer = (state, action) => {
                 selectedCapacity: action.capacity
             }
 
-        case 'CHANGE_CURRENCY':
-            return {
-                ...state,
-                selectedCurrency: action.currency
-            }
-
         case 'CHANGE_NBRE_OFFERS_DISPLAYED':
             return {
                 ...state,
@@ -76,7 +68,6 @@ const offerReducer = (state, action) => {
                 ...state,
                 data: action.data,
                 loadedCountries: action.loadedCountries,
-                loadedCurrencies: action.loadedCurrencies,
                 isLoaded: action.isLoaded
             }
 
@@ -132,19 +123,11 @@ const OfferProvider = (props) => {
         })
     }
 
-    const changeCurrencyToCurrencyHandler = (currency) => {
-        dispatchOfferAction({
-            type: "CHANGE_CURRENCY",
-            currency: currency
-        })
-    }
-
-    const initiateDataHandler = (data, loadedCountries, loadedCurrencies, isLoaded) => {
+    const initiateDataHandler = (data, loadedCountries, isLoaded) => {
         dispatchOfferAction({
             type: "INIT",
             data: data,
             loadedCountries: loadedCountries,
-            loadedCurrencies: loadedCurrencies,
             isLoaded: isLoaded
         })
     }
@@ -166,14 +149,11 @@ const OfferProvider = (props) => {
         error: offerState.error,
         selectedCountry: offerState.selectedCountry,
         loadedCountries: offerState.loadedCountries,
-        loadedCurrencies: offerState.loadedCurrencies,
         selectedCapacity: offerState.selectedCapacity,
         selectedValidity: offerState.selectedValidity,
-        selectedCurrency: offerState.selectedCurrency,
         nbreOffersDisplayed: offerState.nbreOffersDisplayed,
         referal: offerState.referal,
         changeCountry: changeCountryToOfferHandler,
-        changeCurrency: changeCurrencyToCurrencyHandler,
         changeValidity: changeValiditytoOfferHandler,
         changeCapacity: changeCapacitytoOfferHandler,
         changeNberOffers: changeNberOfferstoOfferHandler
@@ -190,7 +170,6 @@ const OfferProvider = (props) => {
         Promise.all([
             fetch('https://restcountries.com/v3.1/all'),
             fetch('offers.json'),
-            fetch('https://v6.exchangerate-api.com/v6/828f80c7ea1d5bf55ef4c1aa/latest/' + offerState.selectedCurrency)
         ]).then((responses) => {
             // Get a JSON object from each of the responses
             return Promise.all(responses.map((response) => {
@@ -198,7 +177,6 @@ const OfferProvider = (props) => {
             }));
         }).then((dataJSON) => {
             const loadedCountries = [];
-            const loadedCurrencies = [];
 
             for (const key in dataJSON[0]) {
                 loadedCountries.push({
@@ -212,11 +190,9 @@ const OfferProvider = (props) => {
                 return a.name.localeCompare(b.name)
             })
 
-            for (const key in dataJSON[2].conversion_rates) {
-                loadedCurrencies.push(key)
-            }
 
-            initiateDataHandler(dataJSON[1], loadedCountries, loadedCurrencies,true)
+
+            initiateDataHandler(dataJSON[1], loadedCountries, true)
 
         }).catch((error) => {
             setErrorHandler(true, error);
