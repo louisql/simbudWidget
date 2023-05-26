@@ -4,9 +4,10 @@ import { useEffect, useReducer } from "react";
 const defaultCurrencyState = {
     isLoaded: false,
     error: null,
-    selectedCurrency: '',
     loadedCurrencies: [],
+    conversionRates: {},
     selectedCurrency: 'USD',
+    currentConversionRate: 1,
     setSelectedCurrency: () => { }
 }
 
@@ -15,7 +16,8 @@ const currencyReducer = (state, action) => {
         case 'CHANGE_CURRENCY':
             return {
                 ...state,
-                selectedCurrency: action.currency
+                selectedCurrency: action.currency,
+                currentConversionRate: state.conversionRates[action.currency]
             }
 
         case 'INIT':
@@ -23,6 +25,7 @@ const currencyReducer = (state, action) => {
                 ...state,
                 isLoaded: action.isLoaded,
                 loadedCurrencies: action.loadedCurrencies,
+                conversionRates: action.conversionRates
             }
 
         case 'ERROR':
@@ -46,14 +49,15 @@ const CurrencyProvider = (props) => {
     const changeCurrencyToCurrencyHandler = (currency) => {
         dispatchCurrencyAction({
             type: "CHANGE_CURRENCY",
-            currency: currency
+            currency: currency,
         })
     }
 
-    const initiateDataHandler = (loadedCurrencies, isLoaded) => {
+    const initiateDataHandler = (loadedCurrencies, conversionRates, isLoaded) => {
         dispatchCurrencyAction({
             type: "INIT",
             loadedCurrencies: loadedCurrencies,
+            conversionRates: conversionRates,
             isLoaded: isLoaded
         })
     }
@@ -69,6 +73,8 @@ const CurrencyProvider = (props) => {
     const currencyContext = {
         loadedCurrencies: currencyState.loadedCurrencies,
         selectedCurrency: currencyState.selectedCurrency,
+        conversionRates: currencyState.conversionRates,
+        currentConversionRate: currencyState.currentConversionRate,
         isLoaded: currencyState.isLoaded,
         error: currencyState,
         changeCurrency: changeCurrencyToCurrencyHandler,
@@ -84,11 +90,13 @@ const CurrencyProvider = (props) => {
                 return response.json();
             }).then((dataJSON) => {
                 const loadedCurrencies = [];
+                const conversionRates = dataJSON.conversion_rates
 
                 for (const key in dataJSON.conversion_rates) {
                     loadedCurrencies.push(key)
                 }
-                initiateDataHandler(loadedCurrencies, true)
+
+                initiateDataHandler(loadedCurrencies, conversionRates, true)
             }).catch((error) => {
                 setErrorHandler(true, error);
             });

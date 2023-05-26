@@ -12,7 +12,6 @@ const CurrencySelector = () => {
     const selectedCurrency = currencyCtx.selectedCurrency
     const currencies = currencyCtx.loadedCurrencies
 
-    // console.log(selectedCurrency)
 
     // const filterOptions = (options, { inputValue }) => {
     //     return options.filter((option) =>

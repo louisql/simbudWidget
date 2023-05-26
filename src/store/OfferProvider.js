@@ -1,6 +1,6 @@
 import OfferContext from "./OfferContext";
 
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useContext } from "react";
 
 /**
  * Getting the parameters from the url
