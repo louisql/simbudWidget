@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Offers from './components/Offers/Offers';
 import CountrySelector from './components/CountrySelector/CountrySelector';
 import OfferProvider from './store/OfferProvider';
+import CurrencyProvider from './store/CurrencyProvider';
 import DataSelector from './components/DataSelector/DataSelector';
 import DurationSelector from './components/DurationSelector/DurationSelector';
 import { I18nextProvider } from "react-i18next";
@@ -20,15 +21,15 @@ const App = () => {
   const [appHeight, setAppHeight] = useState(0)
 
   i18next.use(LanguageDetector).init({
-    interpolation: { escapeValue: false },  
+    interpolation: { escapeValue: false },
     // lng: 'fr',                              
     resources: {
-        en: {
-            common: common_en               
-        },
-        fr: {
-            common: common_fr
-        },
+      en: {
+        common: common_en
+      },
+      fr: {
+        common: common_fr
+      },
     },
   });
 
@@ -39,7 +40,7 @@ const App = () => {
 
   useEffect(() => {
     setAppHeight(appRef.current.offsetHeight)
-    
+
 
     let communication = () => {
       let url = window.location != window.parent.location ? document.referrer : document.location.href;
@@ -49,21 +50,23 @@ const App = () => {
     };
     communication();
   }, [nberOfOffers, appHeight]);
-  
+
   return (
     <I18nextProvider i18n={i18next}>
-      <OfferProvider>
-        <div className="App" ref={appRef}>
-          <div className={classes.appContainer}>
-            <div className={classes.inputsContainer}>
-              <CountrySelector />
-              <DataSelector />
-              <DurationSelector />
+      <CurrencyProvider>
+        <OfferProvider>
+          <div className="App" ref={appRef}>
+            <div className={classes.appContainer}>
+              <div className={classes.inputsContainer}>
+                <CountrySelector />
+                <DataSelector />
+                <DurationSelector />
+              </div>
+              <Offers onSendData={getNberOfOffers} />
             </div>
-            <Offers onSendData={getNberOfOffers} />
           </div>
-        </div>
-      </OfferProvider>
+        </OfferProvider>
+      </CurrencyProvider>
     </I18nextProvider>
   );
 }

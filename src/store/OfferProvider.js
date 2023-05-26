@@ -1,11 +1,11 @@
 import OfferContext from "./OfferContext";
 
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useContext } from "react";
 
-
-//Getting the parameters from the url
+/**
+ * Getting the parameters from the url
+ */
 const queryString = window.location.search;
-
 const urlParams = new URLSearchParams(queryString);
 
 const urlCountry = urlParams.get('country')
@@ -16,8 +16,11 @@ const urlReferal = urlParams.get('referal')
 const country = (urlCountry === null ? 'Canada' : urlCountry.charAt(0).toUpperCase() + urlCountry.slice(1));
 const referal = (urlReferal === null ? '' : urlReferal.toLocaleLowerCase());
 
-console.log(referal);
 
+
+/**
+ * Seting up default Offer State
+ */
 const defaultOfferState = {
     data: [],
     loadedCountries: [],
@@ -30,6 +33,10 @@ const defaultOfferState = {
     nbreOffersDisplayed: 3
 }
 
+
+/**
+ * Seting up the Reducer
+ */
 const offerReducer = (state, action) => {
     switch (action.type) {
         case 'CHANGE_COUNTRY':
@@ -76,6 +83,10 @@ const offerReducer = (state, action) => {
     }
 }
 
+
+/**
+ * Setting up Provider
+ */
 const OfferProvider = (props) => {
     const [offerState, dispatchOfferAction] = useReducer(
         offerReducer,
@@ -129,6 +140,9 @@ const OfferProvider = (props) => {
         })
     }
 
+/**
+ * Setting up Context
+ */
     const offerContext = {
         data: offerState.data,
         isLoaded: offerState.isLoaded,
@@ -145,12 +159,17 @@ const OfferProvider = (props) => {
         changeNberOffers: changeNberOfferstoOfferHandler
     }
 
+
+/**
+ * Fetching data for the context
+ */
+
     useEffect(() => {
         //Implementing simultaneous fetching
 
         Promise.all([
             fetch('https://restcountries.com/v3.1/all'),
-            fetch('offers.json')
+            fetch('offers.json'),
         ]).then((responses) => {
             // Get a JSON object from each of the responses
             return Promise.all(responses.map((response) => {
@@ -171,8 +190,9 @@ const OfferProvider = (props) => {
                 return a.name.localeCompare(b.name)
             })
 
-            initiateDataHandler(dataJSON[1], loadedCountries, true)
 
+
+            initiateDataHandler(dataJSON[1], loadedCountries, true)
 
         }).catch((error) => {
             setErrorHandler(true, error);

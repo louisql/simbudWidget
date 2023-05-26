@@ -8,12 +8,16 @@ import classes from "./Offers.module.css";
 import OfferContext from '../../store/OfferContext';
 
 import CurrencySelector from '../CurrencySelector/CurrencySelector';
+import CurrencyContext from '../../store/CurrencyContext';
 
 const Offers = (props) => {
 
     const offerCtx = useContext(OfferContext)
+    const currencyCtx = useContext(CurrencyContext)
     const selectedCountry = offerCtx.selectedCountry;
-    
+    const currentConversionRate = currencyCtx.currentConversionRate
+
+    console.log(currentConversionRate)
 
     let offersList
 
@@ -37,7 +41,8 @@ const Offers = (props) => {
                 capacity={offer.capacity}
                 planName={offer.planName}
                 location={offer.country}
-                price={offer.price}
+                // Rounding the price to 2 digits & applying conversion rate 
+                price={(Math.round(offer.price * currentConversionRate * 100)/100).toFixed(2)}
                 validity={offer.validity}
                 referal={offerCtx.referal}
                 url={offer.url}
@@ -64,9 +69,8 @@ const Offers = (props) => {
                 <CheckAllOffers />
                 <CurrencySelector />
             </div>
-
         </div>
     )
 }
 
-export default Offers;
+export default Offers; 
