@@ -5,7 +5,6 @@ import { useEffect, useReducer } from "react";
 
 //Getting the parameters from the url
 const queryString = window.location.search;
-
 const urlParams = new URLSearchParams(queryString);
 
 const urlCountry = urlParams.get('country')
@@ -24,6 +23,7 @@ const defaultOfferState = {
     selectedCountry: country,
     selectedValidity: undefined,
     selectedCapacity: undefined,
+    selectedCurrency: 'USD',
     referal: referal,
     nbreOffersDisplayed: 3
 }
@@ -46,6 +46,12 @@ const offerReducer = (state, action) => {
             return {
                 ...state,
                 selectedCapacity: action.capacity
+            }
+
+        case 'CHANGE_CURRENCY':
+            return {
+                ...state,
+                selectedCurrency: action.currency
             }
 
         case 'CHANGE_NBRE_OFFERS_DISPLAYED':
@@ -110,6 +116,13 @@ const OfferProvider = (props) => {
         })
     }
 
+    const changeCurrencyToCurrencyHandler = (currency) => {
+        dispatchOfferAction({
+            type: "CHANGE_CURRENCY",
+            currency: currency
+        })
+    }
+
     const initiateDataHandler = (data, loadedCountries, isLoaded) => {
         dispatchOfferAction({
             type: "INIT",
@@ -135,6 +148,7 @@ const OfferProvider = (props) => {
         loadedCountries: offerState.loadedCountries,
         selectedCapacity: offerState.selectedCapacity,
         selectedValidity: offerState.selectedValidity,
+        selectedCurrency: offerState.selectedCurrency,
         nbreOffersDisplayed: offerState.nbreOffersDisplayed,
         referal: offerState.referal,
         changeCountry: changeCountryToOfferHandler,
@@ -148,7 +162,8 @@ const OfferProvider = (props) => {
 
         Promise.all([
             fetch('https://restcountries.com/v3.1/all'),
-            fetch('offers.json')
+            fetch('offers.json'),
+            fetch('https://v6.exchangerate-api.com/v6/828f80c7ea1d5bf55ef4c1aa/latest/'+offerState.selectedCurrency)
         ]).then((responses) => {
             // Get a JSON object from each of the responses
             return Promise.all(responses.map((response) => {
@@ -156,7 +171,6 @@ const OfferProvider = (props) => {
             }));
         }).then((dataJSON) => {
             const loadedCountries = [];
-
             for (const key in dataJSON[0]) {
                 loadedCountries.push({
                     id: key,
@@ -164,11 +178,12 @@ const OfferProvider = (props) => {
                     code: dataJSON[0][key].cca3
                 })
             }
-
+            
             loadedCountries.sort((a, b) => {
                 return a.name.localeCompare(b.name)
             })
-
+            console.log(dataJSON[2])
+            
             initiateDataHandler(dataJSON[1], loadedCountries, true)
 
 

@@ -58,5 +58,17 @@ const currencyProvider = (props) => {
         })
     }
 
-    const setAppHeight
+    const setErrorHandler = (isLoaded, error) => {
+        dispatchCurrencyAction({
+            type: "ERROR",
+            isLoaded: isLoaded,
+            error: error
+        })
+    }
+
+    const currencyContext = {
+        data: currencyState.data,
+        isLoaded: currencyState.isLoaded,
+        error: currencyState
+    }
 }
