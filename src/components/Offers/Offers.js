@@ -69,4 +69,4 @@ const Offers = (props) => {
     )
 }
 
-export default Offers;
+export default Offers; 

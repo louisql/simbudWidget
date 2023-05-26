@@ -1,10 +1,17 @@
 import { Autocomplete, TextField } from "@mui/material"
+import { useContext } from 'react';
+
+import OfferContext from '../../store/OfferContext';
 
 import {useTranslation} from "react-i18next";
 
 const CurrencySelector = () => {
 
-    let options = [];
+    const offerCtx = useContext(OfferContext)
+    const selectedCurrency = offerCtx.selectedCurrency
+    const currencies = offerCtx.loadedCurrencies
+
+    console.log(selectedCurrency)
 
     // const filterOptions = (options, { inputValue }) => {
     //     return options.filter((option) =>
@@ -13,8 +20,7 @@ const CurrencySelector = () => {
     // };
 
     const handleChange = (event, value) => {
-        // offerCtx.changeCapacity(value);
-        console.log('updating currency')
+        offerCtx.changeCurrency(value);
     }
 
     const {t, i18n} = useTranslation('common');
@@ -23,10 +29,10 @@ const CurrencySelector = () => {
         <Autocomplete
             disablePortal
             id="combo-box-demo"
-            options={options}
+            options={currencies}
             sx={{ width: 150 }}
             // filterOptions={filterOptions}
-            defaultValue='USD'
+            defaultValue={selectedCurrency}
             onChange={handleChange}
             renderInput={(params) =>
 

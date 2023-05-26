@@ -2,8 +2,9 @@ import OfferContext from "./OfferContext";
 
 import { useEffect, useReducer } from "react";
 
-
-//Getting the parameters from the url
+/**
+ * Getting the parameters from the url
+ */
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
@@ -15,9 +16,15 @@ const urlReferal = urlParams.get('referal')
 const country = (urlCountry === null ? 'Canada' : urlCountry.charAt(0).toUpperCase() + urlCountry.slice(1));
 const referal = (urlReferal === null ? '' : urlReferal.toLocaleLowerCase());
 
+
+
+/**
+ * Seting up default Offer State
+ */
 const defaultOfferState = {
     data: [],
     loadedCountries: [],
+    loadedCurrencies: [],
     isLoaded: false,
     error: null,
     selectedCountry: country,
@@ -28,6 +35,10 @@ const defaultOfferState = {
     nbreOffersDisplayed: 3
 }
 
+
+/**
+ * Seting up the Reducer
+ */
 const offerReducer = (state, action) => {
     switch (action.type) {
         case 'CHANGE_COUNTRY':
@@ -65,6 +76,7 @@ const offerReducer = (state, action) => {
                 ...state,
                 data: action.data,
                 loadedCountries: action.loadedCountries,
+                loadedCurrencies: action.loadedCurrencies,
                 isLoaded: action.isLoaded
             }
 
@@ -80,6 +92,10 @@ const offerReducer = (state, action) => {
     }
 }
 
+
+/**
+ * Setting up Provider
+ */
 const OfferProvider = (props) => {
     const [offerState, dispatchOfferAction] = useReducer(
         offerReducer,
@@ -123,11 +139,12 @@ const OfferProvider = (props) => {
         })
     }
 
-    const initiateDataHandler = (data, loadedCountries, isLoaded) => {
+    const initiateDataHandler = (data, loadedCountries, loadedCurrencies, isLoaded) => {
         dispatchOfferAction({
             type: "INIT",
             data: data,
             loadedCountries: loadedCountries,
+            loadedCurrencies: loadedCurrencies,
             isLoaded: isLoaded
         })
     }
@@ -140,22 +157,32 @@ const OfferProvider = (props) => {
         })
     }
 
+/**
+ * Setting up Context
+ */
     const offerContext = {
         data: offerState.data,
         isLoaded: offerState.isLoaded,
         error: offerState.error,
         selectedCountry: offerState.selectedCountry,
         loadedCountries: offerState.loadedCountries,
+        loadedCurrencies: offerState.loadedCurrencies,
         selectedCapacity: offerState.selectedCapacity,
         selectedValidity: offerState.selectedValidity,
         selectedCurrency: offerState.selectedCurrency,
         nbreOffersDisplayed: offerState.nbreOffersDisplayed,
         referal: offerState.referal,
         changeCountry: changeCountryToOfferHandler,
+        changeCurrency: changeCurrencyToCurrencyHandler,
         changeValidity: changeValiditytoOfferHandler,
         changeCapacity: changeCapacitytoOfferHandler,
         changeNberOffers: changeNberOfferstoOfferHandler
     }
+
+
+/**
+ * Fetching data for the context
+ */
 
     useEffect(() => {
         //Implementing simultaneous fetching
@@ -163,7 +190,7 @@ const OfferProvider = (props) => {
         Promise.all([
             fetch('https://restcountries.com/v3.1/all'),
             fetch('offers.json'),
-            fetch('https://v6.exchangerate-api.com/v6/828f80c7ea1d5bf55ef4c1aa/latest/'+offerState.selectedCurrency)
+            fetch('https://v6.exchangerate-api.com/v6/828f80c7ea1d5bf55ef4c1aa/latest/' + offerState.selectedCurrency)
         ]).then((responses) => {
             // Get a JSON object from each of the responses
             return Promise.all(responses.map((response) => {
@@ -171,6 +198,8 @@ const OfferProvider = (props) => {
             }));
         }).then((dataJSON) => {
             const loadedCountries = [];
+            const loadedCurrencies = [];
+
             for (const key in dataJSON[0]) {
                 loadedCountries.push({
                     id: key,
@@ -178,14 +207,16 @@ const OfferProvider = (props) => {
                     code: dataJSON[0][key].cca3
                 })
             }
-            
+
             loadedCountries.sort((a, b) => {
                 return a.name.localeCompare(b.name)
             })
-            console.log(dataJSON[2])
-            
-            initiateDataHandler(dataJSON[1], loadedCountries, true)
 
+            for (const key in dataJSON[2].conversion_rates) {
+                loadedCurrencies.push(key)
+            }
+
+            initiateDataHandler(dataJSON[1], loadedCountries, loadedCurrencies,true)
 
         }).catch((error) => {
             setErrorHandler(true, error);
