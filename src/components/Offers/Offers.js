@@ -25,15 +25,35 @@ const Offers = (props) => {
 
     //Sorting data so they appear by ascending price
     const sortedData = offerCtx.data.sort(compareByPrice)
+    const convertToGB = (capacity) => {
+        const numericValue = parseFloat(capacity);
+        // console.log(capacity)
+        if (capacity !== undefined){
+            const unit = capacity.match(/[a-zA-Z]+/)[0].toLowerCase();
+            
+            if (unit === 'gb') {
+                return numericValue;
+            } else if (unit === 'mb') {
+                return numericValue / 1000;
+            }
+            
+        } 
+        return capacity;
+    }
+
+
 
     const filteredList = sortedData.filter(offer => {
+        const capacity = convertToGB(offer.capacity);
+
         // Next line reformat country by removing Capitalized letters, replacing hyphen by space and check if there's a match
         const countryMatch = offer.country.toLowerCase().replace(/-/g, ' ').includes(selectedCountry.toLowerCase())
-        const capacityMatch = offer.capacity === offerCtx.selectedCapacity || !offerCtx.selectedCapacity;
+        const capacityMatch = capacity >= convertToGB(offerCtx.selectedCapacity) || !offerCtx.selectedCapacity;
         const validityMatch = offer.validity === offerCtx.selectedValidity || !offerCtx.selectedValidity
 
         return countryMatch && capacityMatch && validityMatch
     });
+
 
 
     if (filteredList.length > 0) {
@@ -48,7 +68,7 @@ const Offers = (props) => {
                 planName={offer.planName}
                 location={selectedCountry}
                 // Rounding the price to 2 digits & applying conversion rate 
-                price={(Math.round(offer.USDPrice * currentConversionRate * 100)/100).toFixed(2)}
+                price={(Math.round(offer.USDPrice * currentConversionRate * 100) / 100).toFixed(2)}
                 validity={offer.validity}
                 referal={offerCtx.referal}
                 url={offer.url}
