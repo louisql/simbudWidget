@@ -27,6 +27,7 @@ const defaultOfferState = {
     isLoaded: false,
     error: null,
     selectedCountry: country,
+    selectedCountryCode: undefined,
     selectedValidity: undefined,
     selectedCapacity: undefined,
     referal: referal,
@@ -169,7 +170,7 @@ const OfferProvider = (props) => {
 
         Promise.all([
             fetch('https://restcountries.com/v3.1/all'),
-            fetch('offers.json'),
+            fetch('plans.json'),
         ]).then((responses) => {
             // Get a JSON object from each of the responses
             return Promise.all(responses.map((response) => {

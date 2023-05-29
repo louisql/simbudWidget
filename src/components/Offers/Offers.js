@@ -17,12 +17,13 @@ const Offers = (props) => {
     const selectedCountry = offerCtx.selectedCountry;
     const currentConversionRate = currencyCtx.currentConversionRate
 
-    console.log(currentConversionRate)
+    console.log(offerCtx)
 
     let offersList
 
     const filteredList = offerCtx.data.filter(offer => {
-        const countryMatch = offer.country.toLowerCase().includes(selectedCountry.toLowerCase())
+        // Next line reformat country by removing Capitalized letters, replacing hyphen by space and check if there's a match
+        const countryMatch = offer.country.toLowerCase().replace(/-/g, ' ').includes(selectedCountry.toLowerCase())
         const capacityMatch = offer.capacity === offerCtx.selectedCapacity || !offerCtx.selectedCapacity;
         const validityMatch = offer.validity === offerCtx.selectedValidity || !offerCtx.selectedValidity
 
@@ -40,9 +41,9 @@ const Offers = (props) => {
                 provider={offer.provider}
                 capacity={offer.capacity}
                 planName={offer.planName}
-                location={offer.country}
+                location={selectedCountry}
                 // Rounding the price to 2 digits & applying conversion rate 
-                price={(Math.round(offer.price * currentConversionRate * 100)/100).toFixed(2)}
+                price={(Math.round(offer.USDPrice * currentConversionRate * 100)/100).toFixed(2)}
                 validity={offer.validity}
                 referal={offerCtx.referal}
                 url={offer.url}
