@@ -17,11 +17,16 @@ const Offers = (props) => {
     const selectedCountry = offerCtx.selectedCountry;
     const currentConversionRate = currencyCtx.currentConversionRate
 
-    console.log(offerCtx)
+    // console.log(offerCtx)
 
     let offersList
 
-    const filteredList = offerCtx.data.filter(offer => {
+    const compareByPrice = (a, b) => a.USDPrice - b.USDPrice
+
+    //Sorting data so they appear by ascending price
+    const sortedData = offerCtx.data.sort(compareByPrice)
+
+    const filteredList = sortedData.filter(offer => {
         // Next line reformat country by removing Capitalized letters, replacing hyphen by space and check if there's a match
         const countryMatch = offer.country.toLowerCase().replace(/-/g, ' ').includes(selectedCountry.toLowerCase())
         const capacityMatch = offer.capacity === offerCtx.selectedCapacity || !offerCtx.selectedCapacity;
