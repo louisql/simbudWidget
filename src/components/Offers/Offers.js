@@ -27,8 +27,8 @@ const Offers = (props) => {
     const sortedData = offerCtx.data.sort(compareByPrice)
     const convertToGB = (capacity) => {
         const numericValue = parseFloat(capacity);
+        if (capacity !== undefined && capacity !== null){
         // console.log(capacity)
-        if (capacity !== undefined){
             const unit = capacity.match(/[a-zA-Z]+/)[0].toLowerCase();
             
             if (unit === 'gb') {
@@ -65,7 +65,7 @@ const Offers = (props) => {
                 logo={offer.logo}
                 provider={offer.provider}
                 capacity={offer.capacity}
-                planName={offer.planName}
+                planName={offer.planName.substring(0,20)}
                 location={selectedCountry}
                 // Rounding the price to 2 digits & applying conversion rate 
                 price={(Math.round(offer.USDPrice * currentConversionRate * 100) / 100).toFixed(2)}

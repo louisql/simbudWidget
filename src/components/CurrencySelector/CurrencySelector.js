@@ -20,7 +20,7 @@ const CurrencySelector = () => {
     // };
 
     const handleChange = (event, value) => {
-        currencyCtx.changeCurrency(value);
+        if(value !== null) currencyCtx.changeCurrency(value);
     }
 
     const {t, i18n} = useTranslation('common');
