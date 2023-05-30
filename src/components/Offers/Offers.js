@@ -54,27 +54,33 @@ const Offers = (props) => {
         return countryMatch && capacityMatch && validityMatch
     });
 
-
-
+    
+    
     if (filteredList.length > 0) {
         //Limiting display to 3 offers
-        offersList = filteredList.slice(0, 3).map((offer) => (
-            <Card
-                id={offer.id}
-                key={offer.id}
-                logo={offer.logo}
-                provider={offer.provider}
-                capacity={offer.capacity}
-                planName={offer.planName.substring(0,20)}
-                location={selectedCountry}
-                // Rounding the price to 2 digits & applying conversion rate 
-                price={(Math.round(offer.USDPrice * currentConversionRate * 100) / 100).toFixed(2)}
-                validity={offer.validity}
-                referal={offerCtx.referal}
-                url={offer.url}
-                backupUrl={offer.backupUrl}
-            />
-        ));
+        offersList = filteredList.slice(0, 3).map((offer) => {
+            let trimmedPlanName = offer.planName + " "
+            trimmedPlanName = trimmedPlanName.substring(0,22)
+            trimmedPlanName = trimmedPlanName.substring(0, Math.min(trimmedPlanName.length, trimmedPlanName.lastIndexOf(" ")))
+            
+            return(
+                <Card
+                    id={offer.id}
+                    key={offer.id}
+                    logo={offer.logo}
+                    provider={offer.provider}
+                    capacity={offer.capacity}
+                    planName={trimmedPlanName}
+                    location={selectedCountry}
+                    // Rounding the price to 2 digits & applying conversion rate 
+                    price={(Math.round(offer.USDPrice * currentConversionRate * 100) / 100).toFixed(2)}
+                    validity={offer.validity}
+                    referal={offerCtx.referal}
+                    url={offer.url}
+                    backupUrl={offer.backupUrl}
+                />
+            )
+        });
 
         props.onSendData(offersList.length)
 
