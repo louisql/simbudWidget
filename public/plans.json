@@ -11121,22 +11121,6 @@
   },
   {
     "provider": "Flexiroam",
-    "planName": "Americas 500MB",
-    "capacity": "500 MB",
-    "validity": "3 days",
-    "price": 8.5,
-    "currency": "USD",
-    "USDPrice": 8.5,
-    "promoPrice": "",
-    "USDPromoPrice": "",
-    "id": "_flexiroam__americas_500mb_500_mb_3_days",
-    "url": "https://travel.flexiroam.com/shop#a_aid=Planhub&a_bid=11110007&chan=actualite",
-    "backupUrl": "https://travel.flexiroam.com/shop#a_aid=Planhub",
-    "logo": "../../assets/logo/flexiroam-100x100.png",
-    "country": "argentina,brazil,canada,chile,colombia,ecuador,el-salvador,mexico,nicaragua,panama,paraguay,peru,puerto-rico,uruguay,united states"
-  },
-  {
-    "provider": "Flexiroam",
     "planName": "Latin America 7GB",
     "capacity": "7 GB",
     "validity": "15 days",
