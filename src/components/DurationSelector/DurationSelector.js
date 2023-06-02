@@ -8,12 +8,15 @@ import {useTranslation} from "react-i18next";
 const DurationSelector = () => {
     const offerCtx = useContext(OfferContext)
     const [options, setOptions] = useState([])
-    const [defaultDuration, setDefaultDuration] = useState(null)
 
     useEffect(() => {
-        console.log(offerCtx.selectedValidity)
         const filteredDuration = Array.from(new Set(offerCtx.data.map(offer => offer.validity)))
-        
+        filteredDuration.sort((a, b) => {
+            const numA = parseInt(a)
+            const numB = parseInt(b)
+
+            return numA - numB
+        })
         setOptions(filteredDuration)
 
     }, [offerCtx.selectedValidity, offerCtx.data])
@@ -25,7 +28,6 @@ const DurationSelector = () => {
     };
 
     const handleChange = (event, value) => {
-        console.log(value)
         // offerCtx.changeCapacity(value);
         offerCtx.changeValidity(value);
     }

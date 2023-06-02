@@ -13,6 +13,22 @@ const DataSelector = () => {
     const [options, setOptions] = useState([])
     const [defaultCapacity, setDefaultCapacity] = useState(null)
 
+    const convertToGB = (capacity) => {
+        const numericValue = parseFloat(capacity);
+        if (capacity !== undefined && capacity !== null){
+        // console.log(capacity)
+            const unit = capacity.match(/[a-zA-Z]+/)[0].toLowerCase();
+            
+            if (unit === 'gb') {
+                return numericValue;
+            } else if (unit === 'mb') {
+                return numericValue / 1000;
+            }
+            
+        } 
+        return capacity;
+    }
+
     useEffect(() => {
         setupdatedContent(false)
 
@@ -23,6 +39,13 @@ const DataSelector = () => {
         }
         //Using set to get the unique values
         const filteredCapacity = Array.from(new Set(filteredList.map(offer => offer.capacity)))
+
+        filteredCapacity.sort((a, b) => {
+            const numA = convertToGB(a)
+            const numB = convertToGB(b) 
+
+            return numA - numB
+        })
 
         setOptions(filteredCapacity)
 
