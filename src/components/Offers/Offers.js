@@ -41,20 +41,28 @@ const Offers = (props) => {
         return capacity;
     }
 
+    //Removing elements with similar id 
+    const uniqueData = sortedData.filter((offer, index, self) => {
+        return index === self.findIndex((o) => o.id === offer.id);
+      });
+      
 
-
-    const filteredList = sortedData.filter(offer => {
+    const filteredList = uniqueData.filter(offer => {
         const capacity = convertToGB(offer.capacity);
 
         // Next line reformat country by removing Capitalized letters, replacing hyphen by space and check if there's a match
         const countryMatch = offer.country.toLowerCase().replace(/-/g, ' ').includes(selectedCountry.toLowerCase())
         const capacityMatch = capacity >= convertToGB(offerCtx.selectedCapacity) || !offerCtx.selectedCapacity;
-        const validityMatch = offer.validity === offerCtx.selectedValidity || !offerCtx.selectedValidity
+        const validityMatch = parseFloat(offer.validity) >= parseFloat(offerCtx.selectedValidity) || !offerCtx.selectedValidity
 
         return countryMatch && capacityMatch && validityMatch
     });
 
-    
+    const resetField = () => {
+        offerCtx.changeCapacity(null);
+        offerCtx.changeValidity(null);
+        offerCtx.changeCountry(offerCtx.selectedCountry)
+    }
     
     if (filteredList.length > 0) {
         //Limiting display to 3 offers
@@ -86,7 +94,10 @@ const Offers = (props) => {
 
     } else if (offerCtx.isLoaded) {
         offersList = (
+            <>
             <div> No result <br /> Reset the Capacity & Duration filters or click below</div>
+            <button className={classes.resetButton} onClick={resetField}>Reset</button>
+            </>
         )
         props.onSendData(offersList.length)
     }

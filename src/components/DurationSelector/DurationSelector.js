@@ -8,27 +8,17 @@ import {useTranslation} from "react-i18next";
 const DurationSelector = () => {
     const offerCtx = useContext(OfferContext)
     const [options, setOptions] = useState([])
-    const [defaultDuration, setDefaultDuration] = useState(null)
 
     useEffect(() => {
-        
         const filteredDuration = Array.from(new Set(offerCtx.data.map(offer => offer.validity)))
-        
-        setOptions(filteredDuration)
-        
-        
-        // const selectedValidity = offerCtx.selectedValidity;
-        // if (selectedValidity) {
-        //     const filteredList = offerCtx.data.filter(offer => offer.validity.toLowerCase().includes(selectedValidity.toLowerCase()))
-        //     const isvalidityInPlan = filteredDuration.includes(offerCtx.selectedvalidity)
-        //     if (isvalidityInPlan) {
-        //         setDefaultDuration(offerCtx.selectedvalidity)
-        //     }
-        //     if (filteredList.length > 0) {
-        //         setDefaultDuration(filteredList[0].validity)
-        //     }
+        filteredDuration.sort((a, b) => {
+            const numA = parseInt(a)
+            const numB = parseInt(b)
 
-        // }
+            return numA - numB
+        })
+        setOptions(filteredDuration)
+
     }, [offerCtx.selectedValidity, offerCtx.data])
 
     const filterOptions = (options, { inputValue }) => {
@@ -38,8 +28,8 @@ const DurationSelector = () => {
     };
 
     const handleChange = (event, value) => {
+        // offerCtx.changeCapacity(value);
         offerCtx.changeValidity(value);
-        offerCtx.changeCountry(offerCtx.selectedCountry)
     }
 
     const {t, i18n} = useTranslation('common');
@@ -59,6 +49,7 @@ const DurationSelector = () => {
                         sx={{ width: 250 }}
                         filterOptions={filterOptions}
                         // defaultValue={defaultDuration}
+                        value={offerCtx.selectedValidity}
                         onChange={handleChange}
                         renderInput={(params) =>
 

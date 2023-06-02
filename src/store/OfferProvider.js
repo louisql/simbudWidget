@@ -170,7 +170,7 @@ const OfferProvider = (props) => {
 
         Promise.all([
             fetch('https://restcountries.com/v3.1/all'),
-            fetch('plans.json'),
+            fetch('plans.json')
         ]).then((responses) => {
             // Get a JSON object from each of the responses
             return Promise.all(responses.map((response) => {
