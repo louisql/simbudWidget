@@ -58,7 +58,11 @@ const Offers = (props) => {
         return countryMatch && capacityMatch && validityMatch
     });
 
-    
+    const resetField = () => {
+        offerCtx.changeCapacity(null);
+        offerCtx.changeValidity(null);
+        offerCtx.changeCountry(offerCtx.selectedCountry)
+    }
     
     if (filteredList.length > 0) {
         //Limiting display to 3 offers
@@ -90,7 +94,10 @@ const Offers = (props) => {
 
     } else if (offerCtx.isLoaded) {
         offersList = (
+            <>
             <div> No result <br /> Reset the Capacity & Duration filters or click below</div>
+            <button className={classes.resetButton} onClick={resetField}>Reset</button>
+            </>
         )
         props.onSendData(offersList.length)
     }

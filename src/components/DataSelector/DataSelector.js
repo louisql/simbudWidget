@@ -65,7 +65,7 @@ const DataSelector = () => {
                     filterOptions={filterOptions}
 
                     // defaultValue={defaultCapacity ?? " "}
-
+                    value={offerCtx.selectedCapacity}
                     onChange={handleChange}
                     renderInput={(params) =>
 

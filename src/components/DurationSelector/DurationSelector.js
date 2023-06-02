@@ -11,7 +11,7 @@ const DurationSelector = () => {
     const [defaultDuration, setDefaultDuration] = useState(null)
 
     useEffect(() => {
-        
+        console.log(offerCtx.selectedValidity)
         const filteredDuration = Array.from(new Set(offerCtx.data.map(offer => offer.validity)))
         
         setOptions(filteredDuration)
@@ -25,8 +25,9 @@ const DurationSelector = () => {
     };
 
     const handleChange = (event, value) => {
+        console.log(value)
+        // offerCtx.changeCapacity(value);
         offerCtx.changeValidity(value);
-        offerCtx.changeCountry(offerCtx.selectedCountry)
     }
 
     const {t, i18n} = useTranslation('common');
@@ -46,6 +47,7 @@ const DurationSelector = () => {
                         sx={{ width: 250 }}
                         filterOptions={filterOptions}
                         // defaultValue={defaultDuration}
+                        value={offerCtx.selectedValidity}
                         onChange={handleChange}
                         renderInput={(params) =>
 
