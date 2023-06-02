@@ -9,6 +9,8 @@ REST API to get country
 
 Currency fetched via API
 
+MaterialUI used for Autocomplete
+
 i18next for translation (French-English available, based on browser preferences)
 
 Test website for integration: https://github.com/louisql/helloWidget
