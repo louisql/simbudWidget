@@ -49,7 +49,7 @@ const Offers = (props) => {
         // Next line reformat country by removing Capitalized letters, replacing hyphen by space and check if there's a match
         const countryMatch = offer.country.toLowerCase().replace(/-/g, ' ').includes(selectedCountry.toLowerCase())
         const capacityMatch = capacity >= convertToGB(offerCtx.selectedCapacity) || !offerCtx.selectedCapacity;
-        const validityMatch = offer.validity === offerCtx.selectedValidity || !offerCtx.selectedValidity
+        const validityMatch = offer.validity >= offerCtx.selectedValidity || !offerCtx.selectedValidity
 
         return countryMatch && capacityMatch && validityMatch
     });
