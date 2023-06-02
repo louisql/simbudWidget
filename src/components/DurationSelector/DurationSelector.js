@@ -15,20 +15,7 @@ const DurationSelector = () => {
         const filteredDuration = Array.from(new Set(offerCtx.data.map(offer => offer.validity)))
         
         setOptions(filteredDuration)
-        
-        
-        // const selectedValidity = offerCtx.selectedValidity;
-        // if (selectedValidity) {
-        //     const filteredList = offerCtx.data.filter(offer => offer.validity.toLowerCase().includes(selectedValidity.toLowerCase()))
-        //     const isvalidityInPlan = filteredDuration.includes(offerCtx.selectedvalidity)
-        //     if (isvalidityInPlan) {
-        //         setDefaultDuration(offerCtx.selectedvalidity)
-        //     }
-        //     if (filteredList.length > 0) {
-        //         setDefaultDuration(filteredList[0].validity)
-        //     }
 
-        // }
     }, [offerCtx.selectedValidity, offerCtx.data])
 
     const filterOptions = (options, { inputValue }) => {

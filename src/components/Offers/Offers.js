@@ -41,9 +41,13 @@ const Offers = (props) => {
         return capacity;
     }
 
+    //Removing elements with similar id 
+    const uniqueData = sortedData.filter((offer, index, self) => {
+        return index === self.findIndex((o) => o.id === offer.id);
+      });
+      
 
-
-    const filteredList = sortedData.filter(offer => {
+    const filteredList = uniqueData.filter(offer => {
         const capacity = convertToGB(offer.capacity);
 
         // Next line reformat country by removing Capitalized letters, replacing hyphen by space and check if there's a match
