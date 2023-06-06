@@ -22,6 +22,10 @@
     flex-wrap: wrap;
 }
 
+.resetContainer{
+    display: flex;
+}
+
 .resetButton{
     background-color: rgb(255, 87, 0); /* L Actualite Color */
     border-radius: 100px;

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useContext } from 'react';
+import { useTranslation } from "react-i18next";
 
 import Card from '../UI/Card';
 import CheckAllOffers from '../CheckAllOffers/CheckAllOffers'
@@ -17,7 +18,7 @@ const Offers = (props) => {
     const selectedCountry = offerCtx.selectedCountry;
     const currentConversionRate = currencyCtx.currentConversionRate
 
-    // console.log(offerCtx)
+    // const {t, i18n} = useTranslation('common');
 
     let offersList
 
@@ -27,25 +28,25 @@ const Offers = (props) => {
     const sortedData = offerCtx.data.sort(compareByPrice)
     const convertToGB = (capacity) => {
         const numericValue = parseFloat(capacity);
-        if (capacity !== undefined && capacity !== null){
-        // console.log(capacity)
+        if (capacity !== undefined && capacity !== null) {
+            // console.log(capacity)
             const unit = capacity.match(/[a-zA-Z]+/)[0].toLowerCase();
-            
+
             if (unit === 'gb') {
                 return numericValue;
             } else if (unit === 'mb') {
                 return numericValue / 1000;
             }
-            
-        } 
+
+        }
         return capacity;
     }
 
     //Removing elements with similar id 
     const uniqueData = sortedData.filter((offer, index, self) => {
         return index === self.findIndex((o) => o.id === offer.id);
-      });
-      
+    });
+
 
     const filteredList = uniqueData.filter(offer => {
         const capacity = convertToGB(offer.capacity);
@@ -63,15 +64,15 @@ const Offers = (props) => {
         offerCtx.changeValidity(null);
         offerCtx.changeCountry(offerCtx.selectedCountry)
     }
-    
+
     if (filteredList.length > 0) {
         //Limiting display to 3 offers
         offersList = filteredList.slice(0, 3).map((offer) => {
             let trimmedPlanName = offer.planName + " "
-            trimmedPlanName = trimmedPlanName.substring(0,22)
+            trimmedPlanName = trimmedPlanName.substring(0, 22)
             trimmedPlanName = trimmedPlanName.substring(0, Math.min(trimmedPlanName.length, trimmedPlanName.lastIndexOf(" ")))
-            
-            return(
+
+            return (
                 <Card
                     id={offer.id}
                     key={offer.id}
@@ -94,10 +95,9 @@ const Offers = (props) => {
 
     } else if (offerCtx.isLoaded) {
         offersList = (
-            <>
-            <div> No result <br /> Reset the Capacity & Duration filters or click below</div>
-            <button className={classes.resetButton} onClick={resetField}>Reset</button>
-            </>
+            <div className={classes.errorContainer}>
+                <button className={classes.resetButton} onClick={resetField}>Reset</button>
+            </div>
         )
         props.onSendData(offersList.length)
     }

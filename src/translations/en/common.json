@@ -4,16 +4,16 @@
     },
     "capacity": {
         "choose": "Capacity"
-    }
-    ,
+    },
     "duration": {
         "choose": "Duration"
     },
     "offer": {
         "check": "Check offer",
-        "validity": "validity",
+        "validity": "Valid",
         "checkall": "Check all offers",
-        "currency": "Currency"
-
+        "currency": "Currency",
+        "days": "days",
+        "noResult": "No Result"
     }
 }

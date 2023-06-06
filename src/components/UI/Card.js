@@ -12,6 +12,7 @@ const Card = props => {
     const referal = props.referal
     const backupUrl = props.backupUrl
     
+    const parsedValidity = parseInt(props.validity)
 
     useEffect(() => {
         if (referal) {
@@ -69,7 +70,7 @@ const Card = props => {
                                 <path d="M16 19h6"></path>
                                 <path d="M19 16v6"></path>
                             </svg>
-                        <span>{props.validity} {t('offer.validity')}</span>
+                        <span>{t('offer.validity')} {parsedValidity} {t('offer.days')}</span>
                         </div>
 
                     </div>

@@ -11,8 +11,10 @@
     },
     "offer": {
         "check": "Voir l'offre",
-        "validity": "valide",
+        "validity": "Valide",
         "checkall": "Voir toutes les offres",
-        "currency": "Devise"
+        "currency": "Devise",
+        "days": "jours",
+        "noResult": "Aucun résultat"
     }
 }
