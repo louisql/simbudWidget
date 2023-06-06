@@ -1,20 +1,31 @@
 import CurrencyContext from "./CurrencyContext";
 
 import { useEffect, useReducer } from "react";
+
+
+/**
+ * Getting the parameters from the url
+ */
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const urlCurrency = urlParams.get('currency')
+
+const currency = (urlCurrency === null ? 'CAD' : urlCurrency.toLowerCase())
+
+
 const defaultCurrencyState = {
     isLoaded: false,
     error: null,
     loadedCurrencies: [],
     conversionRates: {},
-    selectedCurrency: 'USD',
-    currentConversionRate: 1,
+    selectedCurrency: 'CAD',
+    // currentConversionRate: 1,
     setSelectedCurrency: () => { }
 }
 
 const currencyReducer = (state, action) => {
     switch (action.type) {
         case 'CHANGE_CURRENCY':
-            console.log(state.conversionRates)
             return {
                 ...state,
                 selectedCurrency: action.currency,
@@ -26,7 +37,9 @@ const currencyReducer = (state, action) => {
                 ...state,
                 isLoaded: action.isLoaded,
                 loadedCurrencies: action.loadedCurrencies,
-                conversionRates: action.conversionRates
+                conversionRates: action.conversionRates,
+                selectedCurrency: action.selectedCurrency,
+                currentConversionRate: action.currentConversionRate
             }
 
         case 'ERROR':
@@ -54,11 +67,13 @@ const CurrencyProvider = (props) => {
         })
     }
 
-    const initiateDataHandler = (loadedCurrencies, conversionRates, isLoaded) => {
+    const initiateDataHandler = (loadedCurrencies, conversionRates, selectedCurrency, isLoaded) => {
         dispatchCurrencyAction({
             type: "INIT",
             loadedCurrencies: loadedCurrencies,
             conversionRates: conversionRates,
+            selectedCurrency: selectedCurrency,
+            currentConversionRate: conversionRates[selectedCurrency],
             isLoaded: isLoaded
         })
     }
@@ -87,7 +102,6 @@ const CurrencyProvider = (props) => {
     const CURRENCY_SYMBOL_JSON = "world_currency_symbols.json"
 
     useEffect(() => {
-
         Promise.all([
             fetch(URL_CURRENCIES),
             fetch(CURRENCY_SYMBOL_JSON)
@@ -98,8 +112,6 @@ const CurrencyProvider = (props) => {
         }).then((dataJSON) => {
             const loadedCurrencies = [];
             const conversionRates = dataJSON[0].rates
-            const currencySymbol = {}
-
 
             for (const key in dataJSON[1]) {
                 loadedCurrencies[dataJSON[1][key].Code] = {
@@ -107,38 +119,11 @@ const CurrencyProvider = (props) => {
                 }
             }
 
-
-            console.log(dataJSON)
-            console.log(loadedCurrencies)
-            console.log(conversionRates)
-
-            initiateDataHandler(loadedCurrencies, conversionRates)
+            initiateDataHandler(loadedCurrencies, conversionRates, currency, true)
         }).catch((error) => {
             setErrorHandler(true, error);
         })
 
-
-        // fetch(CURRENCY_SYMBOL_JSON)
-        //     .then((response) => {
-        //         return response.json();
-        //     }).then((dataJSON) => {
-        //         let loadedCurrencies = {};
-        //         const conversionRates = dataJSON.conversion_rates
-
-        //         for (const key in dataJSON) {
-        //             loadedCurrencies[dataJSON[key].Code] = {
-        //                 Symbol: dataJSON[key].Symbol
-        //             }
-        //         }
-
-        //         console.log(dataJSON)
-        //         // console.log(loadedCurrencies)
-        //         console.log(conversionRates)
-
-        //         initiateDataHandler(loadedCurrencies, conversionRates, true)
-        //     }).catch((error) => {
-        //         setErrorHandler(true, error);
-        //     });
     }, [])
 
     return (

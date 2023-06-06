@@ -14,7 +14,7 @@ const urlReferal = urlParams.get('referal')
 
 //Setting Canada as default country if no country is passed
 const country = (urlCountry === null ? 'Canada' : urlCountry.charAt(0).toUpperCase() + urlCountry.slice(1));
-const referal = (urlReferal === null ? '' : urlReferal.toLocaleLowerCase());
+const referal = (urlReferal === null ? '' : urlReferal.toLowerCase());
 
 const URL_COUNTRIES = 'https://restcountries.com/v3.1/all'
 const PLANS_JSON = 'plans.json' 

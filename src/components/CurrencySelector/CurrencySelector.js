@@ -1,5 +1,5 @@
 import { Autocomplete, TextField } from "@mui/material"
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import CurrencyContext from "../../store/CurrencyContext";
 

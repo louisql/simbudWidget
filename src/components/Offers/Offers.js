@@ -20,7 +20,7 @@ const Offers = (props) => {
     const selectedCurrency = currencyCtx.selectedCurrency
     const currencies = currencyCtx.loadedCurrencies
     
-    console.log(currencies)
+
     // const {t, i18n} = useTranslation('common');
 
     let offersList
