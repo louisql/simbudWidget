@@ -10,8 +10,8 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const urlCurrency = urlParams.get('currency')
 
-const currency = (urlCurrency === null ? 'CAD' : urlCurrency.toLowerCase())
-
+const currency = (urlCurrency === null ? 'CAD' : urlCurrency.toUpperCase())
+console.log(currency)
 
 const defaultCurrencyState = {
     isLoaded: false,
@@ -19,7 +19,6 @@ const defaultCurrencyState = {
     loadedCurrencies: [],
     conversionRates: {},
     selectedCurrency: 'CAD',
-    // currentConversionRate: 1,
     setSelectedCurrency: () => { }
 }
 

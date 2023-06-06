@@ -13,13 +13,6 @@ const CurrencySelector = () => {
     const currencies = currencyCtx.loadedCurrencies
     const options = Object.keys(currencies)
 
-
-    // const filterOptions = (options, { inputValue }) => {
-    //     return options.filter((option) =>
-    //         option.toLowerCase().startsWith(inputValue.toLowerCase())
-    //     );
-    // };
-
     const handleChange = (event, value) => {
         if(value !== null) currencyCtx.changeCurrency(value);
     }
@@ -33,7 +26,7 @@ const CurrencySelector = () => {
             options={options}
             sx={{ width: 150 }}
             // filterOptions={filterOptions}
-            defaultValue={selectedCurrency}
+            value={selectedCurrency}
             onChange={handleChange}
             renderInput={(params) =>
 
