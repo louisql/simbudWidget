@@ -19,10 +19,11 @@ import common_fr from "./translations/fr/common.json";
 const App = () => {
   const appRef = useRef()
   const [appHeight, setAppHeight] = useState(0)
+  const pageLanguage = document.documentElement.lang
 
-  i18next.use(LanguageDetector).init({
+  i18next.init({
     interpolation: { escapeValue: false },
-    // lng: 'fr',                              
+    lng: pageLanguage,                              
     resources: {
       en: {
         common: common_en

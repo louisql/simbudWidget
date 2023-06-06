@@ -11,7 +11,6 @@ const urlParams = new URLSearchParams(queryString);
 const urlCurrency = urlParams.get('currency')
 
 const currency = (urlCurrency === null ? 'CAD' : urlCurrency.toUpperCase())
-console.log(currency)
 
 const defaultCurrencyState = {
     isLoaded: false,
