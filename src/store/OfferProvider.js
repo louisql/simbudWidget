@@ -16,7 +16,8 @@ const urlReferal = urlParams.get('referal')
 const country = (urlCountry === null ? 'Canada' : urlCountry.charAt(0).toUpperCase() + urlCountry.slice(1));
 const referal = (urlReferal === null ? '' : urlReferal.toLocaleLowerCase());
 
-
+const URL_COUNTRIES = 'https://restcountries.com/v3.1/all'
+const PLANS_JSON = 'plans.json' 
 
 /**
  * Seting up default Offer State
@@ -169,8 +170,8 @@ const OfferProvider = (props) => {
         //Implementing simultaneous fetching
 
         Promise.all([
-            fetch('https://restcountries.com/v3.1/all'),
-            fetch('plans.json')
+            fetch(URL_COUNTRIES),
+            fetch(PLANS_JSON)
         ]).then((responses) => {
             // Get a JSON object from each of the responses
             return Promise.all(responses.map((response) => {

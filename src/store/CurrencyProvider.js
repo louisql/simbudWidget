@@ -81,20 +81,54 @@ const CurrencyProvider = (props) => {
     }
 
 
-
+    const APP_ID = "7442e02609d741798356b6a559dfd211"
+    const URL_CURRENCIES = "https://openexchangerates.org/api/latest.json?app_id=" + APP_ID
+    const CURRENCY_SYMBOL_JSON = "world_currency_symbols.json"
 
     useEffect(() => {
 
-        fetch('https://v6.exchangerate-api.com/v6/828f80c7ea1d5bf55ef4c1aa/latest/' + currencyState.selectedCurrency)
+        // Promise.all([
+        //     // fetch(URL_CURRENCIES),
+        //     fetch(CURRENCY_SYMBOL_JSON)
+        // ]).then((responses) => {
+        //     return Promise.all(responses.map((response) => {
+        //         return response.json();
+        //     }));
+        // }).then((dataJSON) => {
+        //     const loadedCurrencies = [];
+        //     const conversionRates = dataJSON[0].rates
+        //     const currencySymbol = {}
+            
+        //     for (const key in dataJSON[0].rates) {
+        //         loadedCurrencies.push(key)
+        //     }
+            
+
+        //     console.log(dataJSON)
+        //     console.log(loadedCurrencies)
+        //     console.log(conversionRates)
+
+        //     initiateDataHandler(loadedCurrencies, conversionRates)
+        // }).catch((error) => {
+        //     setErrorHandler(true, error);
+        // })
+
+
+        fetch(CURRENCY_SYMBOL_JSON)
             .then((response) => {
                 return response.json();
             }).then((dataJSON) => {
-                const loadedCurrencies = [];
+                let loadedCurrencies = {};
                 const conversionRates = dataJSON.conversion_rates
-
-                for (const key in dataJSON.conversion_rates) {
-                    loadedCurrencies.push(key)
+                
+                for (const key in dataJSON) {
+                    loadedCurrencies[dataJSON[key].Code] = {
+                        Symbol: dataJSON[key].Symbol
+                    }
                 }
+                
+                console.log(dataJSON)
+                console.log(loadedCurrencies)
 
                 initiateDataHandler(loadedCurrencies, conversionRates, true)
             }).catch((error) => {
