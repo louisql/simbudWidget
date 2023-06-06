@@ -14,6 +14,7 @@ const defaultCurrencyState = {
 const currencyReducer = (state, action) => {
     switch (action.type) {
         case 'CHANGE_CURRENCY':
+            console.log(state.conversionRates)
             return {
                 ...state,
                 selectedCurrency: action.currency,
@@ -87,53 +88,57 @@ const CurrencyProvider = (props) => {
 
     useEffect(() => {
 
-        // Promise.all([
-        //     // fetch(URL_CURRENCIES),
-        //     fetch(CURRENCY_SYMBOL_JSON)
-        // ]).then((responses) => {
-        //     return Promise.all(responses.map((response) => {
-        //         return response.json();
-        //     }));
-        // }).then((dataJSON) => {
-        //     const loadedCurrencies = [];
-        //     const conversionRates = dataJSON[0].rates
-        //     const currencySymbol = {}
-            
-        //     for (const key in dataJSON[0].rates) {
-        //         loadedCurrencies.push(key)
-        //     }
-            
-
-        //     console.log(dataJSON)
-        //     console.log(loadedCurrencies)
-        //     console.log(conversionRates)
-
-        //     initiateDataHandler(loadedCurrencies, conversionRates)
-        // }).catch((error) => {
-        //     setErrorHandler(true, error);
-        // })
-
-
-        fetch(CURRENCY_SYMBOL_JSON)
-            .then((response) => {
+        Promise.all([
+            fetch(URL_CURRENCIES),
+            fetch(CURRENCY_SYMBOL_JSON)
+        ]).then((responses) => {
+            return Promise.all(responses.map((response) => {
                 return response.json();
-            }).then((dataJSON) => {
-                let loadedCurrencies = {};
-                const conversionRates = dataJSON.conversion_rates
-                
-                for (const key in dataJSON) {
-                    loadedCurrencies[dataJSON[key].Code] = {
-                        Symbol: dataJSON[key].Symbol
-                    }
-                }
-                
-                console.log(dataJSON)
-                console.log(loadedCurrencies)
+            }));
+        }).then((dataJSON) => {
+            const loadedCurrencies = [];
+            const conversionRates = dataJSON[0].rates
+            const currencySymbol = {}
 
-                initiateDataHandler(loadedCurrencies, conversionRates, true)
-            }).catch((error) => {
-                setErrorHandler(true, error);
-            });
+
+            for (const key in dataJSON[1]) {
+                loadedCurrencies[dataJSON[1][key].Code] = {
+                    Symbol: dataJSON[1][key].Symbol
+                }
+            }
+
+
+            console.log(dataJSON)
+            console.log(loadedCurrencies)
+            console.log(conversionRates)
+
+            initiateDataHandler(loadedCurrencies, conversionRates)
+        }).catch((error) => {
+            setErrorHandler(true, error);
+        })
+
+
+        // fetch(CURRENCY_SYMBOL_JSON)
+        //     .then((response) => {
+        //         return response.json();
+        //     }).then((dataJSON) => {
+        //         let loadedCurrencies = {};
+        //         const conversionRates = dataJSON.conversion_rates
+
+        //         for (const key in dataJSON) {
+        //             loadedCurrencies[dataJSON[key].Code] = {
+        //                 Symbol: dataJSON[key].Symbol
+        //             }
+        //         }
+
+        //         console.log(dataJSON)
+        //         // console.log(loadedCurrencies)
+        //         console.log(conversionRates)
+
+        //         initiateDataHandler(loadedCurrencies, conversionRates, true)
+        //     }).catch((error) => {
+        //         setErrorHandler(true, error);
+        //     });
     }, [])
 
     return (

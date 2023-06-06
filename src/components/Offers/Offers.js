@@ -17,7 +17,10 @@ const Offers = (props) => {
     const currencyCtx = useContext(CurrencyContext)
     const selectedCountry = offerCtx.selectedCountry;
     const currentConversionRate = currencyCtx.currentConversionRate
-
+    const selectedCurrency = currencyCtx.selectedCurrency
+    const currencies = currencyCtx.loadedCurrencies
+    
+    console.log(currencies)
     // const {t, i18n} = useTranslation('common');
 
     let offersList
@@ -87,6 +90,7 @@ const Offers = (props) => {
                     referal={offerCtx.referal}
                     url={offer.url}
                     backupUrl={offer.backupUrl}
+                    currencySymbol={currencies[selectedCurrency].Symbol}
                 />
             )
         });

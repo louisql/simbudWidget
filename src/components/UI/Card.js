@@ -16,6 +16,8 @@ const Card = props => {
 
     const priceWithComma = props.price.replace(".", ",")
 
+    // console.log(props.currencySymbol)
+
     useEffect(() => {
         if (referal) {
             const adjustedURL = url.replace("actualite", referal);
@@ -80,7 +82,7 @@ const Card = props => {
             </div>
 
             <div className={` ${classes.flexContainer} ${classes.scdLineContainer}`}> {/* Container 2nd line */}
-                <div className={` ${classes.firstColumn} ${classes.planSizeContainer}`}><b>{priceWithComma} $ </b></div>
+                <div className={` ${classes.firstColumn} ${classes.planSizeContainer}`}><b>{priceWithComma} {props.currencySymbol} </b></div>
                 {!urlModified && (<a className={classes.secondColumn} href={backupUrl} target="_blank">{t('offer.check')}</a>)}
                 {urlModified && (<a className={classes.secondColumn} href={adjustedURL} target="_blank">{t('offer.check')}</a>)}
                 

@@ -11,6 +11,7 @@ const CurrencySelector = () => {
 
     const selectedCurrency = currencyCtx.selectedCurrency
     const currencies = currencyCtx.loadedCurrencies
+    const options = Object.keys(currencies)
 
 
     // const filterOptions = (options, { inputValue }) => {
@@ -29,7 +30,7 @@ const CurrencySelector = () => {
         <Autocomplete
             disablePortal
             id="combo-box-demo"
-            options={currencies}
+            options={options}
             sx={{ width: 150 }}
             // filterOptions={filterOptions}
             defaultValue={selectedCurrency}
