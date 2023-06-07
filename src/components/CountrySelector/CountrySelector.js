@@ -26,6 +26,7 @@ const CountrySelector = (props) => {
         if (value) offerCtx.changeCountry(value);
         offerCtx.changeCapacity(null);
         offerCtx.changeValidity(null);
+        offerCtx.changeNberOffers(3)
 
     }
 

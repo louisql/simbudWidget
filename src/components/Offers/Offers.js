@@ -1,5 +1,5 @@
 import React from 'react'
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useTranslation } from "react-i18next";
 
 import Card from '../UI/Card';
@@ -16,14 +16,15 @@ const Offers = (props) => {
     const offerCtx = useContext(OfferContext)
     const currencyCtx = useContext(CurrencyContext)
     const selectedCountry = offerCtx.selectedCountry;
+    const nbreOffersDisplayed = offerCtx.nbreOffersDisplayed
     const currentConversionRate = currencyCtx.currentConversionRate
     const selectedCurrency = currencyCtx.selectedCurrency
     const currencies = currencyCtx.loadedCurrencies
 
-
     // const {t, i18n} = useTranslation('common');
 
     let offersList
+    
 
     const compareByPrice = (a, b) => a.USDPrice - b.USDPrice
 
@@ -32,7 +33,6 @@ const Offers = (props) => {
     const convertToGB = (capacity) => {
         const numericValue = parseFloat(capacity);
         if (capacity !== undefined && capacity !== null) {
-            // console.log(capacity)
             const unit = capacity.match(/[a-zA-Z]+/)[0].toLowerCase();
 
             if (unit === 'gb') {
@@ -68,9 +68,13 @@ const Offers = (props) => {
         offerCtx.changeCountry(offerCtx.selectedCountry)
     }
 
+    const seeMoreOffers = () => {
+        offerCtx.changeNberOffers(nbreOffersDisplayed + 3)
+    }
+
     if (filteredList.length > 0) {
         //Limiting display to 3 offers
-        offersList = filteredList.slice(0, 3).map((offer) => {
+        offersList = filteredList.slice(0, nbreOffersDisplayed).map((offer) => {
             let trimmedPlanName = offer.planName + " "
             trimmedPlanName = trimmedPlanName.substring(0, 22)
             trimmedPlanName = trimmedPlanName.substring(0, Math.min(trimmedPlanName.length, trimmedPlanName.lastIndexOf(" ")))
@@ -115,13 +119,15 @@ const Offers = (props) => {
     }
 
 
+
+
     return (
         <div className={classes.mainContainer}>
             <div className={classes.proposal_plans}>
                 {offersList}
             </div>
             <div className={classes.offersNCurrencyContainer}>
-                <CheckAllOffers />
+                <CheckAllOffers onClickMoreOffers={seeMoreOffers} />
                 <CurrencySelector />
             </div>
         </div>
