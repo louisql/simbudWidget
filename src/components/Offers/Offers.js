@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useTranslation } from "react-i18next";
 
 import Card from '../UI/Card';
-import CheckAllOffers from '../CheckAllOffers/CheckAllOffers'
+import SeeMoreOffers from '../SeeMoreOffers/SeeMoreOffers'
 import classes from "./Offers.module.css";
 
 import OfferContext from '../../store/OfferContext';
@@ -127,7 +127,7 @@ const Offers = (props) => {
                 {offersList}
             </div>
             <div className={classes.offersNCurrencyContainer}>
-                <CheckAllOffers onClickMoreOffers={seeMoreOffers} />
+                <SeeMoreOffers onClickMoreOffers={seeMoreOffers} />
                 <CurrencySelector />
             </div>
         </div>
