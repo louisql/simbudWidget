@@ -11,19 +11,26 @@ const CountrySelector = (props) => {
 
     const options = offerCtx.loadedCountries.map(
         (country) => {
-            if (props.pageLanguage === 'eng') return country.name
-            else return country.nameFrench.common
+            if (props.pageLanguage === 'eng') {
+                return { label: country.name, value: country.name }
+            } 
+            else {
+                return {
+                    label: country.nameFrench.common, 
+                    value: country.name
+                } 
+            } 
         }
     )
 
     const filterOptions = (options, { inputValue }) => {
         return options.filter((option) =>
-            option.toLowerCase().startsWith(inputValue.toLowerCase())
+            option.value.toLowerCase().startsWith(inputValue.toLowerCase())
         );
     };
 
     const handleChange = (event, value) => {
-        if (value) offerCtx.changeCountry(value);
+        if (value) offerCtx.changeCountry(value.value);
         offerCtx.changeCapacity(null);
         offerCtx.changeValidity(null);
         offerCtx.changeNberOffers(3)

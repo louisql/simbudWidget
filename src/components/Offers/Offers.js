@@ -17,6 +17,17 @@ const Offers = (props) => {
     const currencyCtx = useContext(CurrencyContext)
     const selectedCountry = offerCtx.selectedCountry;
     const nbreOffersDisplayed = offerCtx.nbreOffersDisplayed
+
+    let location = selectedCountry;
+
+    if (props.pageLanguage === 'fr'){
+        const allCountries = offerCtx.loadedCountries
+        const selectedCountryObj = allCountries.find(country => country.nameFrench && country.name === selectedCountry);
+        const selectedCountryFrench = selectedCountryObj?.nameFrench.common;
+        location = selectedCountryFrench
+    }
+    
+    
     const currentConversionRate = currencyCtx.currentConversionRate
     const selectedCurrency = currencyCtx.selectedCurrency
     const currencies = currencyCtx.loadedCurrencies
@@ -95,7 +106,7 @@ const Offers = (props) => {
                     provider={offer.provider}
                     capacity={capacityConverted}
                     planName={trimmedPlanName}
-                    location={selectedCountry}
+                    location={location}
                     // Rounding the price to 2 digits & applying conversion rate 
                     price={(Math.round(offer.USDPrice * currentConversionRate * 100) / 100).toFixed(2)}
                     validity={offer.validity}
