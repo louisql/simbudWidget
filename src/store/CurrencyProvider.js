@@ -1,3 +1,9 @@
+/**
+ * IMPORTANT
+ * MAKE SURE TO UPDATE CURRENCY URL SOURCE TO API BEFORE PRODUCTION
+ */
+
+
 import CurrencyContext from "./CurrencyContext";
 
 import { useEffect, useReducer } from "react";
@@ -96,7 +102,7 @@ const CurrencyProvider = (props) => {
 
 
     const APP_ID = "7442e02609d741798356b6a559dfd211"
-    const URL_CURRENCIES = "https://openexchangerates.org/api/latest.json?app_id=" + APP_ID
+/*     const URL_CURRENCIES = "https://openexchangerates.org/api/latest.json?app_id=" + APP_ID */    const URL_CURRENCIES = "currencyRatesDevData.json"
     const CURRENCY_SYMBOL_JSON = "world_currency_symbols.json"
 
     useEffect(() => {

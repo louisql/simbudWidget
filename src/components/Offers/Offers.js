@@ -19,7 +19,7 @@ const Offers = (props) => {
     const currentConversionRate = currencyCtx.currentConversionRate
     const selectedCurrency = currencyCtx.selectedCurrency
     const currencies = currencyCtx.loadedCurrencies
-    
+
 
     // const {t, i18n} = useTranslation('common');
 
@@ -75,13 +75,21 @@ const Offers = (props) => {
             trimmedPlanName = trimmedPlanName.substring(0, 22)
             trimmedPlanName = trimmedPlanName.substring(0, Math.min(trimmedPlanName.length, trimmedPlanName.lastIndexOf(" ")))
 
+            let capacityConverted
+            if (props.pageLanguage === 'en') {
+                capacityConverted = offer.capacity
+            } else {
+                capacityConverted = offer.capacity.replace(/GB/g, "Go").replace(/MB/g, "Mo")
+            }
+
+
             return (
                 <Card
                     id={offer.id}
                     key={offer.id}
                     logo={offer.logo}
                     provider={offer.provider}
-                    capacity={offer.capacity}
+                    capacity={capacityConverted}
                     planName={trimmedPlanName}
                     location={selectedCountry}
                     // Rounding the price to 2 digits & applying conversion rate 
@@ -90,7 +98,7 @@ const Offers = (props) => {
                     referal={offerCtx.referal}
                     url={offer.url}
                     backupUrl={offer.backupUrl}
-                    currencySymbol={currencies[selectedCurrency].Symbol}
+                    currencySymbol={currencies[selectedCurrency]?.Symbol || ''}
                 />
             )
         });

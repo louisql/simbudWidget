@@ -59,11 +59,11 @@ const App = () => {
           <div className="App" ref={appRef}>
             <div className={classes.appContainer}>
               <div className={classes.inputsContainer}>
-                <CountrySelector />
+                <CountrySelector pageLanguage={pageLanguage} />
                 <DataSelector />
                 <DurationSelector />
               </div>
-              <Offers onSendData={getNberOfOffers} />
+              <Offers onSendData={getNberOfOffers} pageLanguage={pageLanguage} />
             </div>
           </div>
         </OfferProvider>

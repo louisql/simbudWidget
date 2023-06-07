@@ -6,13 +6,14 @@ import OfferContext from '../../store/OfferContext';
 
 import {useTranslation} from "react-i18next";
 
-const CountrySelector = () => {
+const CountrySelector = (props) => {
     const offerCtx = useContext(OfferContext)
 
     const options = offerCtx.loadedCountries.map(
-        (country) => (
-            country.name
-        )
+        (country) => {
+            if (props.pageLanguage === 'eng') return country.name
+            else return country.nameFrench.common
+        }
     )
 
     const filterOptions = (options, { inputValue }) => {

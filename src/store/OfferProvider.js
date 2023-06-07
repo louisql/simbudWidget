@@ -184,6 +184,7 @@ const OfferProvider = (props) => {
                 loadedCountries.push({
                     id: key,
                     name: dataJSON[0][key].name.common,
+                    nameFrench: dataJSON[0][key].translations.fra,
                     code: dataJSON[0][key].cca3
                 })
             }

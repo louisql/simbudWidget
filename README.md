@@ -1,3 +1,5 @@
+REMINDER: Before production, switch currency rate source back to API call
+
 React widget to be integrated via iFrame on another domain.
 Window.postMessage to communicate the wdiget height
 
