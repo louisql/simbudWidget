@@ -60,7 +60,8 @@ const offerReducer = (state, action) => {
             }
 
         case 'CHANGE_NBRE_OFFERS_DISPLAYED':
-            return {
+            if (state.nbreOffersDisplayed === 12 && action.nbreOffersDisplayed !== 3) return state;
+            else return {
                 ...state,
                 nbreOffersDisplayed: action.nbreOffersDisplayed
             }
