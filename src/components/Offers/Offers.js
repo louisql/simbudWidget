@@ -1,9 +1,9 @@
 import React from 'react'
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useTranslation } from "react-i18next";
 
 import Card from '../UI/Card';
-import CheckAllOffers from '../CheckAllOffers/CheckAllOffers'
+import SeeMoreOffers from '../SeeMoreOffers/SeeMoreOffers'
 import classes from "./Offers.module.css";
 
 import OfferContext from '../../store/OfferContext';
@@ -15,12 +15,27 @@ const Offers = (props) => {
 
     const offerCtx = useContext(OfferContext)
     const currencyCtx = useContext(CurrencyContext)
-    const selectedCountry = offerCtx.selectedCountry;
+
+    const selectedCountry = offerCtx.selectedCountry
+    const nbreOffersDisplayed = offerCtx.nbreOffersDisplayed
     const currentConversionRate = currencyCtx.currentConversionRate
+    const selectedCurrency = currencyCtx.selectedCurrency
+    const currencies = currencyCtx.loadedCurrencies
+
+    let location = selectedCountry;
+    let offersList
+    let buttonIsActive = true
+
+
+    // Checking language to use French names for countries in Card if required
+    if (props.pageLanguage === 'fr') {
+        const allCountries = offerCtx.loadedCountries
+        const selectedCountryObj = allCountries.find(country => country.nameFrench && country.name === selectedCountry);
+        const selectedCountryFrench = selectedCountryObj?.nameFrench.common;
+        location = selectedCountryFrench
+    }
 
     // const {t, i18n} = useTranslation('common');
-
-    let offersList
 
     const compareByPrice = (a, b) => a.USDPrice - b.USDPrice
 
@@ -29,7 +44,6 @@ const Offers = (props) => {
     const convertToGB = (capacity) => {
         const numericValue = parseFloat(capacity);
         if (capacity !== undefined && capacity !== null) {
-            // console.log(capacity)
             const unit = capacity.match(/[a-zA-Z]+/)[0].toLowerCase();
 
             if (unit === 'gb') {
@@ -59,18 +73,38 @@ const Offers = (props) => {
         return countryMatch && capacityMatch && validityMatch
     });
 
+
+    // Deactivating the display more button if no more offers to display
+    if (filteredList.length < nbreOffersDisplayed || nbreOffersDisplayed === 12 ) {
+
+
+        buttonIsActive = false
+    }
+
     const resetField = () => {
         offerCtx.changeCapacity(null);
         offerCtx.changeValidity(null);
         offerCtx.changeCountry(offerCtx.selectedCountry)
     }
 
+    const seeMoreOffers = () => {
+        offerCtx.changeNberOffers(nbreOffersDisplayed + 3)
+    }
+
     if (filteredList.length > 0) {
         //Limiting display to 3 offers
-        offersList = filteredList.slice(0, 3).map((offer) => {
+        offersList = filteredList.slice(0, nbreOffersDisplayed).map((offer) => {
             let trimmedPlanName = offer.planName + " "
             trimmedPlanName = trimmedPlanName.substring(0, 22)
             trimmedPlanName = trimmedPlanName.substring(0, Math.min(trimmedPlanName.length, trimmedPlanName.lastIndexOf(" ")))
+
+            let capacityConverted
+            if (props.pageLanguage === 'en') {
+                capacityConverted = offer.capacity
+            } else {
+                capacityConverted = offer.capacity.replace(/GB/g, "Go").replace(/MB/g, "Mo")
+            }
+
 
             return (
                 <Card
@@ -78,15 +112,16 @@ const Offers = (props) => {
                     key={offer.id}
                     logo={offer.logo}
                     provider={offer.provider}
-                    capacity={offer.capacity}
+                    capacity={capacityConverted}
                     planName={trimmedPlanName}
-                    location={selectedCountry}
+                    location={location}
                     // Rounding the price to 2 digits & applying conversion rate 
                     price={(Math.round(offer.USDPrice * currentConversionRate * 100) / 100).toFixed(2)}
                     validity={offer.validity}
                     referal={offerCtx.referal}
                     url={offer.url}
                     backupUrl={offer.backupUrl}
+                    currencySymbol={currencies[selectedCurrency]?.Symbol || ''}
                 />
             )
         });
@@ -103,13 +138,15 @@ const Offers = (props) => {
     }
 
 
+
+
     return (
         <div className={classes.mainContainer}>
             <div className={classes.proposal_plans}>
                 {offersList}
             </div>
             <div className={classes.offersNCurrencyContainer}>
-                <CheckAllOffers />
+                <SeeMoreOffers onClickMoreOffers={seeMoreOffers} buttonIsActive={buttonIsActive}/>
                 <CurrencySelector />
             </div>
         </div>

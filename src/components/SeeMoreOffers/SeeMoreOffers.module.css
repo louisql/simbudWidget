@@ -28,3 +28,10 @@
   border: 1px solid #ff5700!important;
   color: #fff;
 }
+
+.offerButton[disabled]{
+  background-color: #666;
+  border: 0px !important;
+  color: #fff;
+  cursor: unset;
+}

@@ -10,13 +10,15 @@ const urlParams = new URLSearchParams(queryString);
 
 const urlCountry = urlParams.get('country')
 const urlReferal = urlParams.get('referal')
-
+const urlNberOffer = urlParams.get('nberOffer')
 
 //Setting Canada as default country if no country is passed
 const country = (urlCountry === null ? 'Canada' : urlCountry.charAt(0).toUpperCase() + urlCountry.slice(1));
-const referal = (urlReferal === null ? '' : urlReferal.toLocaleLowerCase());
+const referal = (urlReferal === null ? '' : urlReferal.toLowerCase());
+const nberOffer = (urlNberOffer === null ? 6 : Number(urlNberOffer));
 
-
+const URL_COUNTRIES = 'https://restcountries.com/v3.1/all'
+const PLANS_JSON = 'plans.json' 
 
 /**
  * Seting up default Offer State
@@ -31,7 +33,7 @@ const defaultOfferState = {
     selectedValidity: undefined,
     selectedCapacity: undefined,
     referal: referal,
-    nbreOffersDisplayed: 3
+    nbreOffersDisplayed: nberOffer
 }
 
 
@@ -59,7 +61,8 @@ const offerReducer = (state, action) => {
             }
 
         case 'CHANGE_NBRE_OFFERS_DISPLAYED':
-            return {
+            if (state.nbreOffersDisplayed === 12 && action.nbreOffersDisplayed !== 3) return state;
+            else return {
                 ...state,
                 nbreOffersDisplayed: action.nbreOffersDisplayed
             }
@@ -169,8 +172,8 @@ const OfferProvider = (props) => {
         //Implementing simultaneous fetching
 
         Promise.all([
-            fetch('https://restcountries.com/v3.1/all'),
-            fetch('plans.json')
+            fetch(URL_COUNTRIES),
+            fetch(PLANS_JSON)
         ]).then((responses) => {
             // Get a JSON object from each of the responses
             return Promise.all(responses.map((response) => {
@@ -183,6 +186,7 @@ const OfferProvider = (props) => {
                 loadedCountries.push({
                     id: key,
                     name: dataJSON[0][key].name.common,
+                    nameFrench: dataJSON[0][key].translations.fra,
                     code: dataJSON[0][key].cca3
                 })
             }

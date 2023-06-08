@@ -1,13 +1,29 @@
+/**
+ * IMPORTANT
+ * MAKE SURE TO UPDATE CURRENCY URL SOURCE TO API BEFORE PRODUCTION
+ */
+
+
 import CurrencyContext from "./CurrencyContext";
 
 import { useEffect, useReducer } from "react";
+
+
+/**
+ * Getting the parameters from the url
+ */
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const urlCurrency = urlParams.get('currency')
+
+const currency = (urlCurrency === null ? 'CAD' : urlCurrency.toUpperCase())
+
 const defaultCurrencyState = {
     isLoaded: false,
     error: null,
     loadedCurrencies: [],
     conversionRates: {},
-    selectedCurrency: 'USD',
-    currentConversionRate: 1,
+    selectedCurrency: 'CAD',
     setSelectedCurrency: () => { }
 }
 
@@ -25,7 +41,9 @@ const currencyReducer = (state, action) => {
                 ...state,
                 isLoaded: action.isLoaded,
                 loadedCurrencies: action.loadedCurrencies,
-                conversionRates: action.conversionRates
+                conversionRates: action.conversionRates,
+                selectedCurrency: action.selectedCurrency,
+                currentConversionRate: action.currentConversionRate
             }
 
         case 'ERROR':
@@ -53,11 +71,13 @@ const CurrencyProvider = (props) => {
         })
     }
 
-    const initiateDataHandler = (loadedCurrencies, conversionRates, isLoaded) => {
+    const initiateDataHandler = (loadedCurrencies, conversionRates, selectedCurrency, isLoaded) => {
         dispatchCurrencyAction({
             type: "INIT",
             loadedCurrencies: loadedCurrencies,
             conversionRates: conversionRates,
+            selectedCurrency: selectedCurrency,
+            currentConversionRate: conversionRates[selectedCurrency],
             isLoaded: isLoaded
         })
     }
@@ -81,25 +101,33 @@ const CurrencyProvider = (props) => {
     }
 
 
-
+    const APP_ID = "7442e02609d741798356b6a559dfd211"
+/*     const URL_CURRENCIES = "https://openexchangerates.org/api/latest.json?app_id=" + APP_ID */    const URL_CURRENCIES = "currencyRatesDevData.json"
+    const CURRENCY_SYMBOL_JSON = "world_currency_symbols.json"
 
     useEffect(() => {
-
-        fetch('https://v6.exchangerate-api.com/v6/828f80c7ea1d5bf55ef4c1aa/latest/' + currencyState.selectedCurrency)
-            .then((response) => {
+        Promise.all([
+            fetch(URL_CURRENCIES),
+            fetch(CURRENCY_SYMBOL_JSON)
+        ]).then((responses) => {
+            return Promise.all(responses.map((response) => {
                 return response.json();
-            }).then((dataJSON) => {
-                const loadedCurrencies = [];
-                const conversionRates = dataJSON.conversion_rates
+            }));
+        }).then((dataJSON) => {
+            const loadedCurrencies = [];
+            const conversionRates = dataJSON[0].rates
 
-                for (const key in dataJSON.conversion_rates) {
-                    loadedCurrencies.push(key)
+            for (const key in dataJSON[1]) {
+                loadedCurrencies[dataJSON[1][key].Code] = {
+                    Symbol: dataJSON[1][key].Symbol
                 }
+            }
 
-                initiateDataHandler(loadedCurrencies, conversionRates, true)
-            }).catch((error) => {
-                setErrorHandler(true, error);
-            });
+            initiateDataHandler(loadedCurrencies, conversionRates, currency, true)
+        }).catch((error) => {
+            setErrorHandler(true, error);
+        })
+
     }, [])
 
     return (
