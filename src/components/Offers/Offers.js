@@ -15,27 +15,27 @@ const Offers = (props) => {
 
     const offerCtx = useContext(OfferContext)
     const currencyCtx = useContext(CurrencyContext)
-    const selectedCountry = offerCtx.selectedCountry;
+
+    const selectedCountry = offerCtx.selectedCountry
     const nbreOffersDisplayed = offerCtx.nbreOffersDisplayed
+    const currentConversionRate = currencyCtx.currentConversionRate
+    const selectedCurrency = currencyCtx.selectedCurrency
+    const currencies = currencyCtx.loadedCurrencies
 
     let location = selectedCountry;
+    let offersList
+    let buttonIsActive = true
 
-    if (props.pageLanguage === 'fr'){
+
+    // Checking language to use French names for countries in Card if required
+    if (props.pageLanguage === 'fr') {
         const allCountries = offerCtx.loadedCountries
         const selectedCountryObj = allCountries.find(country => country.nameFrench && country.name === selectedCountry);
         const selectedCountryFrench = selectedCountryObj?.nameFrench.common;
         location = selectedCountryFrench
     }
-    
-    
-    const currentConversionRate = currencyCtx.currentConversionRate
-    const selectedCurrency = currencyCtx.selectedCurrency
-    const currencies = currencyCtx.loadedCurrencies
 
     // const {t, i18n} = useTranslation('common');
-
-    let offersList
-    
 
     const compareByPrice = (a, b) => a.USDPrice - b.USDPrice
 
@@ -72,6 +72,14 @@ const Offers = (props) => {
 
         return countryMatch && capacityMatch && validityMatch
     });
+
+
+    // Deactivating the display more button if no more offers to display
+    if (filteredList.length < nbreOffersDisplayed || nbreOffersDisplayed === 12 ) {
+
+
+        buttonIsActive = false
+    }
 
     const resetField = () => {
         offerCtx.changeCapacity(null);
@@ -138,7 +146,7 @@ const Offers = (props) => {
                 {offersList}
             </div>
             <div className={classes.offersNCurrencyContainer}>
-                <SeeMoreOffers onClickMoreOffers={seeMoreOffers} />
+                <SeeMoreOffers onClickMoreOffers={seeMoreOffers} buttonIsActive={buttonIsActive}/>
                 <CurrencySelector />
             </div>
         </div>
