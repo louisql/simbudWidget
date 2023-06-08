@@ -10,11 +10,12 @@ const urlParams = new URLSearchParams(queryString);
 
 const urlCountry = urlParams.get('country')
 const urlReferal = urlParams.get('referal')
-
+const urlNberOffer = urlParams.get('nberOffer')
 
 //Setting Canada as default country if no country is passed
 const country = (urlCountry === null ? 'Canada' : urlCountry.charAt(0).toUpperCase() + urlCountry.slice(1));
 const referal = (urlReferal === null ? '' : urlReferal.toLowerCase());
+const nberOffer = (urlNberOffer === null ? 6 : Number(urlNberOffer));
 
 const URL_COUNTRIES = 'https://restcountries.com/v3.1/all'
 const PLANS_JSON = 'plans.json' 
@@ -32,7 +33,7 @@ const defaultOfferState = {
     selectedValidity: undefined,
     selectedCapacity: undefined,
     referal: referal,
-    nbreOffersDisplayed: 3
+    nbreOffersDisplayed: nberOffer
 }
 
 
