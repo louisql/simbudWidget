@@ -15,14 +15,18 @@ import { useEffect, useReducer } from "react";
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const urlCurrency = urlParams.get('currency')
+const urlLanguage = urlParams.get('language')
 
 const currency = (urlCurrency === null ? 'CAD' : urlCurrency.toUpperCase())
+const languageParentWindow = (urlLanguage === null ? 'fr' : urlLanguage.toLowerCase())
+
 
 const defaultCurrencyState = {
     isLoaded: false,
     error: null,
     loadedCurrencies: [],
     conversionRates: {},
+    languageParentWindow: languageParentWindow,
     selectedCurrency: 'CAD',
     setSelectedCurrency: () => { }
 }
@@ -37,13 +41,15 @@ const currencyReducer = (state, action) => {
             }
 
         case 'INIT':
+            console.log(state)
             return {
                 ...state,
                 isLoaded: action.isLoaded,
                 loadedCurrencies: action.loadedCurrencies,
                 conversionRates: action.conversionRates,
                 selectedCurrency: action.selectedCurrency,
-                currentConversionRate: action.currentConversionRate
+                currentConversionRate: action.currentConversionRate,
+                languageParentWindow: action.languageParentWindow
             }
 
         case 'ERROR':
@@ -71,13 +77,14 @@ const CurrencyProvider = (props) => {
         })
     }
 
-    const initiateDataHandler = (loadedCurrencies, conversionRates, selectedCurrency, isLoaded) => {
+    const initiateDataHandler = (loadedCurrencies, conversionRates, selectedCurrency, languageParentWindow, isLoaded) => {
         dispatchCurrencyAction({
             type: "INIT",
             loadedCurrencies: loadedCurrencies,
             conversionRates: conversionRates,
             selectedCurrency: selectedCurrency,
             currentConversionRate: conversionRates[selectedCurrency],
+            languageParentWindow: languageParentWindow,
             isLoaded: isLoaded
         })
     }
@@ -96,6 +103,7 @@ const CurrencyProvider = (props) => {
         conversionRates: currencyState.conversionRates,
         currentConversionRate: currencyState.currentConversionRate,
         isLoaded: currencyState.isLoaded,
+        languageParentWindow: currencyState.languageParentWindow,
         error: currencyState,
         changeCurrency: changeCurrencyToCurrencyHandler,
     }
@@ -123,7 +131,7 @@ const CurrencyProvider = (props) => {
                 }
             }
 
-            initiateDataHandler(loadedCurrencies, conversionRates, currency, true)
+            initiateDataHandler(loadedCurrencies, conversionRates, currency, languageParentWindow, true)
         }).catch((error) => {
             setErrorHandler(true, error);
         })

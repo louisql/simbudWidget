@@ -21,14 +21,14 @@ const Offers = (props) => {
     const currentConversionRate = currencyCtx.currentConversionRate
     const selectedCurrency = currencyCtx.selectedCurrency
     const currencies = currencyCtx.loadedCurrencies
+    const languageParentWindow = currencyCtx.languageParentWindow
 
     let location = selectedCountry;
     let offersList
     let buttonIsActive = true
 
-
     // Checking language to use French names for countries in Card if required
-    if (props.pageLanguage === 'fr') {
+    if (languageParentWindow === 'fr') {
         const allCountries = offerCtx.loadedCountries
         const selectedCountryObj = allCountries.find(country => country.nameFrench && country.name === selectedCountry);
         const selectedCountryFrench = selectedCountryObj?.nameFrench.common;
@@ -99,7 +99,7 @@ const Offers = (props) => {
             trimmedPlanName = trimmedPlanName.substring(0, Math.min(trimmedPlanName.length, trimmedPlanName.lastIndexOf(" ")))
 
             let capacityConverted
-            if (props.pageLanguage === 'en') {
+            if (languageParentWindow === 'en') {
                 capacityConverted = offer.capacity
             } else {
                 capacityConverted = offer.capacity.replace(/GB/g, "Go").replace(/MB/g, "Mo")
