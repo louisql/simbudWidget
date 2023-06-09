@@ -1,6 +1,6 @@
 import './App.css';
 import classes from './App.module.css'
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import Offers from './components/Offers/Offers';
 import CountrySelector from './components/CountrySelector/CountrySelector';
 import OfferProvider from './store/OfferProvider';
@@ -10,6 +10,7 @@ import DurationSelector from './components/DurationSelector/DurationSelector';
 import { I18nextProvider } from "react-i18next";
 import i18next from "i18next";
 import LanguageDetector from 'i18next-browser-languagedetector';
+import CurrencyContext from './store/CurrencyContext';
 
 
 import common_en from "./translations/en/common.json";
@@ -19,11 +20,12 @@ import common_fr from "./translations/fr/common.json";
 const App = () => {
   const appRef = useRef()
   const [appHeight, setAppHeight] = useState(0)
-  const pageLanguage = document.documentElement.lang
-
+  const currencyCtx = useContext(CurrencyContext)
+  const languageParentWindow = currencyCtx.languageParentWindow
+  
   i18next.init({
     interpolation: { escapeValue: false },
-    lng: pageLanguage,                              
+    lng: languageParentWindow,                              
     resources: {
       en: {
         common: common_en
@@ -59,11 +61,11 @@ const App = () => {
           <div className="App" ref={appRef}>
             <div className={classes.appContainer}>
               <div className={classes.inputsContainer}>
-                <CountrySelector pageLanguage={pageLanguage} />
+                <CountrySelector  />
                 <DataSelector />
                 <DurationSelector />
               </div>
-              <Offers onSendData={getNberOfOffers} pageLanguage={pageLanguage} />
+              <Offers onSendData={getNberOfOffers}  />
             </div>
           </div>
         </OfferProvider>

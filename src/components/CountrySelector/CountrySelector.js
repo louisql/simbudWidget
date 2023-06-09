@@ -3,15 +3,18 @@ import './CountrySelector.css';
 import { Autocomplete, TextField } from "@mui/material"
 import { useContext } from "react"
 import OfferContext from '../../store/OfferContext';
+import CurrencyContext from '../../store/CurrencyContext';
 
 import {useTranslation} from "react-i18next";
 
 const CountrySelector = (props) => {
     const offerCtx = useContext(OfferContext)
+    const currencyCtx = useContext(CurrencyContext)
+    const languageParentWindow = currencyCtx.languageParentWindow
 
     const options = offerCtx.loadedCountries.map(
         (country) => {
-            if (props.pageLanguage === 'eng') {
+            if (languageParentWindow === 'eng') {
                 return { label: country.name, value: country.name }
             } 
             else {
