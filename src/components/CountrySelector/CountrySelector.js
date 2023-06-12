@@ -5,7 +5,7 @@ import { useContext } from "react"
 import OfferContext from '../../store/OfferContext';
 import CurrencyContext from '../../store/CurrencyContext';
 
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const CountrySelector = (props) => {
     const offerCtx = useContext(OfferContext)
@@ -16,17 +16,33 @@ const CountrySelector = (props) => {
         (country) => {
             if (languageParentWindow === 'eng') {
                 return { label: country.name, value: country.name }
-            } 
+            }
             else {
                 return {
-                    label: country.nameFrench.common, 
+                    label: country.nameFrench.common,
                     value: country.name
-                } 
-            } 
+                }
+            }
         }
     )
 
-    const filterOptions = (options, { inputValue }) => {
+
+    /*  
+    const test = Object.keys(options)
+    .sort(function(a,b) {return options[a] - options[b]})
+    .map(key => options[key]); 
+    */
+
+
+    const test = Object.keys(options)
+        .sort((a, b) => {
+            const labelA = options[a].label;
+            const labelB = options[b].label;
+            return labelA.localeCompare(labelB);
+        })
+        .map(key => options[key]); 
+        
+        const filterOptions = (options, { inputValue }) => {
         return options.filter((option) =>
             option.value.toLowerCase().startsWith(inputValue.toLowerCase())
         );
@@ -40,7 +56,7 @@ const CountrySelector = (props) => {
 
     }
 
-    const {t, i18n} = useTranslation('common');
+    const { t, i18n } = useTranslation('common');
 
     if (offerCtx.error) {
         return <div>Error: {offerCtx.error}</div>

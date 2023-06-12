@@ -41,7 +41,6 @@ const currencyReducer = (state, action) => {
             }
 
         case 'INIT':
-            console.log(state)
             return {
                 ...state,
                 isLoaded: action.isLoaded,
