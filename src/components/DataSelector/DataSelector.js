@@ -94,7 +94,6 @@ const DataSelector = () => {
     };
 
     const handleChange = (event, value) => {
-        // console.log(value)
         //Two cases: case 1 we send the value of the option (value.value) - case 2 we send value which is null
         if (value) offerCtx.changeCapacity(value.value)
         else offerCtx.changeCapacity(value)

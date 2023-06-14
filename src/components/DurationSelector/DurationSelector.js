@@ -12,10 +12,13 @@ const DurationSelector = () => {
 
     const {t, i18n} = useTranslation('common');
 
+    const [updatedContent, setupdatedContent] = useState(false)
     const [options, setOptions] = useState([])
     const languageParentWindow = currencyCtx.languageParentWindow
 
     useEffect(() => {
+        setupdatedContent(false)
+
         const filteredDuration = Array.from(new Set(offerCtx.data.map(offer => offer.validity)))
         filteredDuration.sort((a, b) => {
             const numA = parseInt(a)
@@ -44,7 +47,7 @@ const DurationSelector = () => {
 
         setOptions(optionsWithLabel)
 
-    }, [offerCtx.selectedValidity, offerCtx.data])
+    }, [offerCtx.selectedValidity, offerCtx.data, updatedContent])
 
     const filterOptions = (options, { inputValue }) => {
         return options.filter((option) =>
@@ -53,8 +56,11 @@ const DurationSelector = () => {
     };
 
     const handleChange = (event, value) => {
+        // console.log(value.value)
         // offerCtx.changeCapacity(value);
-        offerCtx.changeValidity(value);
+        if (value) offerCtx.changeValidity(value.value);
+        else offerCtx.changeValidity(null)
+        setupdatedContent(true)
     }
 
 
