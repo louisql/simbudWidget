@@ -1,13 +1,19 @@
 import { Autocomplete, TextField } from "@mui/material"
 import { useContext, useEffect, useState } from "react"
 import OfferContext from '../../store/OfferContext'
+import CurrencyContext from '../../store/CurrencyContext';
 
 import {useTranslation} from "react-i18next";
 
 
 const DurationSelector = () => {
     const offerCtx = useContext(OfferContext)
+    const currencyCtx = useContext(CurrencyContext)
+
+    const {t, i18n} = useTranslation('common');
+
     const [options, setOptions] = useState([])
+    const languageParentWindow = currencyCtx.languageParentWindow
 
     useEffect(() => {
         const filteredDuration = Array.from(new Set(offerCtx.data.map(offer => offer.validity)))
@@ -17,13 +23,33 @@ const DurationSelector = () => {
 
             return numA - numB
         })
-        setOptions(filteredDuration)
+
+        const optionsWithLabel = filteredDuration.map(
+            (option) => {
+                console.log(option)
+                if (languageParentWindow === 'eng') {
+                    return { 
+                        label: option, 
+                        value: option
+                    }
+                } else {
+                    return {
+                        label: parseInt(option) + ' ' + t('offer.days'),
+                        value: option
+                    }
+                }
+            }
+        )
+
+        console.log(optionsWithLabel)
+
+        setOptions(optionsWithLabel)
 
     }, [offerCtx.selectedValidity, offerCtx.data])
 
     const filterOptions = (options, { inputValue }) => {
         return options.filter((option) =>
-            option.toLowerCase().startsWith(inputValue.toLowerCase())
+            option.value.toLowerCase().startsWith(inputValue.toLowerCase())
         );
     };
 
@@ -32,7 +58,6 @@ const DurationSelector = () => {
         offerCtx.changeValidity(value);
     }
 
-    const {t, i18n} = useTranslation('common');
 
     if (offerCtx.error) {
         return <div>Error: {offerCtx.error}</div>

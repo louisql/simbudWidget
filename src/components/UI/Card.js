@@ -16,8 +16,6 @@ const Card = props => {
 
     const priceWithComma = props.price.replace(".", ",")
 
-    // console.log(props.currencySymbol)
-
     useEffect(() => {
         if (referal) {
             const adjustedURL = url.replace("actualite", referal);

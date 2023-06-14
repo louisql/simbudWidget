@@ -83,7 +83,7 @@ const Offers = (props) => {
 
 
     // Deactivating the display more button if no more offers to display
-    if (filteredList.length < nbreOffersDisplayed || nbreOffersDisplayed === 12 ) {
+    if (filteredList.length < nbreOffersDisplayed || nbreOffersDisplayed === 12) {
 
 
         buttonIsActive = false
@@ -98,10 +98,6 @@ const Offers = (props) => {
     const seeMoreOffers = () => {
         offerCtx.changeNberOffers(nbreOffersDisplayed + 3)
     }
-
-    console.log(filteredList)
-
-    
 
     if (filteredList.length > 0) {
         //Limiting display to 3 offers
@@ -141,12 +137,13 @@ const Offers = (props) => {
         props.onSendData(offersList.length)
 
     } else if (offerCtx.isLoaded) {
-        offersList = (<>
+        offersList = (
+            <>
                 <span> </span>
-            <div className={classes.errorContainer}>
-                {countryHasOffer && <button className={classes.resetButton} onClick={resetField}>{resetText}</button>}
-            </div>
-        </>
+                <div className={classes.errorContainer}>
+                    {countryHasOffer && <button className={classes.resetButton} onClick={resetField}>{resetText}</button>}
+                </div>
+            </>
         )
         props.onSendData(offersList.length)
     }
@@ -160,7 +157,7 @@ const Offers = (props) => {
                 {offersList}
             </div>
             <div className={classes.offersNCurrencyContainer}>
-                <SeeMoreOffers onClickMoreOffers={seeMoreOffers} buttonIsActive={buttonIsActive}/>
+                <SeeMoreOffers onClickMoreOffers={seeMoreOffers} buttonIsActive={buttonIsActive} />
                 <CurrencySelector />
             </div>
         </div>

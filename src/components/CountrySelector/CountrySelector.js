@@ -15,7 +15,10 @@ const CountrySelector = (props) => {
     const options = offerCtx.loadedCountries.map(
         (country) => {
             if (languageParentWindow === 'eng') {
-                return { label: country.name, value: country.name }
+                return { 
+                    label: country.name, 
+                    value: country.name 
+                }
             }
             else {
                 return {
@@ -26,23 +29,7 @@ const CountrySelector = (props) => {
         }
     )
 
-
-    /*  
-    const test = Object.keys(options)
-    .sort(function(a,b) {return options[a] - options[b]})
-    .map(key => options[key]); 
-    */
-
-
-    const test = Object.keys(options)
-        .sort((a, b) => {
-            const labelA = options[a].label;
-            const labelB = options[b].label;
-            return labelA.localeCompare(labelB);
-        })
-        .map(key => options[key]); 
-        
-        const filterOptions = (options, { inputValue }) => {
+    const filterOptions = (options, { inputValue }) => {
         return options.filter((option) =>
             option.value.toLowerCase().startsWith(inputValue.toLowerCase())
         );
