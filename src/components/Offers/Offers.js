@@ -18,6 +18,8 @@ const Offers = (props) => {
 
     // const {t, i18n} = useTranslation('common');
 
+    console.log(useTranslation)
+
     const selectedCountry = offerCtx.selectedCountry
     const nbreOffersDisplayed = offerCtx.nbreOffersDisplayed
     const currentConversionRate = currencyCtx.currentConversionRate
@@ -97,7 +99,7 @@ const Offers = (props) => {
         offerCtx.changeNberOffers(nbreOffersDisplayed + 3)
     }
 
-    console.log(filteredList)
+    // console.log(filteredList)
 
     
 

@@ -57,7 +57,7 @@ const DataSelector = () => {
             return numA - numB
         })
 
-        if (currencyCtx.languageParentWindow === "fr") filteredCapacity = convertUnits(filteredCapacity)
+        if (currencyCtx.languageParentWindow === "fr") {filteredCapacity = convertUnits(filteredCapacity)}
 
         setOptions(filteredCapacity)
 
@@ -102,6 +102,7 @@ const DataSelector = () => {
                     // defaultValue={defaultCapacity ?? " "}
                     value={offerCtx.selectedCapacity}
                     onChange={handleChange}
+                    noOptionsText={t('offer.noResult')}
                     renderInput={(params) =>
 
                         <TextField
