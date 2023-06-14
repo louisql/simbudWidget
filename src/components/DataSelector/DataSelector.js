@@ -3,30 +3,40 @@
 import { Autocomplete, TextField } from "@mui/material"
 import { useContext, useEffect, useState } from "react"
 import OfferContext from '../../store/OfferContext';
+import CurrencyContext from "../../store/CurrencyContext";
 
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 
 const DataSelector = () => {
     const offerCtx = useContext(OfferContext)
+    const currencyCtx = useContext(CurrencyContext)
+
     const [updatedContent, setupdatedContent] = useState(false)
     const [options, setOptions] = useState([])
     const [defaultCapacity, setDefaultCapacity] = useState(null)
 
     const convertToGB = (capacity) => {
         const numericValue = parseFloat(capacity);
-        if (capacity !== undefined && capacity !== null){
-        // console.log(capacity)
+        if (capacity !== undefined && capacity !== null) {
             const unit = capacity.match(/[a-zA-Z]+/)[0].toLowerCase();
-            
+
             if (unit === 'gb') {
                 return numericValue;
             } else if (unit === 'mb') {
                 return numericValue / 1000;
             }
-            
-        } 
+
+        }
         return capacity;
+    }
+
+    const convertUnits = (capacities) => {
+        const converterdCapacity = capacities.map(capacity => (
+            capacity.replace(/GB/g, "Go").replace(/MB/g, "Mo")
+        ))
+
+        return converterdCapacity
     }
 
     useEffect(() => {
@@ -38,14 +48,16 @@ const DataSelector = () => {
             setDefaultCapacity(filteredList[0].capacity)
         }
         //Using set to get the unique values
-        const filteredCapacity = Array.from(new Set(filteredList.map(offer => offer.capacity)))
+        let filteredCapacity = Array.from(new Set(filteredList.map(offer => offer.capacity)))
 
         filteredCapacity.sort((a, b) => {
             const numA = convertToGB(a)
-            const numB = convertToGB(b) 
+            const numB = convertToGB(b)
 
             return numA - numB
         })
+
+        if (currencyCtx.languageParentWindow === "fr") filteredCapacity = convertUnits(filteredCapacity)
 
         setOptions(filteredCapacity)
 
@@ -75,7 +87,7 @@ const DataSelector = () => {
         setupdatedContent(true)
     }
 
-    const {t, i18n} = useTranslation('common');
+    const { t, i18n } = useTranslation('common');
 
     return (
         <>
