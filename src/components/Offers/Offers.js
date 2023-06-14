@@ -18,7 +18,6 @@ const Offers = (props) => {
 
     // const {t, i18n} = useTranslation('common');
 
-
     const selectedCountry = offerCtx.selectedCountry
     const nbreOffersDisplayed = offerCtx.nbreOffersDisplayed
     const currentConversionRate = currencyCtx.currentConversionRate
@@ -51,7 +50,9 @@ const Offers = (props) => {
     const convertToGB = (capacity) => {
         const numericValue = parseFloat(capacity);
         if (capacity !== undefined && capacity !== null) {
-            const unit = capacity.match(/[a-zA-Z]+/)[0].toLowerCase();
+            let unit
+            if (typeof(capacity) === 'object') unit = capacity.value.match(/[a-zA-Z]+/)[0].toLowerCase();
+            else unit = capacity.match(/[a-zA-Z]+/)[0].toLowerCase();
 
             if (unit === 'gb') {
                 return numericValue;
@@ -68,7 +69,10 @@ const Offers = (props) => {
         return index === self.findIndex((o) => o.id === offer.id);
     });
 
+
+    // Checking if the country has offer to display reset button for country with offers
     const countryHasOffer = uniqueData.some(element => element.country.includes(selectedCountry.toLowerCase()))
+
 
     const filteredList = uniqueData.filter(offer => {
         const capacity = convertToGB(offer.capacity);
@@ -84,8 +88,6 @@ const Offers = (props) => {
 
     // Deactivating the display more button if no more offers to display
     if (filteredList.length < nbreOffersDisplayed || nbreOffersDisplayed === 12) {
-
-
         buttonIsActive = false
     }
 

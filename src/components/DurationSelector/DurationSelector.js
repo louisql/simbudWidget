@@ -24,9 +24,9 @@ const DurationSelector = () => {
             return numA - numB
         })
 
+        //Adding a value and option to the option to have a translated 
         const optionsWithLabel = filteredDuration.map(
             (option) => {
-                console.log(option)
                 if (languageParentWindow === 'eng') {
                     return { 
                         label: option, 
@@ -41,7 +41,6 @@ const DurationSelector = () => {
             }
         )
 
-        console.log(optionsWithLabel)
 
         setOptions(optionsWithLabel)
 

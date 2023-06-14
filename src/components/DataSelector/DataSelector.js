@@ -31,10 +31,8 @@ const DataSelector = () => {
         return capacity;
     }
 
-    const convertUnits = (capacities) => {
-        const converterdCapacity = capacities.map(capacity => (
-            capacity.replace(/GB/g, "Go").replace(/MB/g, "Mo")
-        ))
+    const convertUnits = (capacity) => {
+        const converterdCapacity = capacity.replace(/GB/g, "Go").replace(/MB/g, "Mo")
 
         return converterdCapacity
     }
@@ -57,10 +55,28 @@ const DataSelector = () => {
             return numA - numB
         })
 
-        if (currencyCtx.languageParentWindow === "fr") {filteredCapacity = convertUnits(filteredCapacity)}
 
-        setOptions(filteredCapacity)
+        //Adding a value and option to the option to have a translated 
+        const optionsWithLabel = filteredCapacity.map(
+            (option) => {
+                if (currencyCtx.languageParentWindow === "fr") {
+                    return {
+                        label: convertUnits(option),
+                        value: option
+                    } 
+                } else {
+                    return {
+                        label: option,
+                        value: option
+                    }
+                }
+            }
+        )
 
+
+        setOptions(optionsWithLabel)
+
+        // Selecting default Capacity for autocomplete
         const isCapacityInPlan = filteredCapacity.includes(offerCtx.selectedCapacity)
 
         if (isCapacityInPlan) {
@@ -69,20 +85,19 @@ const DataSelector = () => {
             setDefaultCapacity(filteredList[0].capacity)
         }
 
-
-
-
-
     }, [offerCtx.selectedCountry, offerCtx.data, updatedContent])
 
     const filterOptions = (options, { inputValue }) => {
         return options.filter((option) =>
-            option.toLowerCase().startsWith(inputValue.toLowerCase())
+            option.value.toLowerCase().startsWith(inputValue.toLowerCase())
         );
     };
 
     const handleChange = (event, value) => {
-        offerCtx.changeCapacity(value);
+        // console.log(value)
+        //Two cases: case 1 we send the value of the option (value.value) - case 2 we send value which is null
+        if (value) offerCtx.changeCapacity(value.value)
+        else offerCtx.changeCapacity(value)
         offerCtx.changeCountry(offerCtx.selectedCountry)
         setupdatedContent(true)
     }
