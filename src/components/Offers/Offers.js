@@ -1,5 +1,5 @@
 import React from 'react'
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useMemo } from 'react';
 import { useTranslation } from "react-i18next";
 
 import Card from '../UI/Card';
@@ -16,6 +16,8 @@ const Offers = (props) => {
     const offerCtx = useContext(OfferContext)
     const currencyCtx = useContext(CurrencyContext)
 
+    // const {t, i18n} = useTranslation('common');
+
     const selectedCountry = offerCtx.selectedCountry
     const nbreOffersDisplayed = offerCtx.nbreOffersDisplayed
     const currentConversionRate = currencyCtx.currentConversionRate
@@ -23,9 +25,11 @@ const Offers = (props) => {
     const currencies = currencyCtx.loadedCurrencies
     const languageParentWindow = currencyCtx.languageParentWindow
 
+
     let location = selectedCountry;
     let offersList
     let buttonIsActive = true
+    let resetText = "Reset capacity and duration"
 
     // Checking language to use French names for countries in Card if required
     if (languageParentWindow === 'fr') {
@@ -33,6 +37,8 @@ const Offers = (props) => {
         const selectedCountryObj = allCountries.find(country => country.nameFrench && country.name === selectedCountry);
         const selectedCountryFrench = selectedCountryObj?.nameFrench.common;
         location = selectedCountryFrench
+
+        resetText = "Réinitialiser capacité et durée"
     }
 
     // const {t, i18n} = useTranslation('common');
@@ -91,6 +97,10 @@ const Offers = (props) => {
         offerCtx.changeNberOffers(nbreOffersDisplayed + 3)
     }
 
+    console.log(filteredList)
+
+    
+
     if (filteredList.length > 0) {
         //Limiting display to 3 offers
         offersList = filteredList.slice(0, nbreOffersDisplayed).map((offer) => {
@@ -129,10 +139,12 @@ const Offers = (props) => {
         props.onSendData(offersList.length)
 
     } else if (offerCtx.isLoaded) {
-        offersList = (
+        offersList = (<>
+                <span> </span>
             <div className={classes.errorContainer}>
-                <button className={classes.resetButton} onClick={resetField}>Reset</button>
+                <button className={classes.resetButton} onClick={resetField}>{resetText}</button>
             </div>
+        </>
         )
         props.onSendData(offersList.length)
     }
