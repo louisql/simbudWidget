@@ -18,7 +18,6 @@ const Offers = (props) => {
 
     // const {t, i18n} = useTranslation('common');
 
-    console.log(useTranslation)
 
     const selectedCountry = offerCtx.selectedCountry
     const nbreOffersDisplayed = offerCtx.nbreOffersDisplayed
@@ -69,6 +68,7 @@ const Offers = (props) => {
         return index === self.findIndex((o) => o.id === offer.id);
     });
 
+    const countryHasOffer = uniqueData.some(element => element.country.includes(selectedCountry.toLowerCase()))
 
     const filteredList = uniqueData.filter(offer => {
         const capacity = convertToGB(offer.capacity);
@@ -99,7 +99,7 @@ const Offers = (props) => {
         offerCtx.changeNberOffers(nbreOffersDisplayed + 3)
     }
 
-    // console.log(filteredList)
+    console.log(filteredList)
 
     
 
@@ -144,7 +144,7 @@ const Offers = (props) => {
         offersList = (<>
                 <span> </span>
             <div className={classes.errorContainer}>
-                <button className={classes.resetButton} onClick={resetField}>{resetText}</button>
+                {countryHasOffer && <button className={classes.resetButton} onClick={resetField}>{resetText}</button>}
             </div>
         </>
         )
