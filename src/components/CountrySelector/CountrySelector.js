@@ -11,19 +11,22 @@ const CountrySelector = (props) => {
     const offerCtx = useContext(OfferContext)
     const currencyCtx = useContext(CurrencyContext)
     const languageParentWindow = currencyCtx.languageParentWindow
+    // const nbreOffersDisplayed = offerCtx.nbreOffersDisplayed
+
+    // console.log(offerCtx.loadedCountries)
 
     const options = offerCtx.loadedCountries.map(
         (country) => {
             if (languageParentWindow === 'eng') {
                 return { 
                     label: country.name, 
-                    value: country.name 
+                    value: country.code 
                 }
             }
             else {
                 return {
                     label: country.nameFrench.common,
-                    value: country.name
+                    value: country.code
                 }
             }
         }
@@ -39,7 +42,7 @@ const CountrySelector = (props) => {
         if (value) offerCtx.changeCountry(value.value);
         offerCtx.changeCapacity(null);
         offerCtx.changeValidity(null);
-        offerCtx.changeNberOffers(3)
+        // offerCtx.changeNberOffers(nbreOffersDisplayed)
 
     }
 

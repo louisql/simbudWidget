@@ -26,20 +26,40 @@ const Offers = (props) => {
     const languageParentWindow = currencyCtx.languageParentWindow
 
 
-    let location = selectedCountry;
+    let location;
     let offersList
     let buttonIsActive = true
     let resetText = "Reset capacity and duration"
 
-    // Checking language to use French names for countries in Card if required
-    if (languageParentWindow === 'fr') {
-        const allCountries = offerCtx.loadedCountries
-        const selectedCountryObj = allCountries.find(country => country.nameFrench && country.name === selectedCountry);
-        const selectedCountryFrench = selectedCountryObj?.nameFrench.common;
-        location = selectedCountryFrench
+    
+    // Getting the country name based on the country code
+    // console.log(location)
+    console.log(offerCtx.loadedCountries)
+    
 
-        resetText = "Réinitialiser capacité et durée"
+    const allCountries = offerCtx.loadedCountries
+
+    const selectedCountryName = allCountries.find(country => country.code === selectedCountry)
+    console.log(selectedCountryName)
+
+    if (languageParentWindow === 'fr' && selectedCountryName) {
+        location = selectedCountryName.nameFrench.common
+    } else if (languageParentWindow ==='en' && selectedCountryName) {
+        location = selectedCountryName.name
     }
+
+
+    // Checking language to use French names for countries in Card if required
+    // if (languageParentWindow === 'fr') {
+    //     const allCountries = offerCtx.loadedCountries
+    //     const selectedCountryObj = allCountries.find(country => country.nameFrench && country.name === selectedCountry);
+    //     // console.log(selectedCountryObj)
+    //     const selectedCountryFrench = selectedCountryObj?.nameFrench.common;
+    //     location = selectedCountryFrench
+
+    //     resetText = "Réinitialiser capacité et durée"
+    // }
+
 
     // const {t, i18n} = useTranslation('common');
 

@@ -13,7 +13,7 @@ const urlReferal = urlParams.get('referal')
 const urlNberOffer = urlParams.get('nberOffer')
 
 //Setting Canada as default country if no country is passed
-const country = (urlCountry === null ? 'Canada' : urlCountry.charAt(0).toUpperCase() + urlCountry.slice(1));
+const country = (urlCountry === null ? 'CAN' : urlCountry.charAt(0).toUpperCase() + urlCountry.slice(1));
 const referal = (urlReferal === null ? '' : urlReferal.toLowerCase());
 const nberOffer = (urlNberOffer === null ? 6 : Number(urlNberOffer));
 
@@ -43,6 +43,7 @@ const defaultOfferState = {
 const offerReducer = (state, action) => {
     switch (action.type) {
         case 'CHANGE_COUNTRY':
+            console.log(action)
             return {
                 ...state,
                 selectedCountry: action.country
@@ -101,7 +102,7 @@ const OfferProvider = (props) => {
     const changeCountryToOfferHandler = (country) => {
         dispatchOfferAction({
             type: "CHANGE_COUNTRY",
-            country: country
+            country: country,
         })
     }
 
