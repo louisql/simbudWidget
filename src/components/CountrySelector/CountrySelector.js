@@ -32,7 +32,7 @@ const CountrySelector = (props) => {
 
     const options = offerCtx.loadedCountries.map(
         (country) => {
-            if (languageParentWindow === 'eng') {
+            if (languageParentWindow === 'en') {
                 return {
                     label: country.name,
                     value: country.code
@@ -48,8 +48,6 @@ const CountrySelector = (props) => {
     )
 
     const filterOptions = (options, { inputValue }) => {
-        console.log(options)
-        console.log(inputValue)
         return options.filter((option) => {
             const optionNormalized = toNormalForm(option.label)
             const inputValueNormalized = toNormalForm(inputValue)

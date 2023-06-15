@@ -69,7 +69,6 @@ const Offers = (props) => {
     });
 
     if (offerCtx.isLoaded && selectedCountryName) {
-        console.log(selectedCountryName)
         let selectedCountryFrenchName = selectedCountryName.nameFrench.common
         let selectedCountryEnglishName = selectedCountryName.name
         // console.log(selectedCountryName)
