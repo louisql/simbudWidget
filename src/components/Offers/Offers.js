@@ -30,38 +30,17 @@ const Offers = (props) => {
     let offersList
     let buttonIsActive = true
     let resetText = "Reset capacity and duration"
+    let countryHasOffer
+    let filteredList
 
-    
     // Getting the country name based on the country code
     // console.log(location)
-    console.log(offerCtx.loadedCountries)
-    
+    // console.log(offerCtx.loadedCountries)
+
 
     const allCountries = offerCtx.loadedCountries
 
     const selectedCountryName = allCountries.find(country => country.code === selectedCountry)
-    console.log(selectedCountryName)
-
-    if (languageParentWindow === 'fr' && selectedCountryName) {
-        location = selectedCountryName.nameFrench.common
-    } else if (languageParentWindow ==='en' && selectedCountryName) {
-        location = selectedCountryName.name
-    }
-
-
-    // Checking language to use French names for countries in Card if required
-    // if (languageParentWindow === 'fr') {
-    //     const allCountries = offerCtx.loadedCountries
-    //     const selectedCountryObj = allCountries.find(country => country.nameFrench && country.name === selectedCountry);
-    //     // console.log(selectedCountryObj)
-    //     const selectedCountryFrench = selectedCountryObj?.nameFrench.common;
-    //     location = selectedCountryFrench
-
-    //     resetText = "Réinitialiser capacité et durée"
-    // }
-
-
-    // const {t, i18n} = useTranslation('common');
 
     const compareByPrice = (a, b) => a.USDPrice - b.USDPrice
 
@@ -71,7 +50,7 @@ const Offers = (props) => {
         const numericValue = parseFloat(capacity);
         if (capacity !== undefined && capacity !== null) {
             let unit
-            if (typeof(capacity) === 'object') unit = capacity.value.match(/[a-zA-Z]+/)[0].toLowerCase();
+            if (typeof (capacity) === 'object') unit = capacity.value.match(/[a-zA-Z]+/)[0].toLowerCase();
             else unit = capacity.match(/[a-zA-Z]+/)[0].toLowerCase();
 
             if (unit === 'gb') {
@@ -89,27 +68,64 @@ const Offers = (props) => {
         return index === self.findIndex((o) => o.id === offer.id);
     });
 
+    if (offerCtx.isLoaded) {
+        let selectedCountryFrenchName = selectedCountryName.nameFrench.common
+        let selectedCountryEnglishName = selectedCountryName.name
+        // console.log(selectedCountryName)
 
-    // Checking if the country has offer to display reset button for country with offers
-    const countryHasOffer = uniqueData.some(element => element.country.includes(selectedCountry.toLowerCase()))
+        if (languageParentWindow === 'fr') {
+            location = selectedCountryFrenchName
+        } else if (languageParentWindow === 'en') {
+            location = selectedCountryEnglishName
+        }
 
+        console.log(selectedCountry)
+        // Checking if the country has offer to display reset button for country with offers
+        countryHasOffer = uniqueData.some(element => element.country.includes(selectedCountryEnglishName.toLowerCase()))
 
-    const filteredList = uniqueData.filter(offer => {
-        const capacity = convertToGB(offer.capacity);
-
-        // Next line reformat country by removing Capitalized letters, replacing hyphen by space and check if there's a match
-        const countryMatch = offer.country.toLowerCase().replace(/-/g, ' ').includes(selectedCountry.toLowerCase())
-        const capacityMatch = capacity >= convertToGB(offerCtx.selectedCapacity) || !offerCtx.selectedCapacity;
-        const validityMatch = parseFloat(offer.validity) >= parseFloat(offerCtx.selectedValidity) || !offerCtx.selectedValidity
-
-        return countryMatch && capacityMatch && validityMatch
-    });
-
-
-    // Deactivating the display more button if no more offers to display
-    if (filteredList.length < nbreOffersDisplayed || nbreOffersDisplayed === 12) {
-        buttonIsActive = false
+        filteredList = uniqueData.filter(offer => {
+            const capacity = convertToGB(offer.capacity);
+            // console.log(offer.country)
+            // Next line reformat country by removing Capitalized letters, replacing hyphen by space and check if there's a match
+            const countryMatch = offer.country.toLowerCase().replace(/-/g, ' ').includes(selectedCountryEnglishName.toLowerCase())
+            const capacityMatch = capacity >= convertToGB(offerCtx.selectedCapacity) || !offerCtx.selectedCapacity;
+            const validityMatch = parseFloat(offer.validity) >= parseFloat(offerCtx.selectedValidity) || !offerCtx.selectedValidity
+    
+            return countryMatch && capacityMatch && validityMatch
+        });
+    
+        console.log(uniqueData)
+        console.log(filteredList)
+    
+        // Deactivating the display more button if no more offers to display
+        if (filteredList.length < nbreOffersDisplayed || nbreOffersDisplayed === 12) {
+            buttonIsActive = false
+        }
     }
+
+
+
+
+    // Checking language to use French names for countries in Card if required
+    // if (languageParentWindow === 'fr') {
+    //     const allCountries = offerCtx.loadedCountries
+    //     const selectedCountryObj = allCountries.find(country => country.nameFrench && country.name === selectedCountry);
+    //     // console.log(selectedCountryObj)
+    //     const selectedCountryFrench = selectedCountryObj?.nameFrench.common;
+    //     location = selectedCountryFrench
+
+    //     resetText = "Réinitialiser capacité et durée"
+    // }
+
+
+    // const {t, i18n} = useTranslation('common');
+
+   
+
+
+   
+
+    
 
     const resetField = () => {
         offerCtx.changeCapacity(null);
@@ -121,7 +137,8 @@ const Offers = (props) => {
         offerCtx.changeNberOffers(nbreOffersDisplayed + 3)
     }
 
-    if (filteredList.length > 0) {
+    if (offerCtx.isLoaded){
+        if (filteredList.length > 0) {
         //Limiting display to 3 offers
         offersList = filteredList.slice(0, nbreOffersDisplayed).map((offer) => {
             let trimmedPlanName = offer.planName + " "
@@ -158,7 +175,7 @@ const Offers = (props) => {
 
         props.onSendData(offersList.length)
 
-    } else if (offerCtx.isLoaded) {
+    } else  {
         offersList = (
             <>
                 <span> </span>
@@ -169,7 +186,7 @@ const Offers = (props) => {
         )
         props.onSendData(offersList.length)
     }
-
+    }
 
 
 

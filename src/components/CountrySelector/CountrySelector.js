@@ -13,6 +13,21 @@ const CountrySelector = (props) => {
     const languageParentWindow = currencyCtx.languageParentWindow
     // const nbreOffersDisplayed = offerCtx.nbreOffersDisplayed
 
+    let defaultCountry
+
+    const defaultCountryCode = offerCtx.selectedCountry
+    const defaultCountryObject = offerCtx.loadedCountries.find(country => country.code === defaultCountryCode)
+    // console.log(offerCtx.loadedCountries)
+    
+    if (languageParentWindow === 'eng' && offerCtx.isLoaded){
+        defaultCountry = defaultCountryObject.name
+        
+    } else if (languageParentWindow === 'fr' && offerCtx.isLoaded) {
+        defaultCountry = defaultCountryObject.nameFrench.common
+
+    }
+
+
     // console.log(offerCtx.loadedCountries)
 
     const options = offerCtx.loadedCountries.map(
@@ -61,7 +76,7 @@ const CountrySelector = (props) => {
                     options={options}
                     sx={{ width: 250 }}
                     filterOptions={filterOptions}
-                    defaultValue={offerCtx.selectedCountry}
+                    defaultValue={defaultCountry}
                     onChange={handleChange}
                     renderInput={(params) =>
 

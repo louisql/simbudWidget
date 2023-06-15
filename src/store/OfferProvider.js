@@ -128,7 +128,7 @@ const OfferProvider = (props) => {
         })
     }
 
-    const initiateDataHandler = (data, loadedCountries, isLoaded) => {
+    const initiateDataHandler = (data, loadedCountries, selectedCountryCode, isLoaded) => {
         dispatchOfferAction({
             type: "INIT",
             data: data,
@@ -196,9 +196,13 @@ const OfferProvider = (props) => {
                 return a.name.localeCompare(b.name)
             })
 
+            console.log(country)
+            console.log(loadedCountries)
 
+            const selectedCountryCode = loadedCountries.find(item => item.code === country.toUpperCase())
 
-            initiateDataHandler(dataJSON[1], loadedCountries, true)
+            console.log(selectedCountryCode)
+            initiateDataHandler(dataJSON[1], loadedCountries, selectedCountryCode, true)
 
         }).catch((error) => {
             setErrorHandler(true, error);
