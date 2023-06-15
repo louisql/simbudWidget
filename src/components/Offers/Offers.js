@@ -29,7 +29,7 @@ const Offers = (props) => {
     let location;
     let offersList
     let buttonIsActive = true
-    let resetText = "Reset capacity and duration"
+    let resetText
     let countryHasOffer
     let filteredList
 
@@ -68,15 +68,18 @@ const Offers = (props) => {
         return index === self.findIndex((o) => o.id === offer.id);
     });
 
-    if (offerCtx.isLoaded) {
+    if (offerCtx.isLoaded && selectedCountryName) {
+        console.log(selectedCountryName)
         let selectedCountryFrenchName = selectedCountryName.nameFrench.common
         let selectedCountryEnglishName = selectedCountryName.name
         // console.log(selectedCountryName)
 
         if (languageParentWindow === 'fr') {
             location = selectedCountryFrenchName
+            resetText = "Réinitialiser capacité et durée"
         } else if (languageParentWindow === 'en') {
             location = selectedCountryEnglishName
+            resetText = "Reset capacity and duration"
         }
 
         // console.log(selectedCountry)
@@ -131,7 +134,7 @@ const Offers = (props) => {
         offerCtx.changeNberOffers(nbreOffersDisplayed + 3)
     }
 
-    if (offerCtx.isLoaded) {
+    if (offerCtx.isLoaded && filteredList) {
         if (filteredList.length > 0) {
             //Limiting display to 3 offers
             offersList = filteredList.slice(0, nbreOffersDisplayed).map((offer) => {

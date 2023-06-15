@@ -46,6 +46,7 @@
     color: #ffff;
     text-decoration: none;
     grid-area: center;
+    cursor: pointer;
 }
 
 .errorContainer{
