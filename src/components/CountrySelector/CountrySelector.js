@@ -18,10 +18,10 @@ const CountrySelector = (props) => {
     const defaultCountryCode = offerCtx.selectedCountry
     const defaultCountryObject = offerCtx.loadedCountries.find(country => country.code === defaultCountryCode)
     // console.log(offerCtx.loadedCountries)
-    
-    if (languageParentWindow === 'eng' && offerCtx.isLoaded){
+
+    if (languageParentWindow === 'eng' && offerCtx.isLoaded) {
         defaultCountry = defaultCountryObject.name
-        
+
     } else if (languageParentWindow === 'fr' && offerCtx.isLoaded) {
         defaultCountry = defaultCountryObject.nameFrench.common
 
@@ -33,9 +33,9 @@ const CountrySelector = (props) => {
     const options = offerCtx.loadedCountries.map(
         (country) => {
             if (languageParentWindow === 'eng') {
-                return { 
-                    label: country.name, 
-                    value: country.code 
+                return {
+                    label: country.name,
+                    value: country.code
                 }
             }
             else {
@@ -48,9 +48,13 @@ const CountrySelector = (props) => {
     )
 
     const filterOptions = (options, { inputValue }) => {
-        return options.filter((option) =>
-            option.value.toLowerCase().startsWith(inputValue.toLowerCase())
-        );
+        console.log(options)
+        console.log(inputValue)
+        return options.filter((option) => {
+            const optionNormalized = toNormalForm(option.label)
+            const inputValueNormalized = toNormalForm(inputValue)
+            return optionNormalized.toLowerCase().startsWith(inputValueNormalized.toLowerCase())
+        });
     };
 
     const handleChange = (event, value) => {
@@ -60,6 +64,12 @@ const CountrySelector = (props) => {
         // offerCtx.changeNberOffers(nbreOffersDisplayed)
 
     }
+
+    const toNormalForm = (str) => {
+        console.log(str)
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
 
     const { t, i18n } = useTranslation('common');
 

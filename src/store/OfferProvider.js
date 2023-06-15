@@ -43,7 +43,6 @@ const defaultOfferState = {
 const offerReducer = (state, action) => {
     switch (action.type) {
         case 'CHANGE_COUNTRY':
-            console.log(action)
             return {
                 ...state,
                 selectedCountry: action.country

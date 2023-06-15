@@ -79,7 +79,7 @@ const Offers = (props) => {
             location = selectedCountryEnglishName
         }
 
-        console.log(selectedCountry)
+        // console.log(selectedCountry)
         // Checking if the country has offer to display reset button for country with offers
         countryHasOffer = uniqueData.some(element => element.country.includes(selectedCountryEnglishName.toLowerCase()))
 
@@ -90,13 +90,13 @@ const Offers = (props) => {
             const countryMatch = offer.country.toLowerCase().replace(/-/g, ' ').includes(selectedCountryEnglishName.toLowerCase())
             const capacityMatch = capacity >= convertToGB(offerCtx.selectedCapacity) || !offerCtx.selectedCapacity;
             const validityMatch = parseFloat(offer.validity) >= parseFloat(offerCtx.selectedValidity) || !offerCtx.selectedValidity
-    
+
             return countryMatch && capacityMatch && validityMatch
         });
-    
-        console.log(uniqueData)
-        console.log(filteredList)
-    
+
+        // console.log(uniqueData)
+        // console.log(filteredList)
+
         // Deactivating the display more button if no more offers to display
         if (filteredList.length < nbreOffersDisplayed || nbreOffersDisplayed === 12) {
             buttonIsActive = false
@@ -120,12 +120,6 @@ const Offers = (props) => {
 
     // const {t, i18n} = useTranslation('common');
 
-   
-
-
-   
-
-    
 
     const resetField = () => {
         offerCtx.changeCapacity(null);
@@ -137,55 +131,55 @@ const Offers = (props) => {
         offerCtx.changeNberOffers(nbreOffersDisplayed + 3)
     }
 
-    if (offerCtx.isLoaded){
+    if (offerCtx.isLoaded) {
         if (filteredList.length > 0) {
-        //Limiting display to 3 offers
-        offersList = filteredList.slice(0, nbreOffersDisplayed).map((offer) => {
-            let trimmedPlanName = offer.planName + " "
-            trimmedPlanName = trimmedPlanName.substring(0, 22)
-            trimmedPlanName = trimmedPlanName.substring(0, Math.min(trimmedPlanName.length, trimmedPlanName.lastIndexOf(" ")))
+            //Limiting display to 3 offers
+            offersList = filteredList.slice(0, nbreOffersDisplayed).map((offer) => {
+                let trimmedPlanName = offer.planName + " "
+                trimmedPlanName = trimmedPlanName.substring(0, 22)
+                trimmedPlanName = trimmedPlanName.substring(0, Math.min(trimmedPlanName.length, trimmedPlanName.lastIndexOf(" ")))
 
-            let capacityConverted
-            if (languageParentWindow === 'en') {
-                capacityConverted = offer.capacity
-            } else {
-                capacityConverted = offer.capacity.replace(/GB/g, "Go").replace(/MB/g, "Mo")
-            }
+                let capacityConverted
+                if (languageParentWindow === 'en') {
+                    capacityConverted = offer.capacity
+                } else {
+                    capacityConverted = offer.capacity.replace(/GB/g, "Go").replace(/MB/g, "Mo")
+                }
 
 
-            return (
-                <Card
-                    id={offer.id}
-                    key={offer.id}
-                    logo={offer.logo}
-                    provider={offer.provider}
-                    capacity={capacityConverted}
-                    planName={trimmedPlanName}
-                    location={location}
-                    // Rounding the price to 2 digits & applying conversion rate 
-                    price={(Math.round(offer.USDPrice * currentConversionRate * 100) / 100).toFixed(2)}
-                    validity={offer.validity}
-                    referal={offerCtx.referal}
-                    url={offer.url}
-                    backupUrl={offer.backupUrl}
-                    currencySymbol={currencies[selectedCurrency]?.Symbol || ''}
-                />
+                return (
+                    <Card
+                        id={offer.id}
+                        key={offer.id}
+                        logo={offer.logo}
+                        provider={offer.provider}
+                        capacity={capacityConverted}
+                        planName={trimmedPlanName}
+                        location={location}
+                        // Rounding the price to 2 digits & applying conversion rate 
+                        price={(Math.round(offer.USDPrice * currentConversionRate * 100) / 100).toFixed(2)}
+                        validity={offer.validity}
+                        referal={offerCtx.referal}
+                        url={offer.url}
+                        backupUrl={offer.backupUrl}
+                        currencySymbol={currencies[selectedCurrency]?.Symbol || ''}
+                    />
+                )
+            });
+
+            props.onSendData(offersList.length)
+
+        } else {
+            offersList = (
+                <>
+                    <span className={classes.hideSmallScreens}> </span>
+                    <div className={classes.errorContainer}>
+                        {countryHasOffer && <button className={classes.resetButton} onClick={resetField}>{resetText}</button>}
+                    </div>
+                </>
             )
-        });
-
-        props.onSendData(offersList.length)
-
-    } else  {
-        offersList = (
-            <>
-                <span> </span>
-                <div className={classes.errorContainer}>
-                    {countryHasOffer && <button className={classes.resetButton} onClick={resetField}>{resetText}</button>}
-                </div>
-            </>
-        )
-        props.onSendData(offersList.length)
-    }
+            props.onSendData(offersList.length)
+        }
     }
 
 
