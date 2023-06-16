@@ -64,7 +64,6 @@ const CountrySelector = (props) => {
     }
 
     const toNormalForm = (str) => {
-        console.log(str)
         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
 

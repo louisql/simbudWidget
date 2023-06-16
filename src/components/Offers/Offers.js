@@ -16,6 +16,7 @@ const Offers = (props) => {
     const offerCtx = useContext(OfferContext)
     const currencyCtx = useContext(CurrencyContext)
 
+    // i18n causing maximum update depth exceeded in this component only, to investigate
     // const {t, i18n} = useTranslation('common');
 
     const selectedCountry = offerCtx.selectedCountry
@@ -30,13 +31,11 @@ const Offers = (props) => {
     let offersList
     let buttonIsActive = true
     let resetText
+    let noOfferText
     let countryHasOffer
     let filteredList
 
     // Getting the country name based on the country code
-    // console.log(location)
-    // console.log(offerCtx.loadedCountries)
-
 
     const allCountries = offerCtx.loadedCountries
 
@@ -71,23 +70,22 @@ const Offers = (props) => {
     if (offerCtx.isLoaded && selectedCountryName) {
         let selectedCountryFrenchName = selectedCountryName.nameFrench.common
         let selectedCountryEnglishName = selectedCountryName.name
-        // console.log(selectedCountryName)
 
         if (languageParentWindow === 'fr') {
             location = selectedCountryFrenchName
             resetText = "Réinitialiser capacité et durée"
+            noOfferText = "Aucune offre pour cette destination"
         } else if (languageParentWindow === 'en') {
             location = selectedCountryEnglishName
             resetText = "Reset capacity and duration"
+            noOfferText = "No offer for this destination"
         }
 
-        // console.log(selectedCountry)
         // Checking if the country has offer to display reset button for country with offers
         countryHasOffer = uniqueData.some(element => element.country.includes(selectedCountryEnglishName.toLowerCase()))
 
         filteredList = uniqueData.filter(offer => {
             const capacity = convertToGB(offer.capacity);
-            // console.log(offer.country)
             // Next line reformat country by removing Capitalized letters, replacing hyphen by space and check if there's a match
             const countryMatch = offer.country.toLowerCase().replace(/-/g, ' ').includes(selectedCountryEnglishName.toLowerCase())
             const capacityMatch = capacity >= convertToGB(offerCtx.selectedCapacity) || !offerCtx.selectedCapacity;
@@ -96,32 +94,11 @@ const Offers = (props) => {
             return countryMatch && capacityMatch && validityMatch
         });
 
-        // console.log(uniqueData)
-        // console.log(filteredList)
-
         // Deactivating the display more button if no more offers to display
         if (filteredList.length < nbreOffersDisplayed || nbreOffersDisplayed === 12) {
             buttonIsActive = false
         }
     }
-
-
-
-
-    // Checking language to use French names for countries in Card if required
-    // if (languageParentWindow === 'fr') {
-    //     const allCountries = offerCtx.loadedCountries
-    //     const selectedCountryObj = allCountries.find(country => country.nameFrench && country.name === selectedCountry);
-    //     // console.log(selectedCountryObj)
-    //     const selectedCountryFrench = selectedCountryObj?.nameFrench.common;
-    //     location = selectedCountryFrench
-
-    //     resetText = "Réinitialiser capacité et durée"
-    // }
-
-
-    // const {t, i18n} = useTranslation('common');
-
 
     const resetField = () => {
         offerCtx.changeCapacity(null);
@@ -177,6 +154,7 @@ const Offers = (props) => {
                     <span className={classes.hideSmallScreens}> </span>
                     <div className={classes.errorContainer}>
                         {countryHasOffer && <button className={classes.resetButton} onClick={resetField}>{resetText}</button>}
+                        {!countryHasOffer  && <p>{noOfferText}</p>}
                     </div>
                 </>
             )
