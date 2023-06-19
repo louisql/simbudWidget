@@ -12,6 +12,7 @@ const urlCountry = urlParams.get('country')
 const urlReferal = urlParams.get('referal')
 const urlNberOffer = urlParams.get('nberOffer')
 
+
 // console.log(urlCountry)
 
 //Setting Canada as default country if no country is passed
@@ -31,7 +32,7 @@ const defaultOfferState = {
     isLoaded: false,
     error: null,
     selectedCountry: country,
-    selectedCountryCode: undefined,
+    selectedCountryName: undefined,
     selectedValidity: undefined,
     selectedCapacity: undefined,
     referal: referal,
@@ -74,6 +75,7 @@ const offerReducer = (state, action) => {
                 ...state,
                 data: action.data,
                 loadedCountries: action.loadedCountries,
+                selectedCountryName: action.selectedCountryName,
                 isLoaded: action.isLoaded
             }
 
@@ -129,11 +131,12 @@ const OfferProvider = (props) => {
         })
     }
 
-    const initiateDataHandler = (data, loadedCountries, selectedCountryCode, isLoaded) => {
+    const initiateDataHandler = (data, loadedCountries, selectedCountryName, isLoaded) => {
         dispatchOfferAction({
             type: "INIT",
             data: data,
             loadedCountries: loadedCountries,
+            selectedCountryName: selectedCountryName,
             isLoaded: isLoaded
         })
     }
@@ -156,6 +159,7 @@ const OfferProvider = (props) => {
         selectedCountry: offerState.selectedCountry,
         loadedCountries: offerState.loadedCountries,
         selectedCapacity: offerState.selectedCapacity,
+        selectedCountryName: offerState.selectedCountryName,
         selectedValidity: offerState.selectedValidity,
         nbreOffersDisplayed: offerState.nbreOffersDisplayed,
         referal: offerState.referal,
@@ -197,9 +201,15 @@ const OfferProvider = (props) => {
                 return a.name.localeCompare(b.name)
             })
 
-            const selectedCountryCode = loadedCountries.find(item => item.code === country.toUpperCase())
+            let selectedCountryName = loadedCountries.find(item => item.code === country.toUpperCase())
 
-            initiateDataHandler(dataJSON[1], loadedCountries, selectedCountryCode, true)
+            let selectedCountryNameFrench ={
+                label: selectedCountryName.nameFrench.common,
+                // labelEnglish: selectedCountryName.name,
+                value: selectedCountryName.code
+            }
+
+            initiateDataHandler(dataJSON[1], loadedCountries, selectedCountryNameFrench, true)
 
         }).catch((error) => {
             setErrorHandler(true, error);
