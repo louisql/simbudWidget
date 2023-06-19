@@ -3,14 +3,14 @@ import { useContext, useEffect, useState } from "react"
 import OfferContext from '../../store/OfferContext'
 import CurrencyContext from '../../store/CurrencyContext';
 
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 
 const DurationSelector = () => {
     const offerCtx = useContext(OfferContext)
     const currencyCtx = useContext(CurrencyContext)
 
-    const {t, i18n} = useTranslation('common');
+    const { t, i18n } = useTranslation('common');
 
     const [updatedContent, setupdatedContent] = useState(false)
     const [options, setOptions] = useState([])
@@ -31,12 +31,17 @@ const DurationSelector = () => {
         const optionsWithLabel = filteredDuration.map(
             (option) => {
                 if (languageParentWindow === 'eng') {
-                    return { 
-                        label: option, 
+                    return {
+                        label: option,
                         value: option
                     }
                 } else {
-                    return {
+                    if (option === '1 day') {
+                        return {
+                            label: parseInt(option) + ' ' + t('offer.day'),
+                            value: option
+                        }
+                    } else return {
                         label: parseInt(option) + ' ' + t('offer.days'),
                         value: option
                     }
@@ -74,6 +79,10 @@ const DurationSelector = () => {
                 {(
                     <Autocomplete
                         disablePortal
+                        openText={t('label.open')}
+                        closeText={t('label.close')}
+                        clearText={t('label.clear')}
+
                         id="combo-box-demo"
                         options={options}
                         sx={{ width: 250 }}

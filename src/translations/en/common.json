@@ -14,8 +14,14 @@
         "checkall": "Check all offers",
         "showMore": "Show more offers",
         "currency": "Currency",
+        "day": "day",
         "days": "days",
         "noResult": "No Result",
         "noMoreOffer": "No more offers"
+    },
+    "label": {
+        "open": "Open",
+        "close": "Close",
+        "clear": "Clear"
     }
 }

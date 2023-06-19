@@ -90,7 +90,7 @@ const DataSelector = () => {
 
         setOptions(optionsWithLabel)
 
-        console.log(options)
+        // console.log(options)
 
         // Selecting default Capacity for autocomplete
         const isCapacityInPlan = filteredCapacity.includes(offerCtx.selectedCapacity)
@@ -102,11 +102,9 @@ const DataSelector = () => {
         }
 
         testDefault = (defaultCapacity)
-        console.log(offerCtx)
+        // console.log(offerCtx)
 
     }, [offerCtx.isLoaded, offerCtx.data, updatedContent, optionsWithLabel])
-
-    console.log(testDefault)
 
     const filterOptions = (options, { inputValue }) => {
         return options.filter((option) =>
@@ -130,6 +128,10 @@ const DataSelector = () => {
                 <Autocomplete
                     disablePortal
                     id="combo-box-demo"
+                    openText={t('label.open')}
+                    closeText={t('label.close')}
+                    clearText={t('label.clear')}
+
                     options={options}
                     sx={{ width: 150 }}
                     filterOptions={filterOptions}

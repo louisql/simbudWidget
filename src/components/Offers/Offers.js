@@ -95,7 +95,7 @@ const Offers = (props) => {
         });
 
         // Deactivating the display more button if no more offers to display
-        if (filteredList.length < nbreOffersDisplayed || nbreOffersDisplayed === 12) {
+        if (filteredList.length < nbreOffersDisplayed || nbreOffersDisplayed >= 18) {
             buttonIsActive = false
         }
     }

@@ -53,6 +53,19 @@ const CountrySelector = (props) => {
         }
     })
 
+    options.sort((a, b) => {
+        const labelA = a.label.toLowerCase();
+        const labelB = b.label.toLowerCase();
+      
+        if (labelA < labelB) {
+          return -1;
+        }
+        if (labelA > labelB) {
+          return 1;
+        }
+        return 0;
+      });
+
     const filterOptions = (options, { inputValue }) => {
         return options.filter((option) => {
             const optionNormalized = toNormalForm(option.label)
@@ -62,7 +75,7 @@ const CountrySelector = (props) => {
     };
 
     const handleChange = (event, value) => {
-        // console.log(value)
+        console.log(value)
         if (value) offerCtx.changeCountry(value.value);
         offerCtx.changeCapacity(null);
         offerCtx.changeValidity(null);
@@ -89,6 +102,8 @@ const CountrySelector = (props) => {
     // console.log(options)
     let testDefault = offerCtx.selectedCountryName
     // console.log(testDefault)
+
+
 
     useEffect(() => {
         // console.log(testDefault)
@@ -121,40 +136,54 @@ const CountrySelector = (props) => {
     }, [defaultCountry]);
 
 
+    console.log(defaultCountry)
+
     // console.log(offerCtx.selectedCountryName)
     if (offerCtx.error) {
         return <div>Error: {offerCtx.error}</div>
     } else if (!offerCtx.isLoaded) {
         return <div>Loading...</div>
-    } else {
-        return (
-            <>
-                <Autocomplete
-                    isOptionEqualToValue={isOptionEqualToValue}
+    } // ...
 
-                    disablePortal
-                    id="combo-box-demo"
-                    options={options}
-                    sx={{ width: 250 }}
-                    filterOptions={filterOptions}
-                    value={defaultCountry}
-                    // value={offerCtx.selectedCountryName}
-                    onChange={handleChange}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            label={t('country.choose')}
-                            borderRadius="16px"
-                            style={{
-                                textAlign: "left",
-                                color: "black"
-                            }}
-                        />
-                    )}
-                />
-            </>
-        )
+    if (offerCtx.error) {
+      return <div>Error: {offerCtx.error}</div>;
+    } else if (!offerCtx.isLoaded) {
+      return <div>Loading...</div>;
+    } else if (defaultCountry === null) {
+      return <div>Waiting for default country...</div>;
+    } else {
+      return (
+        <>
+          <Autocomplete
+            isOptionEqualToValue={isOptionEqualToValue}
+            disablePortal
+
+            openText={t('label.open')}
+            closeText={t('label.close')}
+            clearText={t('label.clear')}
+
+            id="combo-box-demo"
+            options={options}
+            sx={{ width: 250 }}
+            filterOptions={filterOptions}
+            defaultValue={defaultCountry ? defaultCountry.label : 'test'}
+            onChange={handleChange}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label={t('country.choose')}
+                borderRadius="16px"
+                style={{
+                  textAlign: "left",
+                  color: "black"
+                }}
+              />
+            )}
+          />
+        </>
+      );
     }
+    
 }
 
 export default CountrySelector
