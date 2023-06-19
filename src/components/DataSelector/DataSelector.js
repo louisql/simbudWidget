@@ -37,14 +37,25 @@ const DataSelector = () => {
         return converterdCapacity
     }
 
-
+    let testDefault
 
     useEffect(() => {
         setupdatedContent(false)
 
-        const selectedCountry = offerCtx.selectedCountry;
+        let selectedCountry = offerCtx;
+        // const selectedCountryName = offerCtx.selectedCountry.selectedCountryName.labelEnglish;
 
+        console.log(selectedCountry)
+        
+        if (selectedCountry.selectedCountryName) {
+            selectedCountry = selectedCountry.selectedCountryName.labelEnglish
+        }
+
+        // console.log(selectedCountryName)
+
+        console.log(offerCtx.data)
         const filteredList = offerCtx.data.filter(offer => offer.country.toLowerCase().includes(selectedCountry.toLowerCase()))
+        console.log(filteredList)
         if (filteredList.length > 0) {
             setDefaultCapacity(filteredList[0].capacity)
         }
@@ -90,10 +101,12 @@ const DataSelector = () => {
             setDefaultCapacity(filteredList[0].capacity)
         }
 
-        let testDefault = (defaultCapacity)
+        testDefault = (defaultCapacity)
         console.log(offerCtx)
 
-    }, [offerCtx.selectedCountry, offerCtx.data, updatedContent, optionsWithLabel])
+    }, [offerCtx.isLoaded, offerCtx.data, updatedContent, optionsWithLabel])
+
+    console.log(testDefault)
 
     const filterOptions = (options, { inputValue }) => {
         return options.filter((option) =>
