@@ -35,7 +35,7 @@ const CountrySelector = (props) => {
                 setDefaultCountry(defaultCountryObject.nameFrench.common)
             }
         }
-        
+
     }, [defaultCountryObject, languageParentWindow])
     // console.log(defaultCountry)
 
@@ -62,6 +62,7 @@ const CountrySelector = (props) => {
     };
 
     const handleChange = (event, value) => {
+        console.log(value)
         if (value) offerCtx.changeCountry(value.value);
         offerCtx.changeCapacity(null);
         offerCtx.changeValidity(null);
@@ -84,24 +85,40 @@ const CountrySelector = (props) => {
     //     label: offerCtx.selectedCountryName.name,
     //     value: offerCtx.selectedCountryName
     // }
-    console.log(offerCtx.selectedCountryName)
-    console.log(options)
+    // console.log(offerCtx.selectedCountryName)
+    // console.log(options)
     let testDefault = offerCtx.selectedCountryName
-    console.log(testDefault)
+    // console.log(testDefault)
 
-    if (languageParentWindow === "fr" && offerCtx.isLoaded){
+    useEffect(() => {
         console.log(testDefault)
-        const testDefault2 = {
-            ...testDefault,
-            label: testDefault.labelFrench
-        } 
-    } else if (languageParentWindow === "en" && offerCtx.isLoaded){
-        const testDefault2 = {
-            ...testDefault,
-            label: testDefault.labelEnglish
-        } 
-        
-    }
+        if (languageParentWindow === "fr" && offerCtx.isLoaded) {
+            const testDefault2 = {
+                value: testDefault.value,
+                label: testDefault.label
+            }
+            console.log(testDefault2)
+            setDefaultCountry(testDefault2);
+            handleChange(defaultCountry)
+
+        } else if (languageParentWindow === "en" && offerCtx.isLoaded) {
+            const testDefault2 = {
+                ...testDefault,
+                label: testDefault.labelEnglish
+            }
+            console.log(testDefault2)
+            setDefaultCountry(testDefault2);
+            handleChange(defaultCountry)
+        }
+    }, [languageParentWindow, offerCtx.selectedCountryName]);
+
+
+    useEffect(() => {
+        if (defaultCountry) {
+            // Call handleChange with the default value
+            handleChange(null, defaultCountry);
+        }
+    }, [defaultCountry]);
 
 
     // console.log(offerCtx.selectedCountryName)
@@ -113,14 +130,14 @@ const CountrySelector = (props) => {
         return (
             <>
                 <Autocomplete
-                                        isOptionEqualToValue={isOptionEqualToValue}
+                    isOptionEqualToValue={isOptionEqualToValue}
 
                     disablePortal
                     id="combo-box-demo"
                     options={options}
                     sx={{ width: 250 }}
                     filterOptions={filterOptions}
-                    defaultValue={testDefault2}
+                    value={defaultCountry}
                     // value={offerCtx.selectedCountryName}
                     onChange={handleChange}
                     renderInput={(params) => (

@@ -16,7 +16,7 @@ const urlNberOffer = urlParams.get('nberOffer')
 // console.log(urlCountry)
 
 //Setting Canada as default country if no country is passed
-const country = (urlCountry === null ? 'CAN' : urlCountry.charAt(0).toUpperCase() + urlCountry.slice(1));
+const country = (urlCountry === null ? 'USA' : urlCountry.charAt(0).toUpperCase() + urlCountry.slice(1));
 const referal = (urlReferal === null ? '' : urlReferal.toLowerCase());
 const nberOffer = (urlNberOffer === null ? 6 : Number(urlNberOffer));
 
