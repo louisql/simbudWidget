@@ -61,7 +61,6 @@ const DurationSelector = () => {
     };
 
     const handleChange = (event, value) => {
-        // console.log(value.value)
         // offerCtx.changeCapacity(value);
         if (value) offerCtx.changeValidity(value.value);
         else offerCtx.changeValidity(null)

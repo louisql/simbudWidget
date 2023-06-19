@@ -10,7 +10,6 @@ const DataSelector = () => {
     const offerCtx = useContext(OfferContext)
     const currencyCtx = useContext(CurrencyContext)
 
-    const [updatedContent, setupdatedContent] = useState(false)
     const [options, setOptions] = useState([])
     const [defaultCapacity, setDefaultCapacity] = useState(null)
 
@@ -37,19 +36,12 @@ const DataSelector = () => {
         return converterdCapacity
     }
 
-    let testDefault
-
     useEffect(() => {
-        setupdatedContent(false)
-
         let selectedCountry = offerCtx;
-        // const selectedCountryName = offerCtx.selectedCountry.selectedCountryName.labelEnglish;
 
         if (selectedCountry.selectedCountryName) {
             selectedCountry = selectedCountry.selectedCountryName.labelEnglish
         }
-
-        // console.log(selectedCountryName)
 
         const filteredList = offerCtx.data.filter(offer => offer.country.toLowerCase().includes(selectedCountry.toLowerCase()))
         if (filteredList.length > 0) {
@@ -73,7 +65,7 @@ const DataSelector = () => {
                     return {
                         label: convertUnits(option),
                         value: option
-                    } 
+                    }
                 } else {
                     return {
                         label: option,
@@ -82,25 +74,8 @@ const DataSelector = () => {
                 }
             }
         )
-
-
         setOptions(optionsWithLabel)
-
-        // console.log(options)
-
-        // Selecting default Capacity for autocomplete
-        const isCapacityInPlan = filteredCapacity.includes(offerCtx.selectedCapacity)
-
-        if (isCapacityInPlan) {
-            setDefaultCapacity(offerCtx.selectedCapacity)
-        } else if (filteredList.length > 0) {
-            setDefaultCapacity(filteredList[0].capacity)
-        }
-
-        testDefault = (defaultCapacity)
-        // console.log(offerCtx)
-
-    }, [offerCtx.isLoaded, offerCtx.data, updatedContent, optionsWithLabel])
+    }, [offerCtx.isLoaded, offerCtx.data, optionsWithLabel])
 
     const filterOptions = (options, { inputValue }) => {
         return options.filter((option) =>
@@ -113,7 +88,6 @@ const DataSelector = () => {
         if (value) offerCtx.changeCapacity(value.value)
         else offerCtx.changeCapacity(value)
         offerCtx.changeCountry(offerCtx.selectedCountry)
-        setupdatedContent(true)
     }
 
     const { t, i18n } = useTranslation('common');
