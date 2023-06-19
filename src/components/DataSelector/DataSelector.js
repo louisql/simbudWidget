@@ -45,17 +45,13 @@ const DataSelector = () => {
         let selectedCountry = offerCtx;
         // const selectedCountryName = offerCtx.selectedCountry.selectedCountryName.labelEnglish;
 
-        console.log(selectedCountry)
-        
         if (selectedCountry.selectedCountryName) {
             selectedCountry = selectedCountry.selectedCountryName.labelEnglish
         }
 
         // console.log(selectedCountryName)
 
-        console.log(offerCtx.data)
         const filteredList = offerCtx.data.filter(offer => offer.country.toLowerCase().includes(selectedCountry.toLowerCase()))
-        console.log(filteredList)
         if (filteredList.length > 0) {
             setDefaultCapacity(filteredList[0].capacity)
         }

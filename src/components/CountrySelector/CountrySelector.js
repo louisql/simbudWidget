@@ -14,17 +14,18 @@ const CountrySelector = (props) => {
 
     const [defaultCountryObject, setDefaultCountryObject] = useState(null)
     const [defaultCountry, setDefaultCountry] = useState(null)
-    const [isLoaded, setIsLoaded] = useState(false)
+
+    const { t, i18n } = useTranslation('common');
+
+    let ctxSelectedCountry = offerCtx.selectedCountryName
 
     useEffect(() => {
-        setIsLoaded(false)
         const defaultCountryCode = offerCtx.selectedCountry
         const temp = offerCtx.loadedCountries.find(country => {
             return country.name === defaultCountryCode
         })
 
         setDefaultCountryObject(temp)
-        setIsLoaded(true)
     }, [offerCtx])
 
     useEffect(() => {
@@ -37,7 +38,6 @@ const CountrySelector = (props) => {
         }
 
     }, [defaultCountryObject, languageParentWindow])
-    // console.log(defaultCountry)
 
     const options = offerCtx.loadedCountries.map((country) => {
         if (languageParentWindow === 'en') {
@@ -56,15 +56,15 @@ const CountrySelector = (props) => {
     options.sort((a, b) => {
         const labelA = a.label.toLowerCase();
         const labelB = b.label.toLowerCase();
-      
+
         if (labelA < labelB) {
-          return -1;
+            return -1;
         }
         if (labelA > labelB) {
-          return 1;
+            return 1;
         }
         return 0;
-      });
+    });
 
     const filterOptions = (options, { inputValue }) => {
         return options.filter((option) => {
@@ -75,7 +75,6 @@ const CountrySelector = (props) => {
     };
 
     const handleChange = (event, value) => {
-        console.log(value)
         if (value) offerCtx.changeCountry(value.value);
         offerCtx.changeCapacity(null);
         offerCtx.changeValidity(null);
@@ -86,43 +85,24 @@ const CountrySelector = (props) => {
     }
 
     const isOptionEqualToValue = (option, value) => {
-        // console.log(option)
-        // console.log(value)
         return option?.value === value?.value;
     };
 
-    const { t, i18n } = useTranslation('common');
-
-
-    // let testDefault = {
-    //     label: offerCtx.selectedCountryName.name,
-    //     value: offerCtx.selectedCountryName
-    // }
-    // console.log(offerCtx.selectedCountryName)
-    // console.log(options)
-    let testDefault = offerCtx.selectedCountryName
-    // console.log(testDefault)
-
-
-
     useEffect(() => {
-        // console.log(testDefault)
         if (languageParentWindow === "fr" && offerCtx.isLoaded) {
-            const testDefault2 = {
-                value: testDefault.value,
-                label: testDefault.labelFrench
+            const defaultCountryObj = {
+                value: ctxSelectedCountry.value,
+                label: ctxSelectedCountry.labelFrench
             }
-            // console.log(testDefault2)
-            setDefaultCountry(testDefault2);
+            setDefaultCountry(defaultCountryObj);
             handleChange(defaultCountry)
 
         } else if (languageParentWindow === "en" && offerCtx.isLoaded) {
-            const testDefault2 = {
-                value: testDefault.value,
-                label: testDefault.labelEnglish
+            const defaultCountryObj = {
+                value: ctxSelectedCountry.value,
+                label: ctxSelectedCountry.labelEnglish
             }
-            console.log(testDefault2)
-            setDefaultCountry(testDefault2);
+            setDefaultCountry(defaultCountryObj);
             handleChange(defaultCountry)
         }
     }, [languageParentWindow, offerCtx.selectedCountryName]);
@@ -135,55 +115,53 @@ const CountrySelector = (props) => {
         }
     }, [defaultCountry]);
 
-
-    console.log(defaultCountry)
-
-    // console.log(offerCtx.selectedCountryName)
     if (offerCtx.error) {
         return <div>Error: {offerCtx.error}</div>
     } else if (!offerCtx.isLoaded) {
         return <div>Loading...</div>
-    } // ...
+    } 
 
     if (offerCtx.error) {
-      return <div>Error: {offerCtx.error}</div>;
+        return <div>Error: {offerCtx.error}</div>;
     } else if (!offerCtx.isLoaded) {
-      return <div>Loading...</div>;
+        return <div>Loading...</div>;
     } else if (defaultCountry === null) {
-      return <div>Waiting for default country...</div>;
+        return <div>Waiting for default country...</div>;
     } else {
-      return (
-        <>
-          <Autocomplete
-            isOptionEqualToValue={isOptionEqualToValue}
-            disablePortal
+        return (
+            <>
+                <Autocomplete
+                    // configuring autocomplete search function
+                    isOptionEqualToValue={isOptionEqualToValue}
+                    disablePortal
 
-            openText={t('label.open')}
-            closeText={t('label.close')}
-            clearText={t('label.clear')}
+                    // translating the autocomplete labels
+                    openText={t('label.open')}
+                    closeText={t('label.close')}
+                    clearText={t('label.clear')}
 
-            id="combo-box-demo"
-            options={options}
-            sx={{ width: 250 }}
-            filterOptions={filterOptions}
-            defaultValue={defaultCountry ? defaultCountry.label : 'test'}
-            onChange={handleChange}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label={t('country.choose')}
-                borderRadius="16px"
-                style={{
-                  textAlign: "left",
-                  color: "black"
-                }}
-              />
-            )}
-          />
-        </>
-      );
+                    id="combo-box-demo"
+                    options={options}
+                    sx={{ width: 250 }}
+                    filterOptions={filterOptions}
+                    defaultValue={defaultCountry.label}
+                    onChange={handleChange}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label={t('country.choose')}
+                            borderRadius="16px"
+                            style={{
+                                textAlign: "left",
+                                color: "black"
+                            }}
+                        />
+                    )}
+                />
+            </>
+        );
     }
-    
+
 }
 
 export default CountrySelector
