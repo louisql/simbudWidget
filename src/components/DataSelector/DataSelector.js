@@ -14,6 +14,8 @@ const DataSelector = () => {
     const [options, setOptions] = useState([])
     const [defaultCapacity, setDefaultCapacity] = useState(null)
 
+    let optionsWithLabel
+
     const convertToGB = (capacity) => {
         const numericValue = parseFloat(capacity);
         if (capacity !== undefined && capacity !== null) {
@@ -35,10 +37,13 @@ const DataSelector = () => {
         return converterdCapacity
     }
 
+
+
     useEffect(() => {
         setupdatedContent(false)
 
         const selectedCountry = offerCtx.selectedCountry;
+
         const filteredList = offerCtx.data.filter(offer => offer.country.toLowerCase().includes(selectedCountry.toLowerCase()))
         if (filteredList.length > 0) {
             setDefaultCapacity(filteredList[0].capacity)
@@ -55,7 +60,7 @@ const DataSelector = () => {
 
 
         //Adding a value and option to the option to have a translated 
-        const optionsWithLabel = filteredCapacity.map(
+        optionsWithLabel = filteredCapacity.map(
             (option) => {
                 if (currencyCtx.languageParentWindow === "fr") {
                     return {
@@ -74,6 +79,8 @@ const DataSelector = () => {
 
         setOptions(optionsWithLabel)
 
+        console.log(options)
+
         // Selecting default Capacity for autocomplete
         const isCapacityInPlan = filteredCapacity.includes(offerCtx.selectedCapacity)
 
@@ -83,7 +90,10 @@ const DataSelector = () => {
             setDefaultCapacity(filteredList[0].capacity)
         }
 
-    }, [offerCtx.selectedCountry, offerCtx.data, updatedContent])
+        let testDefault = (defaultCapacity)
+        console.log(offerCtx)
+
+    }, [offerCtx.selectedCountry, offerCtx.data, updatedContent, optionsWithLabel])
 
     const filterOptions = (options, { inputValue }) => {
         return options.filter((option) =>
@@ -112,7 +122,7 @@ const DataSelector = () => {
                     filterOptions={filterOptions}
 
                     // defaultValue={defaultCapacity ?? " "}
-                    value={offerCtx.selectedCapacity}
+                    // value={defaultCapacity}
                     onChange={handleChange}
                     noOptionsText={t('offer.noResult')}
                     renderInput={(params) =>

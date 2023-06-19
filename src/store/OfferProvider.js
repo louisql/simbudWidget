@@ -16,7 +16,8 @@ const urlNberOffer = urlParams.get('nberOffer')
 // console.log(urlCountry)
 
 //Setting Canada as default country if no country is passed
-const country = (urlCountry === null ? 'USA' : urlCountry.charAt(0).toUpperCase() + urlCountry.slice(1));
+const country = (urlCountry === null ? 'USA' : urlCountry.toUpperCase());
+console.log(country)
 const referal = (urlReferal === null ? '' : urlReferal.toLowerCase());
 const nberOffer = (urlNberOffer === null ? 6 : Number(urlNberOffer));
 
@@ -204,8 +205,8 @@ const OfferProvider = (props) => {
             let selectedCountryName = loadedCountries.find(item => item.code === country.toUpperCase())
 
             let selectedCountryNameFrench ={
-                label: selectedCountryName.nameFrench.common,
-                // labelEnglish: selectedCountryName.name,
+                labelFrench: selectedCountryName.nameFrench.common,
+                labelEnglish: selectedCountryName.name,
                 value: selectedCountryName.code
             }
 

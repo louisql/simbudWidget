@@ -35,8 +35,6 @@ const Offers = (props) => {
     let countryHasOffer
     let filteredList
 
-    console.log(selectedCountry)
-
     // Getting the country name based on the country code
 
     const allCountries = offerCtx.loadedCountries

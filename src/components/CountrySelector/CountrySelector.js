@@ -62,7 +62,7 @@ const CountrySelector = (props) => {
     };
 
     const handleChange = (event, value) => {
-        console.log(value)
+        // console.log(value)
         if (value) offerCtx.changeCountry(value.value);
         offerCtx.changeCapacity(null);
         offerCtx.changeValidity(null);
@@ -91,19 +91,19 @@ const CountrySelector = (props) => {
     // console.log(testDefault)
 
     useEffect(() => {
-        console.log(testDefault)
+        // console.log(testDefault)
         if (languageParentWindow === "fr" && offerCtx.isLoaded) {
             const testDefault2 = {
                 value: testDefault.value,
-                label: testDefault.label
+                label: testDefault.labelFrench
             }
-            console.log(testDefault2)
+            // console.log(testDefault2)
             setDefaultCountry(testDefault2);
             handleChange(defaultCountry)
 
         } else if (languageParentWindow === "en" && offerCtx.isLoaded) {
             const testDefault2 = {
-                ...testDefault,
+                value: testDefault.value,
                 label: testDefault.labelEnglish
             }
             console.log(testDefault2)
