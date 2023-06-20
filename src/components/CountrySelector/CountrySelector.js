@@ -116,12 +116,6 @@ const CountrySelector = (props) => {
     }, [defaultCountry]);
 
     if (offerCtx.error) {
-        return <div>Error: {offerCtx.error}</div>
-    } else if (!offerCtx.isLoaded) {
-        return <div>Loading...</div>
-    } 
-
-    if (offerCtx.error) {
         return <div>Error: {offerCtx.error}</div>;
     } else if (!offerCtx.isLoaded) {
         return <div>Loading...</div>;
