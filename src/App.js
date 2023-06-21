@@ -41,6 +41,12 @@ const App = () => {
     setnberOfOffers(val)
   }
 
+  const [autocompleteKey, setAutocompleteKey] = useState('')
+  const getAutocompleteKey = (key) => {
+    console.log(key)
+    setAutocompleteKey(key)
+  }
+
   useEffect(() => {
     setAppHeight(appRef.current.offsetHeight)
 
@@ -62,10 +68,10 @@ const App = () => {
             <div className={classes.appContainer}>
               <div className={classes.inputsContainer}>
                 <CountrySelector  />
-                <DataSelector />
-                <DurationSelector />
+                <DataSelector key={autocompleteKey}/>
+                <DurationSelector key={autocompleteKey} />
               </div>
-              <Offers onSendData={getNberOfOffers}  />
+              <Offers onSendData={getNberOfOffers}  onResetKey={getAutocompleteKey}/>
             </div>
           </div>
         </OfferProvider>

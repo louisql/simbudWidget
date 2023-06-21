@@ -6,7 +6,7 @@ import CurrencyContext from '../../store/CurrencyContext';
 import { useTranslation } from "react-i18next";
 
 
-const DurationSelector = () => {
+const DurationSelector = (props) => {
     const offerCtx = useContext(OfferContext)
     const currencyCtx = useContext(CurrencyContext)
 
@@ -15,6 +15,12 @@ const DurationSelector = () => {
     const [updatedContent, setupdatedContent] = useState(false)
     const [options, setOptions] = useState([])
     const languageParentWindow = currencyCtx.languageParentWindow
+
+    const [resetKey, setResetKey] = useState(Date.now());
+
+    const handleReset = () => {
+      setResetKey(Date.now());
+    };
 
     useEffect(() => {
         setupdatedContent(false)
@@ -52,7 +58,7 @@ const DurationSelector = () => {
 
         setOptions(optionsWithLabel)
 
-    }, [offerCtx.selectedValidity, offerCtx.data, updatedContent])
+    }, [offerCtx.selectedValidity, offerCtx.data, updatedContent, props.key])
 
     const filterOptions = (options, { inputValue }) => {
         return options.filter((option) =>
@@ -63,7 +69,10 @@ const DurationSelector = () => {
     const handleChange = (event, value) => {
         // offerCtx.changeCapacity(value);
         if (value) offerCtx.changeValidity(value.value);
-        else offerCtx.changeValidity(null)
+        else {
+            offerCtx.changeValidity(null)
+            handleReset()       
+        }
         setupdatedContent(true)
     }
 
@@ -81,7 +90,7 @@ const DurationSelector = () => {
                         openText={t('label.open')}
                         closeText={t('label.close')}
                         clearText={t('label.clear')}
-
+                        key={props.key}
                         id="combo-box-demo"
                         options={options}
                         sx={{ width: 250 }}

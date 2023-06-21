@@ -26,7 +26,6 @@ const Offers = (props) => {
     const currencies = currencyCtx.loadedCurrencies
     const languageParentWindow = currencyCtx.languageParentWindow
 
-
     let location;
     let offersList
     let buttonIsActive = true
@@ -34,6 +33,10 @@ const Offers = (props) => {
     let noOfferText
     let countryHasOffer
     let filteredList
+
+    const [resetKey, setResetKey] = useState(Date.now());
+    
+
 
     // Getting the country name based on the country code
 
@@ -100,10 +103,17 @@ const Offers = (props) => {
         }
     }
 
+    const handleReset = () => {
+        setResetKey(Date.now());
+        props.onResetKey(resetKey)
+    };
+
     const resetField = () => {
         offerCtx.changeCapacity(null);
         offerCtx.changeValidity(null);
         offerCtx.changeCountry(offerCtx.selectedCountry)
+
+        // handleReset()
     }
 
     const seeMoreOffers = () => {

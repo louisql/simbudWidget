@@ -1,14 +1,17 @@
 .offerButton {
   flex: 2 1 auto;
-  background-color: #ffe7db; /* L Actualite Color */
+  /* background-color: #ffe7db; L Actualite Color */
+  background-color: white; /* Simbud Color */
   border-radius: 50px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
   padding: 20px 20px;
-  color: #ff5700;
+  /* color: #ff5700; Actualite Color */
+  color: black; /* Simbud Color */
   text-decoration: none;
   width: 200px;
   max-width: 70%;
-  border: 1px solid #ff5700!important;
+  /* border: 1px solid #ff5700!important; Actualite color */
+  border: 1px solid black!important; /* Simbud color */
 
   display: flex;
   flex-direction: row;
@@ -24,8 +27,9 @@
 
 .offerButton:hover{
   /* background-color: #ffe7db; L Actualite Color */
-  background-color: #ff5700; /* L Actualite Color */
-  border: 1px solid #ff5700!important;
+  background-color: #00c853; /* Simbud Color */
+  /* border: 1px solid #ff5700!important; */
+  border: 1px solid #00c853!important;  /* Simbud Color */
   color: #fff;
 }
 
