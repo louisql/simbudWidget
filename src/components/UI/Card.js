@@ -1,6 +1,7 @@
 import classes from "./Card.module.css"
 import { useState, useEffect } from "react";
 import {useTranslation} from "react-i18next";
+import '../../styles/variable.css'
 
 const Card = props => {
     const [urlModified, setUrlModified] = useState(false)

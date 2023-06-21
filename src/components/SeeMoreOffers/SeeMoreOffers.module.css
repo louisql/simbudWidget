@@ -1,12 +1,7 @@
 .offerButton {
-  /* ----------Properties to update--------------  */
-  background-color: #ffe7db; /* Actualite Color */
-  /*  background-color: white; */ /* Simbud Color */
-  color: #ff5700; /* Actualite Color */
- /*color: black; /* Simbud Color */
- border: 1px solid #ff5700!important; /* Actualite color */
- /* border: 1px solid black!important; /* Simbud color */
-    /* -------------- End properties to update -------------- */
+  background-color: var(--background-color-light); 
+  color: var(--hover-font-color);
+  border: var(--border-color);
 
   flex: 2 1 auto;
   border-radius: 50px;
@@ -29,15 +24,8 @@
 }
 
 .offerButton:hover{
-    /* ----------Properties to update--------------  */
-
-    background-color: #ff5700; /* Actualite Color */
-    /* background-color: #00c853; /* Simbud Color */
-     border: 1px solid #ff5700!important; /* Actualite Color */
-   /* border: 1px solid #00c853!important;  /* Simbud Color */
-
-    /* -------------- End properties to update -------------- */
-    
+    background-color: var(--background-color); 
+    border: var(--border-color);
     color: #fff;
 }
 

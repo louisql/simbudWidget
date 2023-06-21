@@ -35,13 +35,7 @@
 
 .resetButton{
 
-    /* ----------Properties to update--------------  */
-    /*background-color: #00c853; /* SIMBUD Color */
-    background-color: rgb(255, 87, 0); /* Actualite Color */
-
-    /* -------------- End properties to update -------------- */
-
-
+    background-color: var(--background-color); 
     border-radius: 100px;
     border: 1px;
     /* width: 100px; */

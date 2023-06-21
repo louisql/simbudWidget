@@ -5,9 +5,8 @@ import { useTranslation } from "react-i18next";
 import Card from '../UI/Card';
 import SeeMoreOffers from '../SeeMoreOffers/SeeMoreOffers'
 import classes from "./Offers.module.css";
-
+import '../../styles/variable.css'
 import OfferContext from '../../store/OfferContext';
-
 import CurrencySelector from '../CurrencySelector/CurrencySelector';
 import CurrencyContext from '../../store/CurrencyContext';
 
