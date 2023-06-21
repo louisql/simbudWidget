@@ -30,27 +30,35 @@
 }
 
 .secondColumn:nth-of-type(1){
-    background-color: #00c853; /* SIMBUD Color */
-    /* background-color: rgb(255, 87, 0); L Actualite Color */
+      /* ----------Properties to update--------------  */
+      /*background-color: #00c853; /* SIMBUD Color */
+       background-color: rgb(255, 87, 0); /* Actualite Color */
+      color: #ffff; /* Actualite Color */
+      /* color: black; /* SIMBUD Color */
+  
+    /* -------------- End properties to update -------------- */
+
     border-radius: 100px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
     font-family: 'fieldwork';
     font-weight: 700;
     padding: 20px 20px;
     margin-left: 15px;
-    color: #ffff; /* Actualite Color */
-    color: black; /* SIMBUD Color */
     text-decoration: none;
 }
 
 .secondColumn:nth-of-type(1):hover{
-    background-color: rgb(93,215,136); /* Simbud Color */
-    /* background-color: #ffe7db; */ /* L Actualite Color */
-    /* border: 1px solid #ff5700!important; */ /* Actualite Color */
+    /* ----------Properties to update--------------  */
+    /* background-color: rgb(93,215,136); /* Simbud Color */
+    background-color: #ffe7db;  /* L Actualite Color */
+    border: 1px solid #ff5700!important;  /* Actualite Color */
+    /* border: 1px solid rgb(8, 200, 150) !important; /* Simbud Color */
+     color: #ff5700; /* Actualite Color */
+    /*color: black; /* Simbud Color */
 
-    border: 1px solid rgb(8, 200, 150) !important;
-    /* color: #ff5700; L Actualite Color */
-    color: black;
+    /* -------------- End properties to update -------------- */
+
+
 }
 
 .description {
