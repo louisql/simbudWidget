@@ -1,6 +1,7 @@
 import classes from "./Card.module.css"
 import { useState, useEffect } from "react";
 import {useTranslation} from "react-i18next";
+import '../../styles/variable.css'
 
 const Card = props => {
     const [urlModified, setUrlModified] = useState(false)
@@ -15,8 +16,6 @@ const Card = props => {
     const parsedValidity = parseInt(props.validity)
 
     const priceWithComma = props.price.replace(".", ",")
-
-    // console.log(props.currencySymbol)
 
     useEffect(() => {
         if (referal) {

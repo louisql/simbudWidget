@@ -1,0 +1,19 @@
+:root{
+    --background-color: rgb(255, 87, 0); /* Couleur Actualite */
+    /* --background-color: #00c853; /* Couleur Simbud */
+
+    --background-color-light: #ffe7db; /* Couleur Actualite */
+    /*--background-color-light: white; /* Couleur Simbud */
+    
+    --font-color: #ffff; /* Couleur Actualite */
+    /*--font-color: black; /* Couleur Simbud */
+
+    --hover-background-color: #ffe7db; /* Couleur Actualite */
+    /* --hover-color: rgb(93,215,136) /* Couleur Simbud */
+
+    --border-color: 1px solid #ff5700!important;  /* Actualite Color */
+    /*--border-color: 1px solid rgb(8, 200, 150)!important;  /* Simbud Color */
+
+    --hover-font-color: #ff5700; /* Actualite Color */
+    /*--hover-font-color: black; /* SimBud Color */
+}

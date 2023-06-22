@@ -1,4 +1,5 @@
 import classes from './SeeMoreOffers.module.css'
+import '../../styles/variable.css'
 
 import {useTranslation} from "react-i18next";
 

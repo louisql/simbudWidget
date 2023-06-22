@@ -1,14 +1,15 @@
 .offerButton {
+  background-color: var(--background-color-light); 
+  color: var(--hover-font-color);
+  border: var(--border-color);
+
   flex: 2 1 auto;
-  background-color: #ffe7db; /* L Actualite Color */
   border-radius: 50px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
   padding: 20px 20px;
-  color: #ff5700;
   text-decoration: none;
   width: 200px;
   max-width: 70%;
-  border: 1px solid #ff5700!important;
 
   display: flex;
   flex-direction: row;
@@ -23,10 +24,9 @@
 }
 
 .offerButton:hover{
-  /* background-color: #ffe7db; L Actualite Color */
-  background-color: #ff5700; /* L Actualite Color */
-  border: 1px solid #ff5700!important;
-  color: #fff;
+    background-color: var(--background-color); 
+    border: var(--border-color);
+    color: #fff;
 }
 
 .offerButton[disabled]{

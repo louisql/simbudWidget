@@ -15,8 +15,14 @@
         "checkall": "Voir toutes les offres",
         "showMore": "Afficher plus d'offres",
         "currency": "Devise",
+        "day": "jour",
         "days": "jours",
         "noResult": "Aucun résultat",
         "noMoreOffer": "Pas d'offres supplémentaires"
+    },
+        "label": {
+        "open": "Afficher",
+        "close": "Masquer",
+        "clear": "Réinitialiser"
     }
 }

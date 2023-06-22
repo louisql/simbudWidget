@@ -22,6 +22,9 @@ const CurrencySelector = () => {
     return (
         <Autocomplete
             disablePortal
+            openText={t('label.open')}
+            closeText={t('label.close')}
+            clearText={t('label.clear')}
             id="combo-box-demo"
             options={options}
             sx={{ width: 150 }}

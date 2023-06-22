@@ -1,6 +1,6 @@
 import OfferContext from "./OfferContext";
 
-import { useEffect, useReducer, useContext } from "react";
+import { useEffect, useReducer} from "react";
 
 /**
  * Getting the parameters from the url
@@ -12,8 +12,11 @@ const urlCountry = urlParams.get('country')
 const urlReferal = urlParams.get('referal')
 const urlNberOffer = urlParams.get('nberOffer')
 
+
+// console.log(urlCountry)
+
 //Setting Canada as default country if no country is passed
-const country = (urlCountry === null ? 'Canada' : urlCountry.charAt(0).toUpperCase() + urlCountry.slice(1));
+const country = (urlCountry === null ? 'USA' : urlCountry.toUpperCase());
 const referal = (urlReferal === null ? '' : urlReferal.toLowerCase());
 const nberOffer = (urlNberOffer === null ? 6 : Number(urlNberOffer));
 
@@ -29,7 +32,7 @@ const defaultOfferState = {
     isLoaded: false,
     error: null,
     selectedCountry: country,
-    selectedCountryCode: undefined,
+    selectedCountryName: undefined,
     selectedValidity: undefined,
     selectedCapacity: undefined,
     referal: referal,
@@ -61,7 +64,7 @@ const offerReducer = (state, action) => {
             }
 
         case 'CHANGE_NBRE_OFFERS_DISPLAYED':
-            if (state.nbreOffersDisplayed === 12 && action.nbreOffersDisplayed !== 3) return state;
+            if (state.nbreOffersDisplayed >= 18 && action.nbreOffersDisplayed !== 3) return state;
             else return {
                 ...state,
                 nbreOffersDisplayed: action.nbreOffersDisplayed
@@ -72,6 +75,7 @@ const offerReducer = (state, action) => {
                 ...state,
                 data: action.data,
                 loadedCountries: action.loadedCountries,
+                selectedCountryName: action.selectedCountryName,
                 isLoaded: action.isLoaded
             }
 
@@ -101,7 +105,7 @@ const OfferProvider = (props) => {
     const changeCountryToOfferHandler = (country) => {
         dispatchOfferAction({
             type: "CHANGE_COUNTRY",
-            country: country
+            country: country,
         })
     }
 
@@ -127,11 +131,12 @@ const OfferProvider = (props) => {
         })
     }
 
-    const initiateDataHandler = (data, loadedCountries, isLoaded) => {
+    const initiateDataHandler = (data, loadedCountries, selectedCountryName, isLoaded) => {
         dispatchOfferAction({
             type: "INIT",
             data: data,
             loadedCountries: loadedCountries,
+            selectedCountryName: selectedCountryName,
             isLoaded: isLoaded
         })
     }
@@ -154,6 +159,7 @@ const OfferProvider = (props) => {
         selectedCountry: offerState.selectedCountry,
         loadedCountries: offerState.loadedCountries,
         selectedCapacity: offerState.selectedCapacity,
+        selectedCountryName: offerState.selectedCountryName,
         selectedValidity: offerState.selectedValidity,
         nbreOffersDisplayed: offerState.nbreOffersDisplayed,
         referal: offerState.referal,
@@ -195,9 +201,15 @@ const OfferProvider = (props) => {
                 return a.name.localeCompare(b.name)
             })
 
+            let selectedCountryName = loadedCountries.find(item => item.code === country.toUpperCase())
 
+            let selectedCountryNameFrench ={
+                labelFrench: selectedCountryName.nameFrench.common,
+                labelEnglish: selectedCountryName.name,
+                value: selectedCountryName.code
+            }
 
-            initiateDataHandler(dataJSON[1], loadedCountries, true)
+            initiateDataHandler(dataJSON[1], loadedCountries, selectedCountryNameFrench, true)
 
         }).catch((error) => {
             setErrorHandler(true, error);
