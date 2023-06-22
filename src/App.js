@@ -43,7 +43,7 @@ const App = () => {
 
   const [autocompleteKey, setAutocompleteKey] = useState('')
   const getAutocompleteKey = (key) => {
-    console.log(key)
+    // console.log(key)
     setAutocompleteKey(key)
   }
 
